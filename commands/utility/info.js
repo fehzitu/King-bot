@@ -25,7 +25,7 @@ module.exports = {
                 value: `⏳ Uptime: **${Math.floor(interaction.client.uptime / 1000)} seconds**\n📡 Ping: **${interaction.client.ws.ping}ms**`
             },
                 {
-                    name: `🏠 Servers: **${totalGuilds}**`,
+                    name: `🏠 Servidores: **${totalGuilds}**`,
                     value: `📚 Canais: **${totalChannels}**\n👥 Usuários: **${totalUsers}**`
                 })
             .setTimestamp()

@@ -30,7 +30,7 @@ module.exports = {
                 value: `⏳ Uptime: **${Math.floor(message.client.uptime / 1000)} seconds**\n📡 Ping: **${message.client.ws.ping}ms**`
             },
                 {
-                    name: `🏠 Servers: **${totalGuilds}**`,
+                    name: `🏠 Servidores: **${totalGuilds}**`,
                     value: `📚 Canais: **${totalChannels}**\n👥 Usuários: **${totalUsers}**`
                 })
             .setTimestamp()
