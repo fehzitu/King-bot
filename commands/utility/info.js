@@ -6,13 +6,10 @@ module.exports = {
         .setName('info')
         .setDescription('Mostra informações do bot!'),
     async execute(interaction) {
-        // get bot info
-        const client = interaction.client;
-
         // bot info
-        const totalUsers = client.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0);
-        const totalChannels = client.channels.cache.size;
-        const totalGuilds = client.guilds.cache.size;
+        const totalUsers = interaction.client.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0);
+        const totalChannels = interaction.client.channels.cache.size;
+        const totalGuilds = interaction.client.guilds.cache.size;
 
         // create an embed
         const embed = new Discord.EmbedBuilder()
@@ -25,15 +22,15 @@ module.exports = {
             .setThumbnail(`${interaction.client.user.displayAvatarURL()}`)
             .addFields({
                 name: '👑 Bot Name',
-                value: `**${client.user.tag}**`
+                value: `**${interaction.client.user.tag}**`
             },
                 {
                     name: '🆔 Bot ID',
-                    value: `**${client.user.id}**`
+                    value: `**${interaction.client.user.id}**`
                 },
                 {
                     name: '📡 Ping',
-                    value: `**${client.ws.ping}ms**`
+                    value: `**${interaction.client.ws.ping}ms**`
                 },
                 {
                     name: '🏠 Servers',
@@ -49,7 +46,7 @@ module.exports = {
                 },
                 {
                     name: '⏳ Uptime',
-                    value: `**${Math.floor(client.uptime / 1000)} seconds**`
+                    value: `**${Math.floor(interaction.client.uptime / 1000)} seconds**`
                 })
             .setTimestamp()
             .setFooter({

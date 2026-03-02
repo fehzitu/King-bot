@@ -8,13 +8,10 @@ module.exports = {
         // check if an bot has send the message
         if (message.author.bot) return;
 
-        // get bot info
-        const client = message.client;
-
         // bot info
-        const totalUsers = client.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0);
-        const totalChannels = client.channels.cache.size;
-        const totalGuilds = client.guilds.cache.size;
+        const totalUsers = message.client.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0);
+        const totalChannels = message.client.channels.cache.size;
+        const totalGuilds = message.client.guilds.cache.size;
 
         // catch the message content and set to lower case
         const content = message.content.toLowerCase();
@@ -30,15 +27,15 @@ module.exports = {
             .setThumbnail(`${message.client.user.displayAvatarURL()}`)
             .addFields({
                 name: '👑 Bot Name',
-                value: `**${client.user.tag}**`
+                value: `**${message.client.user.tag}**`
             },
                 {
                     name: '🆔 Bot ID',
-                    value: `**${client.user.id}**`
+                    value: `**${message.client.user.id}**`
                 },
                 {
                     name: '📡 Ping',
-                    value: `**${client.ws.ping}ms**`
+                    value: `**${message.client.ws.ping}ms**`
                 },
                 {
                     name: '🏠 Servers',
@@ -54,7 +51,7 @@ module.exports = {
                 },
                 {
                     name: '⏳ Uptime',
-                    value: `**${Math.floor(client.uptime / 1000)} seconds**`
+                    value: `**${Math.floor(message.client.uptime / 1000)} seconds**`
                 })
             .setTimestamp()
             .setFooter({

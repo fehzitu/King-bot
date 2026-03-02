@@ -1,6 +1,11 @@
 // discord implements
 const Discord = require('discord.js');
 
+// node file system
+const fs = require('fs');
+const path = require('path');
+const filePath = path.join(__dirname, 'complements/commands.json');
+
 module.exports = {
     name: 'messageCreate',
     once: false,
@@ -11,6 +16,10 @@ module.exports = {
         // catch the message content and set to lower case
         const content = message.content.toLowerCase();
 
+        // reading the file in real time
+        const rawData = fs.readFileSync(filePath, 'utf8');
+        const data = JSON.parse(rawData);
+
         // create an embed
         const embed = new Discord.EmbedBuilder()
             .setColor('Random')
@@ -18,19 +27,16 @@ module.exports = {
                 iconURL: `${message.author.displayAvatarURL()}`,
                 name: `@${message.author.username}`
             })
-            .setTitle('**🏓 Pong!**')
+            .setTitle(data.title)
             .setThumbnail(`${message.client.user.displayAvatarURL()}`)
-            .addFields({
-                name: '📡 Ping',
-                value: `**${message.client.ws.ping}ms**`
-            })
+            .addFields(data.field)
             .setTimestamp()
             .setFooter({
                 text: 'Atualizado'
             });
 
-        // check if the message has "k.ping"
-        if (content == 'k.ping') {
+        // check if the message has "k.comandos"
+        if (content == 'k.comandos') {
             const response = await message.reply({
                 embeds: [embed]
             });

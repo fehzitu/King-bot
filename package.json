@@ -19,7 +19,7 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "start": "node deploy-commands.js && node index.js"
+    "start": "clear && node deploy-commands.js && node index.js"
   },
   "dependencies": {
     "discord.js": "^14.14.1"
