@@ -1,0 +1,17 @@
+{
+    "title": "> __Minha lista de comandos é atualizada **diariamente**__!\n",
+    "field": [
+        {
+            "name": "🤖 **Comandos de barra (/)**",
+            "value": "**/ajuda ``Receba ajuda sobre nosso sistema``**\n**/info ``Recebe informações sobre mim (bot)``**\n"
+        },
+        {
+            "name": "💬 **Comandos de prefixo (k.)**",
+            "value": "**k.ajuda ``Mostra ajuda sobre o bot``**\n**k.info ``Mostra informações detalhadas sobre o bot``**\n**k.ping ``Mostra o ping do bot com a API do Discord``**\n"
+        },
+        {
+            "name": "👤 **Comandos de marcação (@)**",
+            "value": "**<@830634043560296468> ``Mostra o card do Bellzitu (dev)``**\n**<@1476697582280380489> ``Mostra o card do King (bot)``**\n**@(seu nick) ``Mostra um card aleatório pra ti``**"
+        }
+    ]
+}
