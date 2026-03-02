@@ -18,7 +18,7 @@ module.exports = {
                 iconURL: `${interaction.user.displayAvatarURL()}`,
                 name: `@${interaction.user.username}`
             })
-            .setTitle('**🤖 Bot Information**')
+            .setTitle('**🤖 Informações do bot**')
             .setThumbnail(`${interaction.client.user.displayAvatarURL()}`)
             .addFields({
                 name: `👑 Nome e Id: **${interaction.client.user.tag}** | **${interaction.client.user.id}**`,

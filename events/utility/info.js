@@ -23,7 +23,7 @@ module.exports = {
                 iconURL: `${message.author.displayAvatarURL()}`,
                 name: `@${message.author.username}`
             })
-            .setTitle('**🤖 Bot Information**')
+            .setTitle('**🤖 Informações do bot**')
             .setThumbnail(`${message.client.user.displayAvatarURL()}`)
             .addFields({
                 name: `👑 Nome e Id: **${message.client.user.tag}** | **${message.client.user.id}**`,
