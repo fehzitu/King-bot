@@ -7,7 +7,7 @@
 
 ## 📌 About The Project
 
-King Bot is a fully custom Discord bot developed from scratch for the Pudim server.
+King Bot is a fully custom Discord bot developed from scratch for the **Drakay** server.
 
 The main goals of this project are:
 
