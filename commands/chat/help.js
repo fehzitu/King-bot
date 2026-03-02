@@ -1,13 +1,19 @@
 // discord implements
 const Discord = require('discord.js');
 
+// node file system
+const fs = require('fs');
+const path = require('path');
+const filePath = path.join(__dirname, 'complements/help.json');
+
 module.exports = {
     data: new Discord.SlashCommandBuilder()
-        .setName('ping')
-        .setDescription('Responde com Pong!'),
+        .setName('ajuda')
+        .setDescription('Recebe ajuda sobre nosso sistema!'),
     async execute(interaction) {
-        // get bot info
-        const client = interaction.client;
+        // reading the file in real time
+        const rawData = fs.readFileSync(filePath, 'utf8');
+        const data = JSON.parse(rawData);
 
         // create an embed
         const embed = new Discord.EmbedBuilder()
@@ -16,12 +22,9 @@ module.exports = {
                 iconURL: `${interaction.user.displayAvatarURL()}`,
                 name: `@${interaction.user.username}`
             })
-            .setTitle('**🏓 Pong!**')
+            .setTitle(data.title)
             .setThumbnail(`${interaction.client.user.displayAvatarURL()}`)
-            .addFields({
-                name: '📡 Ping',
-                value: `**${client.ws.ping}ms**`
-            })
+            .addFields(data.field)
             .setTimestamp()
             .setFooter({
                 text: 'Atualizado'
