@@ -7,7 +7,7 @@ module.exports = {
         if (!interaction.isChatInputCommand()) return;
 
         // get the command name
-        let command = await interaction.client.commands.get(interaction.commandName);
+        const command = interaction.client.slashCommands.get(interaction.commandName);
         if (!command) {
             console.error(`[🔴] Não foi encontrado um comando com o nome: "${interaction.commandName}"! [🔴]`);
             return;

@@ -6,9 +6,14 @@ const path = require('node:path');
 
 // commands map
 const commands = [];
-const foldersPath = path.join(__dirname, 'commands');
+const foldersPath = path.join(__dirname, 'slashCommands');
 
 // hardly filters pastes
+if (!fs.existsSync(foldersPath)) {
+    console.log('❌ Pasta "slashCommands" não encontrada.');
+    process.exit(0);
+}
+
 const commandFolders = fs.readdirSync(foldersPath).filter(file =>
     fs.statSync(path.join(foldersPath, file)).isDirectory()
 );
@@ -68,6 +73,7 @@ const rest = new REST({ version: '10' }).setToken(token);
         // strat log
         console.log('🚀 Iniciando deploy dos comandos...\n');
 
+		// defines a route to save the comands in the bot database
         const data = await rest.put(
             Routes.applicationCommands(clientId, guildId),
             {

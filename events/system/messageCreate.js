@@ -17,14 +17,15 @@ module.exports = {
         const prefix = "k.";
 
 		// set lower case
-        if (!message.content.toLowerCase().startsWith(prefix)) return;
+        const content = message.content.toLowerCase();
+        if (!content.startsWith(prefix)) return;
 
 		// get args from message content
-        const args = message.content.slice(prefix.length).trim().split(/ +/);
-        const commandName = args.shift().toLowerCase();
+        const args = content.slice(prefix.length).trim().split(/ +/);
+        const commandName = args.shift();
 
 		// get the command by the name
-        const command = message.client.commands.get(commandName);
+        const command = message.client.prefixCommands.get(commandName);
         if (!command) return;
 
 		// handle error
