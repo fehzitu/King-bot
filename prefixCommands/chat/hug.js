@@ -3,7 +3,7 @@ const Discord = require('discord.js');
 
 module.exports = {
     // "name" will receive the value that will be the chat message that the bot captures as a command
-    name: 'abracar',
+    name: 'abraco',
     async execute(message) {
         // check if an bot has send the message
         if (message.author.bot) return;
@@ -35,7 +35,7 @@ module.exports = {
                 },
                 {
                     "name": "🟢 **Uso correto**:",
-                    "value": "k.abracar @[usuário]"
+                    "value": "k.abraco @[usuário]"
                 }
             ])
             .setTimestamp()

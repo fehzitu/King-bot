@@ -3,7 +3,7 @@ const Discord = require('discord.js');
 
 module.exports = {
     // "name" will receive the value that will be the chat message that the bot captures as a command
-    name: 'beijo',
+    name: 'chute',
     async execute(message) {
         // check if an bot has send the message
         if (message.author.bot) return;
@@ -35,7 +35,7 @@ module.exports = {
                 },
                 {
                     "name": "🟢 **Uso correto**:",
-                    "value": "k.beijo @[usuário]"
+                    "value": "k.chute @[usuário]"
                 }
             ])
             .setTimestamp()
@@ -65,14 +65,14 @@ module.exports = {
                 img = await getImg('cringe');
 
                 // set the title of embed with mentioned username
-                successEmbed.setDescription(`🤔 **<@${message.author.id}> se ama ao ponto de se beijar**❓`);
+                successEmbed.setDescription(`🤔 **<@${message.author.id}> se odeia ao ponto de se chutar**❓`);
                 successEmbed.setImage(img.url);
             } else {
                 // get the img link
-                img = await getImg('kiss');
+                img = await getImg('kick');
 
                 // set the title of embed with mentioned username
-                successEmbed.setDescription(`😳 **<@${message.author.id}> beijou <@${firstMentionedUser.id}>**❗`);
+                successEmbed.setDescription(`😡 **<@${message.author.id}> deu um chute em <@${firstMentionedUser.id}>**❗`);
                 successEmbed.setImage(img.url);
             };
 
