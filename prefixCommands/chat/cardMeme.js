@@ -16,17 +16,15 @@ module.exports = {
         // get the message content splitted and in lower case
         const content = message.content.toLowerCase().split(' ');
 
+        // get the first mentioned user id in string (without <@ >)
+        const firstMentionedUser = message.mentions.users.first();
+
         // reading the file in real time
         const rawData = fs.readFileSync(filePath, 'utf8');
         const data = JSON.parse(rawData);
 
         // get all the users from json
         const users = data.users;
-
-        // get the user by the id
-        const user = async (id) => {
-            return await message.client.users.fetch(id);
-        };
 
         // create an embed
         const embed = new Discord.EmbedBuilder()
@@ -35,10 +33,7 @@ module.exports = {
                 iconURL: `${message.author.displayAvatarURL()}`,
                 name: `@${message.author.username}`
             })
-            .setTitle(data.error.title)
-            .setThumbnail(`${message.author.displayAvatarURL()}`)
-            .addFields(data.error.field)
-            .setDescription(data.error.description)
+            .addFields(data.error)
             .setTimestamp()
             .setFooter({
                 text: 'Atualizado'
@@ -47,9 +42,19 @@ module.exports = {
         // check if the user mentioned are on the list
         let isOnList = false;
         users.map((user) => {
-            `<@${user}>` == content[1] ? isOnList = true : isOnList = false;
-            console.log(`<@${user}>`, content[1], isOnList);
+            if (`<@${user}>` == content[1]) isOnList = true;
         });
+
+        // set the embed to a mentioned user
+        if (content.length == 2 && isOnList) {
+            embed.setTitle('---');
+            embed.setThumbnail(`${firstMentionedUser.displayAvatarURL()}`);
+            embed.addFields({
+                name: '---',
+                value: '---'
+            });
+            embed.setDescription('---');
+        };
 
         // response
         await message.reply({

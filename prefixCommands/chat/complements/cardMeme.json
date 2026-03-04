@@ -5,11 +5,7 @@
         "1335722284576407562"
     ],
     "error": {
-        "title": "Title",
-        "field": {
-            "name": "name",
-            "value": "value"
-        },
-        "description": "description"
+        "name": "name",
+        "value": "value"
     }
 }
