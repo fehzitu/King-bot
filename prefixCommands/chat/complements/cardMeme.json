@@ -1,11 +1,19 @@
 {
-    "users": [
-        "830634043560296468",
-        "1476697582280380489",
-        "1335722284576407562"
+    "error": [
+        {
+            "name": "🔴 **Uso incorreto do comando**!",
+            "value": "(Faltou alguma marcação ou mais de 1 usuário foi marcado!)"
+        },
+        {
+            "name": "🟢 **Uso correto**:",
+            "value": "k.cartao @[usuário]"
+        }
     ],
-    "error": {
-        "name": "name",
-        "value": "value"
+    "success": {
+        "title": "👥 **Usuário mencionado**:",
+        "field": {
+            "name": "✨ **Me consagro o maior e melhor mamador de homens maduros! Entrei pro livro dos recordes com o título de __REI DOS GAYS__ por dominar a arte de sentar fofo!**\n\u200B",
+            "value": "🥵 **Obs:\n> __Eu curto um dildo de 35cm!__**"
+        }
     }
 }

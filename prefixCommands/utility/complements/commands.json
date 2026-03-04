@@ -7,7 +7,7 @@
         },
         {
             "name": "💬 **Comandos de prefixo (k.)**",
-            "value": "**k.historia __``Conta uma história aleatória sobre ti``__**\n**k.info __``Mostra informações detalhadas sobre o bot``__**\n**k.ping __``Mostra o ping do bot com a API do Discord``__**\n"
+            "value": "**k.cartao __``Mostra um cartão aleatório para o usuário marcado``__**\n**k.historia __``Conta uma história aleatória sobre ti``__**\n**k.info __``Mostra informações detalhadas sobre o bot``__**\n**k.ping __``Mostra o ping do bot com a API do Discord``__**\n"
         }
     ]
 }

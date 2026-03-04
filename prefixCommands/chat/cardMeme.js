@@ -23,11 +23,8 @@ module.exports = {
         const rawData = fs.readFileSync(filePath, 'utf8');
         const data = JSON.parse(rawData);
 
-        // get all the users from json
-        const users = data.users;
-
-        // create an embed
-        const embed = new Discord.EmbedBuilder()
+        // create an errorEmbed
+        const errorEmbed = new Discord.EmbedBuilder()
             .setColor('Random')
             .setAuthor({
                 iconURL: `${message.author.displayAvatarURL()}`,
@@ -39,26 +36,36 @@ module.exports = {
                 text: 'Atualizado'
             });
 
-        // check if the user mentioned are on the list
-        let isOnList = false;
-        users.map((user) => {
-            if (`<@${user}>` == content[1]) isOnList = true;
-        });
+        // create an successEmbed
+        const successEmbed = new Discord.EmbedBuilder()
+            .setColor('Random')
+            .setAuthor({
+                iconURL: `${message.author.displayAvatarURL()}`,
+                name: `@${message.author.username}`
+            })
+            .addFields(data.success.field)
+            .setTimestamp()
+            .setFooter({
+                text: 'Atualizado'
+            });
 
         // set the embed to a mentioned user
-        if (content.length == 2 && isOnList) {
-            embed.setTitle('---');
-            embed.setThumbnail(`${firstMentionedUser.displayAvatarURL()}`);
-            embed.addFields({
-                name: '---',
-                value: '---'
-            });
-            embed.setDescription('---');
-        };
+        if (content.length == 2) {
+            // set the title of embed with mentioned username
+            await successEmbed.setTitle(`${data.success.title} __**${firstMentionedUser.username}**__`);
 
-        // response
-        await message.reply({
-            embeds: [embed]
-        });
+            // set mentioned user photo to embed thumbnail
+            successEmbed.setThumbnail(`${firstMentionedUser.displayAvatarURL()}`);
+
+            // response
+            return await message.reply({
+                embeds: [successEmbed]
+            });
+        } else {
+            // response
+            return await message.reply({
+                embeds: [errorEmbed]
+            });
+        };
     }
 };
