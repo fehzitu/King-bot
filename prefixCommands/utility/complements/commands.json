@@ -8,10 +8,6 @@
         {
             "name": "💬 **Comandos de prefixo (k.)**",
             "value": "**k.historia __``Conta uma história aleatória sobre ti``__**\n**k.info __``Mostra informações detalhadas sobre o bot``__**\n**k.ping __``Mostra o ping do bot com a API do Discord``__**\n"
-        },
-        {
-            "name": "👤 **Comandos de marcação (@)**",
-            "value": "**<@830634043560296468> __``Mostra o card do Bellzitu (dev)``__**\n**<@1476697582280380489> __``Mostra o card do King (bot)``__**\n**@(seu nick) __``Mostra um card aleatório pra ti``__**"
         }
     ]
 }
