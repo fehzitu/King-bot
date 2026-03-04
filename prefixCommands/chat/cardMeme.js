@@ -23,6 +23,9 @@ module.exports = {
         const rawData = fs.readFileSync(filePath, 'utf8');
         const data = JSON.parse(rawData);
 
+        // get a random number
+        let random = await Math.floor(Math.random() * data.success.field.length);
+
         // create an errorEmbed
         const errorEmbed = new Discord.EmbedBuilder()
             .setColor('Random')
@@ -43,7 +46,7 @@ module.exports = {
                 iconURL: `${message.author.displayAvatarURL()}`,
                 name: `@${message.author.username}`
             })
-            .addFields(data.success.field)
+            .addFields(data.success.field[random])
             .setTimestamp()
             .setFooter({
                 text: 'Atualizado'
