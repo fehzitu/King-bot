@@ -13,7 +13,6 @@ if (!fs.existsSync(foldersPath)) {
     console.log('❌ Pasta "slashCommands" não encontrada.');
     process.exit(0);
 }
-
 const commandFolders = fs.readdirSync(foldersPath).filter(file =>
     fs.statSync(path.join(foldersPath, file)).isDirectory()
 );

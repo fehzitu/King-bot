@@ -1,6 +1,15 @@
-[
-    {
-        "title": "**Ops...**",
-        "description": "**Faltou marcar um dos usuários da nossa lista**"
+{
+    "users": [
+        "830634043560296468",
+        "1476697582280380489",
+        "1335722284576407562"
+    ],
+    "error": {
+        "title": "Title",
+        "field": {
+            "name": "name",
+            "value": "value"
+        },
+        "description": "description"
     }
-]
+}

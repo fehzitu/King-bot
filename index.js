@@ -79,27 +79,22 @@ if (fs.existsSync(prefixCommandsFoldersPath)) {
 
 // new client events instance (BOT)
 client.events = new Discord.Collection();
-// "events" is the main folder to all the chat events
-const eventsFoldersPath = path.join(__dirname, 'events');
-// define the "events" folder
-const eventsFolders = fs.readdirSync(eventsFoldersPath);
+// "events" is the main folder to all the events
+const eventsFolder = path.join(__dirname, 'events');
 
-// registering each folder within the main chat event folder
-for (const folder of eventsFolders) {
-	// (eventsPath) defines each folder as a path to a group of chat events
-	const eventsPath = path.join(eventsFoldersPath, folder);
-	// (eventsFiles) defines each file to be a chat event (.js file)
-	const eventsFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
-	for (const file of eventsFiles) {
-		// (filePath) defining the path of each chat event
-		const filePath = path.join(eventsPath, file);
-		// (event) defining each event
-		const event = require(filePath);
-		if (event.once) {
-			client.once(event.name, (...args) => event.execute(...args));
-		} else {
-			client.on(event.name, (...args) => event.execute(...args));
-		};
+// (eventsPath) defines the folder as a path to an events
+const eventsPath = path.join(eventsFolder);
+// (eventsFiles) defines each file to be an event (.js file)
+const eventsFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
+for (const file of eventsFiles) {
+	// (filePath) defining the path of each event file
+	const filePath = path.join(eventsPath, file);
+	// (event) defining each event
+	const event = require(filePath);
+	if (event.once) {
+		client.once(event.name, (...args) => event.execute(...args));
+	} else {
+		client.on(event.name, (...args) => event.execute(...args));
 	};
 };
 
