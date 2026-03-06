@@ -11,7 +11,7 @@ module.exports = {
         const channelName = message.channel?.name ?? "DM";
 
         // log
-        console.log(`[${new Date().toLocaleTimeString()}] ${message.author.tag} -> ${guildName} #${channelName}: ${message.content}`);
+        console.log(`[${new Date().toLocaleTimeString()}] @${message.author.tag} ${guildName} ${channelName}: ${message.content}`);
 
         // commands prefix
         const prefix = "k.";
