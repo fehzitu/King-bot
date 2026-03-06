@@ -13,22 +13,22 @@ module.exports = {
         // log
         console.log(`[${new Date().toLocaleTimeString()}] ${message.author.tag} -> ${guildName} #${channelName}: ${message.content}`);
 
-		// commands prefix
+        // commands prefix
         const prefix = "k.";
 
-		// set lower case
+        // set lower case
         const content = message.content.toLowerCase();
         if (!content.startsWith(prefix)) return;
 
-		// get args from message content
+        // get args from message content
         const args = content.slice(prefix.length).trim().split(/ +/);
         const commandName = args.shift();
 
-		// get the command by the name
+        // get the command by the name
         const command = message.client.prefixCommands.get(commandName);
         if (!command) return;
 
-		// handle error
+        // handle error
         try {
             await command.execute(message, args);
         } catch (error) {
