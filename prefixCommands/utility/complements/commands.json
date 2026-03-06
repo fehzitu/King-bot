@@ -11,7 +11,7 @@
         },
         {
             "name": "🚩 **Comandos de prefixo com marcação (k.[comando] @<usuário>)**",
-            "value": "**k.abraco __``Da um abraço no usuário marcado``__** 👐\n**k.beijo __``Beija no usuário marcado``__** 💋\n**k.tapa __``Da um tapa no usuário marcado``__** 🤚\n**k.mordida __``Da um chute no usuário marcado``__** 🦶"
+            "value": "**k.abraco __``Da um abraço no usuário marcado``__** 👐\n**k.beijo __``Beija no usuário marcado``__** 💋\n**k.tapa __``Da um tapa no usuário marcado``__** 🤚\n**k.chute __``Da um chute no usuário marcado``__** 🦶\n**k.mordida __``Da um chute no usuário marcado``__** 😬"
         }
     ]
 }
