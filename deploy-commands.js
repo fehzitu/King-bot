@@ -6,7 +6,7 @@ const path = require('node:path');
 
 // commands map
 const commands = [];
-const foldersPath = path.join(__dirname, 'slashCommands');
+const foldersPath = path.join(__dirname, 'commands/slashCommands');
 
 // hardly filters pastes
 if (!fs.existsSync(foldersPath)) {

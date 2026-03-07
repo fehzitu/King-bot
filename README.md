@@ -21,7 +21,7 @@ This project focuses not only on features, but also on code quality, structure, 
 ## 🚀 Technologies Used
 
 - Node.js  
-- NPM  
+- Npm  
 - Discord.js  
 - Modular command & event architecture  
 
@@ -29,11 +29,12 @@ This project focuses not only on features, but also on code quality, structure, 
 
 - [x] Basic command handler
 - [x] Event handler system
-- [x] Automatic logs
+- [x] Slash commands
+- [x] Prefix commands
 - [x] Fun commands
+- [ ] Automatic logs
 - [ ] Moderation system
 - [ ] Economy system
-- [ ] Slash commands
 - [ ] Leveling system
 - [ ] Database integration (future)
 
@@ -41,12 +42,16 @@ This project focuses not only on features, but also on code quality, structure, 
 ```shell
 📦 king-bot
 ┣ 📂 commands
-┃ ┗ 📂 utils
+┃ ┣ 📂 slashCommands (/ commands here)
+┃ ┗ 📂 prefixCommands (prefix commands here)
 ┣ 📂 events
-┃ ┗ 📂 messages
+┃ ┣ 📜 interactionCreate.js
+┃ ┣ 📜 messageCreate.js
+┃ ┗ 📜 ready.js
+┣ 📜 deploy-commands.js
 ┣ 📜 index.js
-┣ 📜 package.json
-┗ 📜 config.json
+┣ 📜 config.json (bot token & id)
+┗ 📜 package.json
 ```
 
 Structured in a modular way to ensure scalability and easy maintenance.

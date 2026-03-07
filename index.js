@@ -22,7 +22,7 @@ client.slashCommands = new Discord.Collection();
 client.prefixCommands = new Discord.Collection();
 
 // "commands" is the main folder to all the slash commands
-const slashCommandsFoldersPath = path.join(__dirname, 'slashCommands');
+const slashCommandsFoldersPath = path.join(__dirname, 'commands/slashCommands');
 // define the "slashCommands" folder
 if (fs.existsSync(slashCommandsFoldersPath)) {
 	const slashCommandsFolders = fs.readdirSync(slashCommandsFoldersPath);
@@ -50,7 +50,7 @@ if (fs.existsSync(slashCommandsFoldersPath)) {
 };
 
 // new client prefix commands instance (BOT)
-const prefixCommandsFoldersPath = path.join(__dirname, 'prefixCommands');
+const prefixCommandsFoldersPath = path.join(__dirname, 'commands/prefixCommands');
 if (fs.existsSync(prefixCommandsFoldersPath)) {
 	// define the folder to prefix commands
 	const prefixCommandsFolders = fs.readdirSync(prefixCommandsFoldersPath);

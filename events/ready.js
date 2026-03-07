@@ -4,7 +4,6 @@ module.exports = {
     name: Discord.Events.ClientReady,
     once: true,
     execute(client) {
-
         // count
         let i = 0;
 
