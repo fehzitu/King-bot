@@ -32,7 +32,8 @@ This project focuses not only on features, but also on code quality, structure, 
 - [x] Slash commands
 - [x] Prefix commands
 - [x] Fun commands
-- [ ] Automatic logs
+- [x] Automatic logs
+- [ ] Persistent log
 - [ ] Moderation system
 - [ ] Economy system
 - [ ] Leveling system
