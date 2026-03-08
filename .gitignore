@@ -142,4 +142,4 @@ vite.config.ts.timestamp-*
 config.json
 
 # database file
-database/users.json
+users.json

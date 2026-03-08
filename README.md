@@ -49,8 +49,7 @@ This project focuses not only on features, but also on code quality, structure, 
 ┃ ┣ 📜 interactionCreate.js
 ┃ ┣ 📜 messageCreate.js
 ┃ ┗ 📜 ready.js
-┣ 📂 database
-┃ ┗ 📜 users.json (all users profile data)
+┣ 📜 users.json (all users profile data, will be created automatically)
 ┣ 📜 deploy-commands.js
 ┣ 📜 index.js
 ┣ 📜 config.json (bot token & id)

@@ -8,7 +8,8 @@ const path = require('path');
 const filePath = path.join(__dirname, '../users.json');
 
 // importint all custom functions
-const { loadJSON, saveJSON } = require(path.join(__dirname, '../functions/json.js'));
+const { loadUser } = require(path.join(__dirname, '../functions/loadUser.js'));
+const { saveUser } = require(path.join(__dirname, '../functions/saveUser.js'));
 
 module.exports = {
     name: Discord.Events.MessageCreate,
@@ -20,7 +21,7 @@ module.exports = {
         const userId = message.author.id;
 
         // load the database file
-        const users = loadJSON(filePath);
+        const users = loadUser(filePath);
 
         // check if the users have a profile
         if (!users[userId]) {
@@ -35,7 +36,7 @@ module.exports = {
             };
 
             // save the data into a file
-            saveJSON(filePath, users);
+            saveUser(filePath, users);
 
             // log
             console.log(`🏆 Novo perfil criado para ${message.author.tag}`);
