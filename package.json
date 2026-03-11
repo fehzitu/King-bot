@@ -22,7 +22,6 @@
     "start": "node deploy-commands.js && node ."
   },
   "dependencies": {
-    "discord.js": "^14.14.1"
-  },
-  "devDependencies": {}
+    "discord.js": "^13.17.1"
+  }
 }
