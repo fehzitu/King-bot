@@ -22,6 +22,8 @@
     "start": "node deploy-commands.js && node ."
   },
   "dependencies": {
+    "@discordjs/rest": "^0.4.1",
+    "discord-api-types": "^0.38.42",
     "discord.js": "^13.17.1"
   }
 }
