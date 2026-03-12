@@ -13,8 +13,8 @@ module.exports = {
         const totalGuilds = interaction.client.guilds.cache.size;
 
         // create an embed
-        const embed = new Discord.EmbedBuilder()
-            .setColor('Random')
+        const embed = new Discord.MessageEmbed()
+            .setColor('RANDOM')
             .setAuthor({
                 iconURL: `${interaction.user.displayAvatarURL()}`,
                 name: `@${interaction.user.username}`
