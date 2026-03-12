@@ -14,7 +14,7 @@ const {
 
 // get all the bot intents once
 const client = new Client({
-    intents: Object.values(Intents.FLAGS)
+	intents: Object.values(Intents.FLAGS)
 });
 
 // new client commands instance (BOT)
@@ -84,17 +84,32 @@ const eventsFolder = path.join(__dirname, 'events');
 
 // (eventsPath) defines the folder as a path to an events
 const eventsPath = path.join(eventsFolder);
-// (eventsFiles) defines each file to be an event (.js file)
-const eventsFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
-for (const file of eventsFiles) {
-	// (filePath) defining the path of each event file
-	const filePath = path.join(eventsPath, file);
-	// (event) defining each event
-	const event = require(filePath);
-	if (event.once) {
-		client.once(event.name, (...args) => event.execute(...args));
-	} else {
-		client.on(event.name, (...args) => event.execute(...args));
+
+// read every folder inside events
+const eventFolders = fs.readdirSync(eventsPath);
+
+// get all subfolders
+for (const folder of eventFolders) {
+	const folderPath = path.join(eventsPath, folder);
+
+	// check if have another folder
+	if (!fs.lstatSync(folderPath).isDirectory()) continue;
+
+	// (eventsFiles) defines each file to be an event (.js file)
+	const eventsFiles = fs.readdirSync(folderPath).filter(file => file.endsWith('.js'));
+
+	for (const file of eventsFiles) {
+		// (filePath) defining the path of each event file
+		const filePath = path.join(folderPath, file);
+		// (event) defining each event
+		const event = require(filePath);
+
+		// active event
+		if (event.once) {
+			client.once(event.name, (...args) => event.execute(...args));
+		} else {
+			client.on(event.name, (...args) => event.execute(...args));
+		};
 	};
 };
 
