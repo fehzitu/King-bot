@@ -27,8 +27,8 @@ module.exports = {
         let random = await Math.floor(Math.random() * data.success.field.length);
 
         // create an errorEmbed
-        const errorEmbed = new Discord.EmbedBuilder()
-            .setColor('Random')
+        const errorEmbed = new Discord.MessageEmbed()
+            .setColor('RANDOM')
             .setAuthor({
                 iconURL: `${message.author.displayAvatarURL()}`,
                 name: `@${message.author.username}`
@@ -40,8 +40,8 @@ module.exports = {
             });
 
         // create an successEmbed
-        const successEmbed = new Discord.EmbedBuilder()
-            .setColor('Random')
+        const successEmbed = new Discord.MessageEmbed()
+            .setColor('RANDOM')
             .setAuthor({
                 iconURL: `${message.author.displayAvatarURL()}`,
                 name: `@${message.author.username}`

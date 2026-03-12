@@ -31,8 +31,8 @@ module.exports = {
         let random = await Math.floor(Math.random() * histories.length);
 
         // create an embed
-        const embed = new Discord.EmbedBuilder()
-            .setColor('Random')
+        const embed = new Discord.MessageEmbed()
+            .setColor('RANDOM')
             .setAuthor({
                 iconURL: `${message.author.displayAvatarURL()}`,
                 name: `@${message.author.username}`
