@@ -5,11 +5,11 @@ const fs = require('fs');
 const path = require('path');
 
 // database json file
-const filePath = path.join(__dirname, '../users.json');
+const filePath = path.join(__dirname, '../../users.json');
 
 // importint all custom functions
-const { loadUser } = require(path.join(__dirname, '../functions/loadUser.js'));
-const { saveUser } = require(path.join(__dirname, '../functions/saveUser.js'));
+const { loadUser } = require(path.join(__dirname, '../../functions/loadUser.js'));
+const { saveUser } = require(path.join(__dirname, '../../functions/saveUser.js'));
 
 module.exports = {
     name: 'messageCreate',
