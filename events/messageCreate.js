@@ -34,7 +34,9 @@ module.exports = {
                 money: 100,
                 createdAt: new Date().toISOString(),
                 level: 0,
-                xp: 0
+                xp: 0,
+                multiplier: 0.25,
+                xpToNextLevel: 25
             };
 
             // save the data into a file
