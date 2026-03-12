@@ -31,12 +31,14 @@ module.exports = {
             users[userId] = {
                 id: userId,
                 name: userName,
-                money: 100,
                 createdAt: new Date().toISOString(),
-                level: 0,
-                xp: 0,
-                multiplier: 0.25,
-                xpToNextLevel: 25
+                rpg: {
+                	money: 100,
+                	level: 0,
+                	xp: 0,
+                	multiplier: 0.25,
+                	xpToNextLevel: 25
+                }
             };
 
             // save the data into a file
