@@ -16,15 +16,11 @@ module.exports = {
         // create an embed
         const embed = new Discord.MessageEmbed()
             .setColor('RANDOM')
-            .setAuthor({
-                iconURL: `${client.displayAvatarURL()}`,
-                name: `@${client.username}`
-            })
             .setTitle('👥 **Novo membro!**')
-            .setDescription(`📡 **Bem-vindo ou bem-vinda __${member}__ ao servidor!**`)
+            .setDescription(`📡 **Bem-vindo ou bem-vinda ${member} ao servidor!**`)
             .addFields({
-            	name: `🛡 **Tag:**\n${member.user.tag} (${member.id})`,
-            	value: `❓️ **Sabia que**\nAtualmente temos **__${member.guild.memberCount}__ membros** no servidor?`
+            	name: '🛡 **Tag:**',
+            	value: `👥: **${member.user.tag} (${member.id})**`
             })
             .setThumbnail(member.user.displayAvatarURL())
             .setTimestamp()
