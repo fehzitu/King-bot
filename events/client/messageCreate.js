@@ -73,7 +73,7 @@ module.exports = {
             
             // check xp result
             if (result.leveledUp) {
-            	message.channel.send(`🎉 ${message.author} subiu para o **nível ${result.level}**!`
+            	message.channel.send(`🎉 **${message.author}** subiu para o **nível ${result.level}**!`
             	);
             };
 

@@ -84,7 +84,7 @@ module.exports = {
             // level up message
             if (result.leveledUp) {
 
-                const levelMsg = `🎉 ${interaction.user} reached **level ${result.level}**!`;
+                const levelMsg = `🎉 **${interaction.user}** reached **level ${result.level}**!`;
 
                 if (interaction.replied || interaction.deferred) {
                     await interaction.followUp({ content: levelMsg });
