@@ -6,7 +6,8 @@ const path = require('node:path');
 const filePath = path.join(__dirname, './users.json');
 
 // importing custom functions
-const { saveJson } = require(path.join(__dirname, './functions/saveJson.js'));
+const { loadJson } = require(path.join(__dirname, 'functions/loadJson.js'));
+const { saveJson } = require(path.join(__dirname, 'functions/saveJson.js'));
 
 // discord importations
 const Discord = require('discord.js');
@@ -108,9 +109,9 @@ for (const folder of eventFolders) {
 
 	for (const file of eventsFiles) {
 		// (filePath) defining the path of each event file
-		const filePath = path.join(folderPath, file);
+		const eventFilePath = path.join(folderPath, file);
 		// (event) defining each event
-		const event = require(filePath);
+		const event = require(eventFilePath);
 
 		// active event
 		if (event.once) {
@@ -121,23 +122,18 @@ for (const folder of eventFolders) {
 	};
 };
 
+// load users database once
+client.users = loadJson(filePath, {});
+
 // autosave users database every 60 seconds
 setInterval(async () => {
     try {
         console.log("💾 Autosaving users database...");
-        await saveJson(filePath, users);
+        await await saveJson(filePath, client.users);
     } catch (err) {
         console.error("Autosave error:", err);
     }
 }, 60000);
-
-// save database before shutdown
-process.on("SIGINT", async () => {
-    console.log("🛑 Bot shutting down...");
-    console.log("💾 Saving users database...");
-    await saveJson(filePath, users);
-    process.exit();
-});
 
 // login with bot data/info
 client.login(Token.token);
