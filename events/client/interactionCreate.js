@@ -11,6 +11,9 @@ const filePath = path.join(__dirname, '../../users.json');
 const { loadJson } = require(path.join(__dirname, '../../functions/loadJson.js'));
 const { saveJson } = require(path.join(__dirname, '../../functions/saveJson.js'));
 
+// load users once
+const users = loadJson(filePath, {});
+
 module.exports = {
     name: 'interactionCreate',
     async execute(interaction) {
@@ -28,9 +31,6 @@ module.exports = {
         const userName = interaction.user.username;
         const userId = interaction.user.id;
         const userTag = interaction.user.tag;
-
-        // load the database file
-        const users = loadJson(filePath);
 
         // check if the users have a profile
         if (!users[userId]) {

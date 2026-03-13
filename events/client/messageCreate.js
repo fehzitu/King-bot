@@ -11,6 +11,9 @@ const filePath = path.join(__dirname, '../../users.json');
 const { loadJson } = require(path.join(__dirname, '../../functions/loadJson.js'));
 const { saveJson } = require(path.join(__dirname, '../../functions/saveJson.js'));
 
+// load users once
+const users = loadJson(filePath, {});
+
 module.exports = {
     name: 'messageCreate',
     async execute(message) {
@@ -21,9 +24,6 @@ module.exports = {
         const userName = message.author.username;
         const userId = message.author.id;
         const userTag = message.author.tag;
-
-        // load the database file
-        const users = loadJson(filePath);
 
         // check if the users have a profile
         if (!users[userId]) {
