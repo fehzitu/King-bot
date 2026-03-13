@@ -10,6 +10,7 @@ const filePath = path.join(__dirname, '../../users.json');
 // importing custom functions
 const { loadJson } = require(path.join(__dirname, '../../functions/loadJson.js'));
 const { saveJson } = require(path.join(__dirname, '../../functions/saveJson.js'));
+const { checkLevelUp } = require('../../functions/levelSystem.js');
 
 module.exports = {
     name: 'messageCreate',
@@ -64,8 +65,18 @@ module.exports = {
 
             // random xp between 5 and 10
             const xpGain = Math.floor(Math.random() * 6) + 5;
-
+            
+            // add xp
             profile.rpg.xp += xpGain;
+            
+            // check xp
+            const result = checkLevelUp(profile);
+            
+            // check xp result
+            if (result.leveledUp) {
+            	message.channel.send(`🎉 ${message.author} subiu para o **nível ${result.level}**!`
+            	);
+            };
 
             // update cooldown
             profile.cooldowns.xp = now;
