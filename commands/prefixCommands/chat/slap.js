@@ -2,89 +2,91 @@
 const Discord = require('discord.js');
 
 module.exports = {
-    // "name" will receive the value that will be the chat message that the bot captures as a command
-    name: 'tapa',
-    async execute(message) {
-        // check if an bot has send the message
-        if (message.author.bot) return;
+	name: 'tapa',
+	async execute(message) {
+		if (message.author.bot) return;
 
-        // get the message content splitted and in lower case
-        const content = message.content.toLowerCase().split(' ');
+		const content = message.content.toLowerCase().split(' ');
+		const firstMentionedUser = message.mentions.users.first();
 
-        // get the first mentioned user id in string (without <@ >)
-        const firstMentionedUser = message.mentions.users.first();
+		// function to get the api img
+		const getImg = async (endpoint) => {
+			try {
+				const res = await fetch(`https://api.waifu.pics/sfw/${endpoint}`);
+				const data = await res.json();
 
-        // function to get the api img
-        const getImg = async (args) => {
-            // get the image from an external API
-            const fetchApi = await fetch(`https://api.waifu.pics/sfw/${args}`);
-            return await fetchApi.json();
-        };
+				return data.url;
 
-        // create an errorEmbed
-        const errorEmbed = new Discord.MessageEmbed()
-            .setColor('RANDOM')
-            .setAuthor({
-                iconURL: `${message.author.displayAvatarURL()}`,
-                name: `@${message.author.username}`
-            })
-            .addFields([
-                {
-                    "name": "🔴 **Uso incorreto do comando**!",
-                    "value": "(Faltou alguma marcação ou mais de 1 usuário foi marcado!)"
-                },
-                {
-                    "name": "🟢 **Uso correto**:",
-                    "value": "k.tapa @[usuário]"
-                }
-            ])
-            .setTimestamp()
-            .setFooter({
-                text: 'Atualizado'
-            });
+			} catch (err) {
+				console.error('Erro na API:', err);
 
-        // create an successEmbed
-        const successEmbed = new Discord.MessageEmbed()
-            .setColor('RANDOM')
-            .setAuthor({
-                iconURL: `${message.author.displayAvatarURL()}`,
-                name: `@${message.author.username}`
-            })
-            .setTimestamp()
-            .setFooter({
-                text: 'Atualizado'
-            });
+				// fallback image if api fails
+				return 'https://cdn.discordapp.com/attachments/1477290272638632068/1481950786308018187/people-question.gif?ex=69b52db8&is=69b3dc38&hm=a965b4c0c6a1fc8b4f518eb8b5b04ded9f631e8cf099eb609758e53142834555&';
+			};
+		};
 
-        let img = message.client.user.displayAvatarURL();
+		const errorEmbed = new Discord.MessageEmbed()
+		.setColor('RANDOM')
+		.setAuthor({
+			iconURL: message.author.displayAvatarURL(),
+			name: `@${message.author.username}`
+		})
+		.addFields([{
+			name: '🔴 **Uso incorreto do comando**!',
+			value: '(Faltou alguma marcação ou mais de 1 usuário foi marcado!)'
+		},
+			{
+				name: '🟢 **Uso correto**:',
+				value: 'k.tapa @[usuário]'
+			}])
+		.setTimestamp()
+		.setFooter({
+			text: 'Atualizado'
+		});
 
-        // set the embed to a mentioned user
-        if (content.length == 2 && firstMentionedUser) {
-            // check if the user use the command on him self
-            if (message.author.id == firstMentionedUser.id) {
-                // get the img link
-                img = await getImg('cringe');
+		const successEmbed = new Discord.MessageEmbed()
+		.setColor('RANDOM')
+		.setAuthor({
+			iconURL: message.author.displayAvatarURL(),
+			name: `@${message.author.username}`
+		})
+		.setTimestamp()
+		.setFooter({
+			text: 'Atualizado'
+		});
 
-                // set the title of embed with mentioned username
-                successEmbed.setDescription(`🤔 **<@${message.author.id}> se odeia ao ponto de se bater**❓`);
-                successEmbed.setImage(img.url);
-            } else {
-                // get the img link
-                img = await getImg('slap');
+		let img;
 
-                // set the title of embed with mentioned username
-                successEmbed.setDescription(`😡 **<@${message.author.id}> deu um tapa em <@${firstMentionedUser.id}>**❗`);
-                successEmbed.setImage(img.url);
-            };
+		// check correct usage
+		if (content.length === 2 && firstMentionedUser && message.mentions.users.size === 1) {
 
-            // response
-            return await message.reply({
-                embeds: [successEmbed]
-            });
-        };
+			if (message.author.id === firstMentionedUser.id) {
 
-        // response
-        return await message.reply({
-            embeds: [errorEmbed]
-        });
-    }
+				// get the image
+				img = await getImg('cringe');
+
+				successEmbed.setDescription(
+					`🤔 **<@${message.author.id}> se odeia ao ponto de se bater**❓`
+				);
+			} else {
+				// get the image
+				img = await getImg('slap');
+
+				successEmbed.setDescription(
+					`😡 **<@${message.author.id}> deu um tapa em <@${firstMentionedUser.id}>**❗`
+				);
+			};
+
+			// set the image
+			successEmbed.setImage(img);
+
+			return message.reply({
+				embeds: [successEmbed]
+			});
+		};
+
+		return message.reply({
+			embeds: [errorEmbed]
+		});
+	}
 };
