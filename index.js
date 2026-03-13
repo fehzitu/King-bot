@@ -2,8 +2,16 @@
 const fs = require('node:fs');
 const path = require('node:path');
 
+// database json file
+const filePath = path.join(__dirname, './users.json');
+
+// importing custom functions
+const { saveJson } = require(path.join(__dirname, './functions/saveJson.js'));
+
 // discord importations
 const Discord = require('discord.js');
+
+// token importations
 const Token = require('./config.json');
 
 // import all intents
@@ -112,6 +120,24 @@ for (const folder of eventFolders) {
 		};
 	};
 };
+
+// autosave users database every 60 seconds
+setInterval(async () => {
+    try {
+        console.log("💾 Autosaving users database...");
+        await saveJson(filePath, users);
+    } catch (err) {
+        console.error("Autosave error:", err);
+    }
+}, 60000);
+
+// save database before shutdown
+process.on("SIGINT", async () => {
+    console.log("🛑 Bot shutting down...");
+    console.log("💾 Saving users database...");
+    await saveJson(filePath, users);
+    process.exit();
+});
 
 // login with bot data/info
 client.login(Token.token);
