@@ -22,7 +22,7 @@ module.exports = {
         const userTag = message.author.tag;
         
         // load users database once
-        const users = message.client.users;
+        const users = message.client.usersData;
 
         // check if the user has a profile
         if (!users[userId]) {

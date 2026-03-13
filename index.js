@@ -123,13 +123,13 @@ for (const folder of eventFolders) {
 };
 
 // load users database once
-client.users = loadJson(filePath, {});
+client.usersData = loadJson(filePath, {});
 
 // autosave users database every 60 seconds
 setInterval(async () => {
     try {
         console.log("💾 Autosaving users database...");
-        await await saveJson(filePath, client.users);
+        await saveJson(filePath, client.usersData);
     } catch (err) {
         console.error("Autosave error:", err);
     }

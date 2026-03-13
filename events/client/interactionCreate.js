@@ -30,7 +30,7 @@ module.exports = {
         const userTag = interaction.user.tag;
         
         // load users database once
-        const users = interaction.client.users;
+        const users = interaction.client.usersData;
 
         // check if the user has a profile
         if (!users[userId]) {
