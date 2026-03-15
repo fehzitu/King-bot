@@ -8,110 +8,114 @@ const path = require('path');
 const filePath = path.join(__dirname, '../../users.json');
 
 // importing custom functions
-const { saveJson } = require(path.join(__dirname, '../../functions/saveJson.js'));
-const { checkLevelUp } = require('../../functions/levelSystem.js');
+const {
+	saveJson
+} = require(path.join(__dirname, '../../functions/saveJson.js'));
+const {
+	checkLevelUp
+} = require('../../functions/levelSystem.js');
 
 module.exports = {
-    name: 'messageCreate',
-    async execute(message) {
-        // ignore bot messages
-        if (message.author.bot) return;
+	name: 'messageCreate',
+	async execute(message) {
+		// ignore bot messages
+		if (message.author.bot) return;
 
-        // get user id and tag
-        const userId = message.author.id;
-        const userTag = message.author.tag;
-        
-        // load users database once
-        const users = message.client.usersData;
+		// get user id and tag
+		const userId = message.author.id;
+		const userTag = message.author.tag;
 
-        // check if the user has a profile
-        if (!users[userId]) {
-            // create new profile
-            users[userId] = {
-                profileCreatedAt: new Date().toISOString(),
-                rpg: {
-                    money: 100,
-                    level: 0,
-                    xp: 0,
-                    multiplier: 0.25
-                },
-                stats: {
-                    messages: 0,
-                    commands: 0
-                },
-                cooldowns: {
-                    xp: 0
-                }
-            };
+		// load users database once
+		const users = message.client.usersData;
 
-            // save database
-            saveJson(filePath, users);
+		// check if the user has a profile
+		if (!users[userId]) {
+			// create new profile
+			users[userId] = {
+				profileCreatedAt: new Date().toISOString(),
+				rpg: {
+					money: 100,
+					level: 0,
+					xp: 0,
+					multiplier: 0.25
+				},
+				stats: {
+					messages: 0,
+					commands: 0
+				},
+				cooldowns: {
+					xp: 0
+				}
+			};
 
-            // log
-            console.log(`🏆 New profile created for ${userTag}`);
-        };
+			// save database
+			saveJson(filePath, users);
 
-        // get user profile
-        const profile = users[userId];
+			// log
+			console.log(`🏆 New profile created for ${userTag}`);
+		};
 
-        // increase message counter
-        profile.stats.messages++;
+		// get user profile
+		const profile = users[userId];
 
-        // XP system with cooldown (30 seconds)
-        const now = Date.now();
+		// increase message counter
+		profile.stats.messages++;
 
-        if (now - profile.cooldowns.xp > 30000) {
+		// XP system with cooldown (30 seconds)
+		const now = Date.now();
 
-            // random xp between 5 and 10
-            const xpGain = Math.floor(Math.random() * 6) + 5;
-            
-            // add xp
-            profile.rpg.xp += xpGain;
-            
-            // check xp
-            const result = checkLevelUp(profile);
-            
-            // check xp result
-            if (result.leveledUp) {
-            	message.channel.send(`🎉 **${message.author}** subiu para o **nível ${result.level}**!`
-            	);
-            };
+		if (now - profile.cooldowns.xp > 30000) {
 
-            // update cooldown
-            profile.cooldowns.xp = now;
-        };
+			// xp will be added to the user
+			const xpGain = 15;
 
-        // log message info
-        const guildName = message.guild ? message.guild.name : "DM";
-        const channelName = message.guild ? message.channel.name : "DM";
+			// add xp
+			profile.rpg.xp += xpGain;
 
-        console.log(`[${new Date().toLocaleTimeString()}] @${userTag} ${guildName} ${channelName}: ${message.content}`);
+			// check xp
+			const result = checkLevelUp(profile);
 
-        // commands prefix
-        const prefix = "k.";
+			// check xp result
+			if (result.leveledUp) {
+				message.channel.send(`🎉 **${message.author}** subiu para o **nível ${result.level}**!`
+				);
+			};
 
-        // set message content to lower case
-        const content = message.content.toLowerCase();
+			// update cooldown
+			profile.cooldowns.xp = now;
+		};
 
-        // check if message starts with prefix
-        if (!content.startsWith(prefix)) return;
+		// log message info
+		const guildName = message.guild ? message.guild.name: "DM";
+		const channelName = message.guild ? message.channel.name: "DM";
 
-        // get args from message
-        const args = content.slice(prefix.length).trim().split(/ +/);
-        const commandName = args.shift();
+		console.log(`[${new Date().toLocaleTimeString()}] @${userTag} ${guildName} ${channelName}: ${message.content}`);
 
-        // get command from collection
-        const command = message.client.prefixCommands.get(commandName);
-        if (!command) return;
+		// commands prefix
+		const prefix = "k.";
 
-        // increase command counter
-        profile.stats.commands++;
+		// set message content to lower case
+		const content = message.content.toLowerCase();
 
-        // execute command
-        try {
-            await command.execute(message, args);
-        } catch (error) {
-            console.error(error);
-        };
-    }
+		// check if message starts with prefix
+		if (!content.startsWith(prefix)) return;
+
+		// get args from message
+		const args = content.slice(prefix.length).trim().split(/ +/);
+		const commandName = args.shift();
+
+		// get command from collection
+		const command = message.client.prefixCommands.get(commandName);
+		if (!command) return;
+
+		// increase command counter
+		profile.stats.commands++;
+
+		// execute command
+		try {
+			await command.execute(message, args);
+		} catch (error) {
+			console.error(error);
+		};
+	}
 };

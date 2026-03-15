@@ -15,25 +15,25 @@ module.exports = {
 
         // create an embed
         const embed = new Discord.MessageEmbed()
-            .setColor('RANDOM')
-            .setAuthor({
-                iconURL: `${message.author.displayAvatarURL()}`,
-                name: `@${message.author.username}`
+        .setColor('RANDOM')
+        .setAuthor({
+            iconURL: `${message.author.displayAvatarURL()}`,
+            name: `@${message.author.username}`
+        })
+        .setTitle('**🤖 Informações do bot**')
+        .setThumbnail(`${message.client.user.displayAvatarURL()}`)
+        .addFields({
+            name: `👑 Nome e Id: **${message.client.user.tag}** | **${message.client.user.id}**`,
+            value: `⏳ Uptime: **${Math.floor(message.client.uptime / 1000)} seconds**\n📡 Ping: **${message.client.ws.ping}ms**`
+        },
+            {
+                name: `🏠 Servidores: **${totalGuilds}**`,
+                value: `📚 Canais: **${totalChannels}**\n👥 Usuários: **${totalUsers}**`
             })
-            .setTitle('**🤖 Informações do bot**')
-            .setThumbnail(`${message.client.user.displayAvatarURL()}`)
-            .addFields({
-                name: `👑 Nome e Id: **${message.client.user.tag}** | **${message.client.user.id}**`,
-                value: `⏳ Uptime: **${Math.floor(message.client.uptime / 1000)} seconds**\n📡 Ping: **${message.client.ws.ping}ms**`
-            },
-                {
-                    name: `🏠 Servidores: **${totalGuilds}**`,
-                    value: `📚 Canais: **${totalChannels}**\n👥 Usuários: **${totalUsers}**`
-                })
-            .setTimestamp()
-            .setFooter({
-                text: 'Atualizado'
-            });
+        .setTimestamp()
+        .setFooter({
+            text: 'Atualizado'
+        });
 
         // response
         await message.reply({
