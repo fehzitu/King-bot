@@ -33,8 +33,8 @@ This project focuses not only on features, but also on code quality, structure, 
 - [x] Prefix commands
 - [x] Fun commands
 - [x] Automatic logs
-- [ ] Persistent log
 - [x] Leveling system
+- [ ] Persistent log
 - [ ] Moderation system
 - [ ] Economy system
 - [ ] Database integration (future)
@@ -98,3 +98,11 @@ Structured in a modular way to ensure scalability and easy maintenance.
 
 ### ``fehzitu`` 💚
 Developer focused on continuous growth and real-world experience
+
+## To do:
+- [ ] Finish profile system
+- [ ] Finish karma system
+- [ ] Finish some details on commands
+- [ ] Add some menus with buttons and routes
+- [ ] Add some components like: dropdown menus, buttons, links, etc.
+- [ ] Refactor all base commands to add buttons and menus

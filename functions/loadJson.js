@@ -16,7 +16,6 @@ function loadJson(path, defaultData = {}) {
         return JSON.parse(rawData);
 
     } catch (err) {
-
         // log error
         console.error("Error loading JSON:", err);
 
