@@ -91,9 +91,6 @@ module.exports = {
                     });
                 };
             };
-
-            // update cooldown
-            profile.cooldowns.xp = now;
         } catch (error) {
             console.error(error);
 
