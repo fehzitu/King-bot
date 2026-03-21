@@ -37,7 +37,7 @@ module.exports = {
 					money: 100,
 					level: 0,
 					xp: 0,
-					multiplier: 0.25
+					multiplier: 1.25
 				},
 				stats: {
 					messages: 0,
