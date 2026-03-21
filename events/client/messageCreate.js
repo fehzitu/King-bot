@@ -13,7 +13,7 @@ const {
 } = require(path.join(__dirname, '../../functions/saveJson.js'));
 const {
 	checkLevelUp
-} = require(__dirname, '../../functions/levelSystem.js');
+} = require(path.join(__dirname, '../../functions/levelSystem.js'));
 
 module.exports = {
 	name: 'messageCreate',
