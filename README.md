@@ -106,6 +106,3 @@ Structured in a modular way to ensure scalability and easy maintenance.
 
 ### ``fehzitu`` 💚
 Developer focused on continuous growth and real-world experience
-
-## 📊 Status:
-``Discontinued day 16 march 2026``
