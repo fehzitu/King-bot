@@ -118,7 +118,7 @@ module.exports = {
             await command.execute(interaction);
 
             // xp will be added to the user
-            const xpGain = 50;
+            const xpGain = 100;
 
             // add xp
             profile.rpg.xp += xpGain;

@@ -55,10 +55,9 @@ module.exports = {
         // XP system with cooldown (30 seconds)
         const now = Date.now();
 
-        if (now - profile.cooldowns.xp > 30000) {
-
+        if (now - profile.cooldowns.xp > 3000) {
             // xp will be added to the user
-            const xpGain = 25;
+            const xpGain = 50;
 
             // add xp
             profile.rpg.xp += xpGain;
