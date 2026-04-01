@@ -50,6 +50,7 @@ module.exports = {
                 text: 'Atualizado'
             });
 
+        // create an waiting embed
         const waitingEmbed = new Discord.MessageEmbed()
             .setColor('RANDOM')
             .setDescription('⏳ Pensando...')
