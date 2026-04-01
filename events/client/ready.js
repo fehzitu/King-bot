@@ -17,14 +17,22 @@ module.exports = {
             'Puta se eu puxo o gatilho só bye-bye'
         ];
 
+        // set first activity immediately
+        client.user.setActivity(activities[i], {
+            type: "PLAYING"
+        });
+
         // switch status every x seconds
         setInterval(() => {
-        	client.user.setActivity(activities[i], {
-        		type: "PLAYING"
-        	});
-        	
-        	i = (i + 1) % activities.length;
+            i = (i + 1) % activities.length; // fix move increment before setting
+
+            client.user.setActivity(activities[i], {
+                type: "PLAYING"
+            });
         }, 10000);
+
+        // set online status explicitly
+        client.user.setStatus('online');
 
         // log
         console.log(`👑 ${client.user.tag} logado com sucesso!`);
