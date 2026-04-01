@@ -8,6 +8,22 @@ module.exports = {
         // check if an bot has send the message
         if (message.author.bot) return;
 
+        // check if an bot has send the message
+        if (message.author.bot) return;
+
+        // api anti-spam with 3 seconds
+        if (!message.client.cooldowns) {
+            message.client.cooldowns = new Set();
+        };
+
+        if (message.client.cooldowns.has(message.author.id)) return;
+
+        message.client.cooldowns.add(message.author.id);
+
+        setTimeout(() => {
+            message.client.cooldowns.delete(message.author.id);
+        }, 3000);
+
         // set the user to a mentioned (if we have)
         const user = message.mentions.users.first() || message.author;
 
