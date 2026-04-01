@@ -19,7 +19,7 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "start": "node deploy-commands.js && node ."
+    "start": "node --no-warnings deploy-commands.js && node --no-warnings ."
   },
   "dependencies": {
     "@discordjs/builders": "^1.13.1",
