@@ -8,12 +8,9 @@ module.exports = {
         // check if an bot has send the message
         if (message.author.bot) return;
 
-        // get the message content splitted and in lower case
-        const content = message.content.toLowerCase().split(' ');
-        
         // set the user to a mentioned (if we have)
         const user = message.mentions.users.first() || message.author;
-        
+
         // histories to use
         const histories = [
             `**${user} nasceu em uma noite chuvosa no estacionamento de um shopping abandonado. Desde pequeno demonstrava um talento incomum: sabia desbloquear celular só olhando pra tela. Aos 12 anos foi confundido com um NPC de tão estranho que andava. Hoje vive entre nós fingindo ser normal, mas ainda conversa com o microondas às 3 da manhã.**`,

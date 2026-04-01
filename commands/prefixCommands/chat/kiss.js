@@ -15,10 +15,28 @@ module.exports = {
         const firstMentionedUser = message.mentions.users.first();
 
         // function to get the api img
-        const getImg = async (args) => {
-            // get the image from an external API
-            const fetchApi = await fetch(`https://api.waifu.pics/sfw/${args}`);
-            return await fetchApi.json();
+        const getImg = async (endpoint) => {
+            try {
+                // timer controller
+                const controller = new AbortController();
+                // 3 timeout
+                const timeout = setTimeout(() => controller.abort(), 3000);
+
+                const res = await fetch(`https://api.waifu.pics/sfw/${endpoint}`, {
+                    signal: controller.signal
+                });
+
+                clearTimeout(timeout);
+
+                const data = await res.json();
+
+                return data.url;
+            } catch (err) {
+                console.error('Erro na API:', err);
+
+                // fallback image if api fails
+                return 'https://cdn.discordapp.com/attachments/1477290272638632068/1488963005625663630/broken-image.png?ex=69ceb05c&is=69cd5edc&hm=42b8b9f7d66fc4746487d72ef0ea845bf5e9e2f662937d336752a7635855f09d';
+            }
         };
 
         // create an errorEmbed

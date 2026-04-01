@@ -12,48 +12,57 @@ module.exports = {
 		// function to get the api img
 		const getImg = async (endpoint) => {
 			try {
-				const res = await fetch(`https://api.waifu.pics/sfw/${endpoint}`);
+				// timer controller
+				const controller = new AbortController();
+				// 3 timeout
+				const timeout = setTimeout(() => controller.abort(), 3000);
+
+				const res = await fetch(`https://api.waifu.pics/sfw/${endpoint}`, {
+					signal: controller.signal
+				});
+
+				clearTimeout(timeout);
+
 				const data = await res.json();
 
 				return data.url;
-
 			} catch (err) {
 				console.error('Erro na API:', err);
 
 				// fallback image if api fails
-				return 'https://cdn.discordapp.com/attachments/1477290272638632068/1481950786308018187/people-question.gif?ex=69b52db8&is=69b3dc38&hm=a965b4c0c6a1fc8b4f518eb8b5b04ded9f631e8cf099eb609758e53142834555&';
-			};
+				return 'https://cdn.discordapp.com/attachments/1477290272638632068/1488963005625663630/broken-image.png?ex=69ceb05c&is=69cd5edc&hm=42b8b9f7d66fc4746487d72ef0ea845bf5e9e2f662937d336752a7635855f09d';
+			}
 		};
 
 		const errorEmbed = new Discord.MessageEmbed()
-		.setColor('RANDOM')
-		.setAuthor({
-			iconURL: message.author.displayAvatarURL(),
-			name: `@${message.author.username}`
-		})
-		.addFields([{
-			name: '🔴 **Uso incorreto do comando**!',
-			value: '(Faltou alguma marcação ou mais de 1 usuário foi marcado!)'
-		},
+			.setColor('RANDOM')
+			.setAuthor({
+				iconURL: message.author.displayAvatarURL(),
+				name: `@${message.author.username}`
+			})
+			.addFields([{
+				name: '🔴 **Uso incorreto do comando**!',
+				value: '(Faltou alguma marcação ou mais de 1 usuário foi marcado!)'
+			},
 			{
 				name: '🟢 **Uso correto**:',
 				value: 'k.tapa @[usuário]'
 			}])
-		.setTimestamp()
-		.setFooter({
-			text: 'Atualizado'
-		});
+			.setTimestamp()
+			.setFooter({
+				text: 'Atualizado'
+			});
 
 		const successEmbed = new Discord.MessageEmbed()
-		.setColor('RANDOM')
-		.setAuthor({
-			iconURL: message.author.displayAvatarURL(),
-			name: `@${message.author.username}`
-		})
-		.setTimestamp()
-		.setFooter({
-			text: 'Atualizado'
-		});
+			.setColor('RANDOM')
+			.setAuthor({
+				iconURL: message.author.displayAvatarURL(),
+				name: `@${message.author.username}`
+			})
+			.setTimestamp()
+			.setFooter({
+				text: 'Atualizado'
+			});
 
 		let img;
 
@@ -61,7 +70,6 @@ module.exports = {
 		if (content.length === 2 && firstMentionedUser && message.mentions.users.size === 1) {
 
 			if (message.author.id === firstMentionedUser.id) {
-
 				// get the image
 				img = await getImg('cringe');
 
