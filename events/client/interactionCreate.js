@@ -29,7 +29,7 @@ module.exports = {
             // With this we can get the dynamic data, example "action:data"
             const [buttonId] = interaction.customId.split(':');
             // Get the first part of the customId.
-            const button = interaction.client.buttons.get(buttonId);
+            const button = interaction.client.buttons?.get(buttonId);
             // Get the button corresponding to this ID within the bot collection
 
             // log if we got an erro with the interaction
@@ -42,6 +42,14 @@ module.exports = {
                 await button.execute(interaction);
             } catch (error) {
                 console.error(error);
+
+                // log if we have error using an interaction
+                if (!interaction.replied && !interaction.deferred) {
+                    await interaction.reply({
+                        content: '❌ Erro ao executar interação.',
+                        ephemeral: true
+                    });
+                }
             };
 
             // stop execution here
@@ -53,7 +61,7 @@ module.exports = {
             // With this we can get the dynamic data, example "action:data"
             const [selectId] = interaction.customId.split(':');
             // Get the first part of the customId.
-            const select = interaction.client.selects.get(selectId);
+            const select = interaction.client.selects?.get(selectId);
             // Get the select menu corresponding to this ID within the bot collection
 
             // log if we got an erro with the interaction
@@ -66,6 +74,14 @@ module.exports = {
                 await select.execute(interaction);
             } catch (error) {
                 console.error(error);
+
+                // log if we have error using an interaction
+                if (!interaction.replied && !interaction.deferred) {
+                    await interaction.reply({
+                        content: '❌ Erro ao executar interação.',
+                        ephemeral: true
+                    });
+                }
             };
 
             // stop interaction here
@@ -77,7 +93,7 @@ module.exports = {
             // With this we can get the dynamic data, example "action:data"
             const [modalId] = interaction.customId.split(':');
             // Get the first part of the customId.
-            const modal = interaction.client.modals.get(modalId);
+            const modal = interaction.client.modals?.get(modalId);
             // Get the modal corresponding to this ID within the bot collection
 
             // log if we got an erro with the interaction
@@ -90,6 +106,14 @@ module.exports = {
                 await modal.execute(interaction);
             } catch (error) {
                 console.error(error);
+
+                // log if we have error using an interaction
+                if (!interaction.replied && !interaction.deferred) {
+                    await interaction.reply({
+                        content: '❌ Erro ao executar interação.',
+                        ephemeral: true
+                    });
+                }
             };
 
             // stop interaction
