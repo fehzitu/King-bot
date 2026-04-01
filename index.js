@@ -30,6 +30,11 @@ const client = new Client({
 client.slashCommands = new Discord.Collection();
 client.prefixCommands = new Discord.Collection();
 
+// new client interactions instance (BOT)
+client.buttons = new Discord.Collection(); // store all button interactions
+client.selects = new Discord.Collection(); // store all select menu interactions
+client.modals = new Discord.Collection();  // store all modal interactions
+
 // "commands" is the main folder to all the slash commands
 const slashCommandsFoldersPath = path.join(__dirname, 'commands/slashCommands');
 // define the "slashCommands" folder
@@ -84,6 +89,47 @@ if (fs.existsSync(prefixCommandsFoldersPath)) {
 			};
 		};
 	};
+};
+
+// "interaction" is the main folder to all the interactions like buttons
+const interactionsFolderPath = path.join(__dirname, 'interaction');
+
+if (fs.existsSync(interactionsFolderPath)) {
+	const interactionFolders = fs.readdirSync(interactionsFolderPath);
+
+	for (const folder of interactionFolders) {
+		const interactionPath = path.join(interactionsFolderPath, folder);
+
+		if (!fs.lstatSync(interactionPath).isDirectory()) continue;
+
+		const interactionFiles = fs.readdirSync(interactionPath).filter(file => file.endsWith('.js'));
+
+		for (const file of interactionFiles) {
+			const interactionFilePath = path.join(interactionPath, file);
+			const interaction = require(interactionFilePath);
+
+			// BUTTONS [NEW]
+			if (folder === 'buttons') {
+				if ('customId' in interaction && 'execute' in interaction) {
+					client.buttons.set(interaction.customId, interaction);
+				}
+			};
+
+			// SELECT MENUS [NEW]
+			if (folder === 'selects') {
+				if ('customId' in interaction && 'execute' in interaction) {
+					client.selects.set(interaction.customId, interaction);
+				}
+			};
+
+			// MODALS [NEW]
+			if (folder === 'modals') {
+				if ('customId' in interaction && 'execute' in interaction) {
+					client.modals.set(interaction.customId, interaction);
+				}
+			};
+		};
+	}
 };
 
 // new client events instance (BOT)
