@@ -50,9 +50,25 @@ module.exports = {
                 text: 'Atualizado'
             });
 
-        // response
-        await message.reply({
-            embeds: [embed]
+        const waitingEmbed = new Discord.MessageEmbed()
+            .setColor('RANDOM')
+            .setDescription('⏳ Pensando...')
+            .setTimestamp()
+            .setFooter({
+                text: 'Atualizado'
+            });
+
+        // temporary message
+        const msg = await message.reply({
+            embeds: [waitingEmbed]
         });
+
+        // edit the message after 3 seconds
+        setTimeout(() => {
+            // final response
+            msg.edit({
+                embeds: [embed]
+            });
+        }, 3000);
     }
 };
