@@ -173,12 +173,12 @@ client.usersData = loadJson(filePath, {});
 
 // autosave users database every 60 seconds
 setInterval(async () => {
-    try {
-        console.log("💾 Autosaving users database...");
-        await saveJson(filePath, client.usersData);
-    } catch (err) {
-        console.error("👾 Autosave error:", err);
-    }
+	try {
+		console.log("💾 Autosaving users database...");
+		await saveJson(filePath, client.usersData);
+	} catch (err) {
+		console.error("👾 Autosave error:", err);
+	}
 }, 60000);
 
 // login with bot data/info
