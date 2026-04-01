@@ -39,7 +39,8 @@ module.exports = {
             users[userId] = defaultUser;
 
             // save database
-            saveJson(filePath, users);
+            await saveJson(filePath, users);
+            // await for consistency with async saving
 
             // log
             console.log(`🏆 New profile created for ${userTag}`);
@@ -67,8 +68,10 @@ module.exports = {
 
             // check xp result
             if (result.leveledUp) {
-                message.channel.send(`🎉 **${message.author}** subiu para o **nível ${result.level}**!`
-                );
+                if (message.channel) {
+                    // safety check (future-proof for different channel types)
+                    message.channel.send(`🎉 **${message.author}** subiu para o **nível ${result.level}**!`);
+                };
             };
 
             // update cooldown
@@ -96,7 +99,10 @@ module.exports = {
 
         // get command from collection
         const command = message.client.prefixCommands.get(commandName);
-        if (!command) return;
+        if (!command) {
+            console.log(`[🟡] Comando desconhecido: "${commandName}"`);
+            return;
+        };
 
         // increase command counter
         profile.stats.commands++;
