@@ -51,7 +51,7 @@ module.exports = {
             } catch (error) {
                 console.error(error);
             };
-            
+
             // stop interaction
             return;
         };
@@ -106,8 +106,8 @@ module.exports = {
         profile.stats.commands++;
 
         // log command execution
-        const guildName = interaction.guild ? interaction.guild.name: "DM";
-        const channelName = interaction.guild ? interaction.channel.name: "DM";
+        const guildName = interaction.guild ? interaction.guild.name : "DM";
+        const channelName = interaction.guild ? interaction.channel.name : "DM";
 
         console.log(
             `[${new Date().toLocaleTimeString()}] @${userTag} ${guildName} ${channelName}: /${command.data.name}`

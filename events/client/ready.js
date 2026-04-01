@@ -24,7 +24,8 @@ module.exports = {
 
         // switch status every x seconds
         setInterval(() => {
-            i = (i + 1) % activities.length; // fix move increment before setting
+            // fix move increment before setting
+            i = (i + 1) % activities.length;
 
             client.user.setActivity(activities[i], {
                 type: "PLAYING"
