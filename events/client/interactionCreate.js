@@ -24,6 +24,54 @@ module.exports = {
     name: 'interactionCreate',
     async execute(interaction) {
 
+        // button interaction
+        if (interaction.isButton()) {
+            const button = interaction.client.buttons.get(interaction.customId);
+
+            if (!button) return;
+
+            try {
+                await button.execute(interaction);
+            } catch (error) {
+                console.error(error);
+            };
+
+            // stop execution here
+            return;
+        };
+
+        // select menu interaction
+        if (interaction.isSelectMenu()) {
+            const select = interaction.client.selects.get(interaction.customId);
+
+            if (!select) return;
+
+            try {
+                await select.execute(interaction);
+            } catch (error) {
+                console.error(error);
+            };
+            
+            // stop interaction
+            return;
+        };
+
+        // modal interaction
+        if (interaction.isModalSubmit()) {
+            const modal = interaction.client.modals.get(interaction.customId);
+
+            if (!modal) return;
+
+            try {
+                await modal.execute(interaction);
+            } catch (error) {
+                console.error(error);
+            };
+
+            // stop interaction
+            return;
+        };
+
         // check if the interaction is a slash command
         if (!interaction.isCommand()) return;
 
