@@ -5,102 +5,103 @@ module.exports = {
 	// "name" will receive the value that will be the chat message that the bot captures as a command
 	name: 'cumprimento',
 	async execute(message) {
+		// define endpoint
+		let endpoint = 'highfive';
+
 		// check if an bot has send the message
 		if (message.author.bot) return;
 
-		// get the message content splitted and in lower case
-		const content = message.content.toLowerCase().split(' ');
+		// api anti-spam with 3 seconds
+		if (!message.client.cooldowns) {
+			message.client.cooldowns = new Set();
+		};
 
-		// get the first mentioned user id in string (without <@ >)
-		const firstMentionedUser = message.mentions.users.first();
+		if (message.client.cooldowns.has(message.author.id)) return;
+
+		message.client.cooldowns.add(message.author.id);
+
+		setTimeout(() => {
+			message.client.cooldowns.delete(message.author.id);
+		}, 3000);
+
+		// set the user to a mentioned (if we have)
+		const user = message.mentions.users.first() || message.author;
+
+		// fallback image
+		const fallbackImage = 'https://cdn.discordapp.com/attachments/1477290272638632068/1488963005625663630/broken-image.png?ex=69ceb05c&is=69cd5edc&hm=42b8b9f7d66fc4746487d72ef0ea845bf5e9e2f662937d336752a7635855f09d';
 
 		// function to get the api img
 		const getImg = async (endpoint) => {
 			try {
 				// timer controller
 				const controller = new AbortController();
-				// 3 timeout
+				// 3 seconds timeout
 				const timeout = setTimeout(() => controller.abort(), 3000);
 
-				const res = await fetch(`https://api.waifu.pics/sfw/${endpoint}`, {
+				// get all the api data
+				const endpImg = await fetch(`https://api.waifu.pics/sfw/${endpoint}`, {
 					signal: controller.signal
 				});
+				const data = await endpImg.json();
 
+				// stop the timer
 				clearTimeout(timeout);
 
-				const data = await res.json();
-
+				// return the image link
 				return data.url;
-			} catch (err) {
-				console.error('Erro na API:', err);
-
-				// fallback image if api fails
-				return 'https://cdn.discordapp.com/attachments/1477290272638632068/1488963005625663630/broken-image.png?ex=69ceb05c&is=69cd5edc&hm=42b8b9f7d66fc4746487d72ef0ea845bf5e9e2f662937d336752a7635855f09d';
-			}
+			} catch (error) {
+				// fallback error img
+				return fallbackImage;
+			};
 		};
-
-		// create an errorEmbed
-		const errorEmbed = new Discord.MessageEmbed()
-			.setColor('RANDOM')
-			.setAuthor({
-				iconURL: `${message.author.displayAvatarURL()}`,
-				name: `@${message.author.username}`
-			})
-			.addFields([{
-				"name": "🔴 **Uso incorreto do comando**!",
-				"value": "(Faltou alguma marcação ou mais de 1 usuário foi marcado!)"
-			},
-			{
-				"name": "🟢 **Uso correto**:",
-				"value": "k.cumprimento @[usuário]"
-			}])
-			.setTimestamp()
-			.setFooter({
-				text: 'Atualizado'
-			});
 
 		// create an successEmbed
-		const successEmbed = new Discord.MessageEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('RANDOM')
 			.setAuthor({
-				iconURL: `${message.author.displayAvatarURL()}`,
-				name: `@${message.author.username}`
+				iconURL: user.displayAvatarURL(),
+				name: `@${user.username}`
 			})
+			.setDescription(`😡 **<@${message.author.id}> cumprimentou <@${user.id}>**❗`)
 			.setTimestamp()
 			.setFooter({
 				text: 'Atualizado'
 			});
 
-		let img = message.client.user.displayAvatarURL();
-
-		// set the embed to a mentioned user
-		if (content.length == 2 && firstMentionedUser) {
-			// check if the user use the command on him self
-			if (message.author.id == firstMentionedUser.id) {
-				// get the img link
-				img = await getImg('cringe');
-
-				// set the title of embed with mentioned username
-				successEmbed.setDescription(`🤔 **<@${message.author.id}> se cumprimentou sozinho**❓`);
-				successEmbed.setImage(img.url);
-			} else {
-				// get the img link
-				img = await getImg('highfive');
-
-				// set the title of embed with mentioned username
-				successEmbed.setDescription(`😡 **<@${message.author.id}> cumprimentou <@${firstMentionedUser.id}>**❗`);
-				successEmbed.setImage(img.url);
-			};
-
-			// response
-			return await message.reply({
-				embeds: [successEmbed]
-			});
+		// check if user mentioned itself
+		if (message.author.id == user.id) {
+			embed.setDescription(`🤔 **<@${user.id}> se cumprimentou sozinho**❓`);
+			endpoint = 'cringe';
 		};
 
-		// response
-		return await message.reply({
-			embeds: [errorEmbed]
+		// create an waiting embed
+		const waitingEmbed = new Discord.MessageEmbed()
+			.setColor('RANDOM')
+			.setDescription('⏳ Pensando...')
+			.setTimestamp()
+			.setFooter({
+				text: 'Atualizado'
+			});
+
+		// temporary message
+		const msg = await message.reply({
+			embeds: [waitingEmbed]
+		});
+
+		// get image
+		let img = await getImg(endpoint);
+
+		// final safety check (guarantee valid string)
+		if (!img || typeof img !== 'string') {
+			img = fallbackImage;
+		};
+
+		// set image
+		embed.setImage(img);
+
+		// edit immediately after ready
+		msg.edit({
+			embeds: [embed]
 		});
 	}
 };
