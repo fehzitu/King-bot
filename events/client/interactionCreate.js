@@ -26,9 +26,17 @@ module.exports = {
 
         // button interaction
         if (interaction.isButton()) {
-            const button = interaction.client.buttons.get(interaction.customId);
+            // With this we can get the dynamic data, example "action:data"
+            const [buttonId] = interaction.customId.split(':');
+            // Get the first part of the customId.
+            const button = interaction.client.buttons.get(buttonId);
+            // Get the button corresponding to this ID within the bot collection
 
-            if (!button) return;
+            // log if we got an erro with the interaction
+            if (!button) {
+                console.warn(`[⚠️] Botão não encontrado: ${interaction.customId}`);
+                return;
+            };
 
             try {
                 await button.execute(interaction);
@@ -42,9 +50,17 @@ module.exports = {
 
         // select menu interaction
         if (interaction.isSelectMenu()) {
-            const select = interaction.client.selects.get(interaction.customId);
+            // With this we can get the dynamic data, example "action:data"
+            const [selectId] = interaction.customId.split(':');
+            // Get the first part of the customId.
+            const select = interaction.client.selects.get(selectId);
+            // Get the select menu corresponding to this ID within the bot collection
 
-            if (!select) return;
+            // log if we got an erro with the interaction
+            if (!select) {
+                console.warn(`[⚠️] Menu seletor não encontrado: ${interaction.customId}`);
+                return;
+            };
 
             try {
                 await select.execute(interaction);
@@ -52,15 +68,23 @@ module.exports = {
                 console.error(error);
             };
 
-            // stop interaction
+            // stop interaction here
             return;
         };
 
         // modal interaction
         if (interaction.isModalSubmit()) {
-            const modal = interaction.client.modals.get(interaction.customId);
+            // With this we can get the dynamic data, example "action:data"
+            const [modalId] = interaction.customId.split(':');
+            // Get the first part of the customId.
+            const modal = interaction.client.modals.get(modalId);
+            // Get the modal corresponding to this ID within the bot collection
 
-            if (!modal) return;
+            // log if we got an erro with the interaction
+            if (!modal) {
+                console.warn(`[⚠️] Modal não encontrado: ${interaction.customId}`);
+                return;
+            };
 
             try {
                 await modal.execute(interaction);
