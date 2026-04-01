@@ -27,8 +27,8 @@ const client = new Client({
 });
 
 // new client commands instance (BOT)
-client.slashCommands = new Discord.Collection();
-client.prefixCommands = new Discord.Collection();
+client.slashCommands = new Discord.Collection(); // store all slash commands interactions
+client.prefixCommands = new Discord.Collection(); // store all prefix commands interactions
 
 // new client interactions instance (BOT)
 client.buttons = new Discord.Collection(); // store all button interactions
