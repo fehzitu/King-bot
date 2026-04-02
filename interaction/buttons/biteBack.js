@@ -35,7 +35,8 @@ module.exports = {
         if (!target) {
             target = await interaction.client.users.fetch(targetId).catch(() => null);
         };
-
+        
+        // check the message target
         if (!target) {
             return interaction.followUp({
                 content: 'Usuário original não encontrado. ❌',
