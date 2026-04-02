@@ -6,37 +6,48 @@ const path = require('path');
 
 // importing custom functions
 const {
-    fallbackImage
-} = require(path.join(__dirname, '../../../functions/waifuApi.js'));
-const {
+    fallbackImage,
     getImg
-} = require('../../../functions/waifuApi.js');
+} = require(path.join(__dirname, '../../../functions/waifuApi.js'));
 
 module.exports = {
-    // "customId" will receive the value that will be the id to use this interaction / this button
     customId: 'biteBack',
     async execute(interaction) {
-        // define endpoint
         let endpoint = 'bite';
 
-        // avoids old button error
         if (!interaction.isButton()) return;
 
-        // loading
         await interaction.deferUpdate();
 
-        // retrieves data from the button
-        const userId = interaction.customId.split(':')[1];
-        const user = await interaction.client.users.fetch(userId);
+        // get data safely
+        const [, userId] = interaction.customId.split(':');
+        if (!userId) return;
 
-        // get image
-        let img = await getImg(endpoint);
-
-        if (!img || typeof img !== 'string') {
-            img = fallbackImage;
+        // 🔒 lock button to original user
+        const authorId = interaction.message.interaction?.user?.id;
+        if (authorId && interaction.user.id !== authorId) {
+            return interaction.followUp({
+                content: '❌ Você não pode usar esse botão.',
+                ephemeral: true
+            });
         };
 
-        // create embed
+        // get user safely
+        let user = interaction.client.users.cache.get(userId);
+        if (!user) {
+            user = await interaction.client.users.fetch(userId).catch(() => null);
+        };
+
+        if (!user) {
+            return interaction.followUp({
+                content: '❌ Usuário não encontrado.',
+                ephemeral: true
+            });
+        };
+
+        // get image
+        const img = (await getImg(endpoint)) || fallbackImage;
+
         const embed = new Discord.MessageEmbed()
             .setColor('RANDOM')
             .setAuthor({
@@ -50,7 +61,6 @@ module.exports = {
                 text: 'Atualizado'
             });
 
-        // edit the original message
         await interaction.message.edit({
             embeds: [embed],
             components: interaction.message.components
