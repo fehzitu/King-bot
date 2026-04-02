@@ -6,85 +6,72 @@ const path = require('path');
 
 // importing custom functions
 const {
-    fallbackImage
-} = require(path.join(__dirname, '../../../functions/waifuApi.js'));
-const {
+    fallbackImage,
     getImg
-} = require('../../../functions/waifuApi.js');
+} = require(path.join(__dirname, '../../../functions/waifuApi.js'));
 
 module.exports = {
-    // "name" will receive the value that will be the chat message that the bot captures as a command
     name: 'mordida',
     async execute(message) {
-        // define endpoint
-        let endpoint = 'bite';
-
-        // check if an bot has send the message
         if (message.author.bot) return;
 
-        // api anti-spam with 3 seconds
-        if (!message.client.cooldowns) {
-            message.client.cooldowns = new Set();
-        };
-
+        // anti-spam (3s)
+        if (!message.client.cooldowns) message.client.cooldowns = new Set();
         if (message.client.cooldowns.has(message.author.id)) return;
 
         message.client.cooldowns.add(message.author.id);
+        setTimeout(() => message.client.cooldowns.delete(message.author.id), 3000);
 
-        setTimeout(() => {
-            message.client.cooldowns.delete(message.author.id);
-        }, 3000);
-
-        // set the user to a mentioned (if we have)
+        // target user
         const user = message.mentions.users.first() || message.author;
+        const isSelf = message.author.id === user.id;
 
-        // create an successEmbed
+        // endpoint
+        const endpoint = isSelf ? 'cringe' : 'bite';
+
+        // base embed
         const embed = new Discord.MessageEmbed()
             .setColor('RANDOM')
-            .setAuthor({
-                iconURL: user.displayAvatarURL(),
-                name: `@${user.username}`
-            })
-            .setDescription(`😡 **<@${message.author.id}> mordeu <@${user.id}>**❗`)
+            .setAuthor({ iconURL: user.displayAvatarURL(), name: `@${user.username}` })
+            .setDescription(
+                isSelf
+                    ? `🤔 **<@${user.id}> quer se morder**❓`
+                    : `😡 **<@${message.author.id}> mordeu <@${user.id}>**❗`
+            )
             .setTimestamp()
-            .setFooter({
-                text: 'Atualizado'
-            });
+            .setFooter({ text: 'Atualizado' });
 
-        // check if user mentioned itself
-        if (message.author.id == user.id) {
-            embed.setDescription(`🤔 **<@${user.id}> quer se morder**❓`);
-            endpoint = 'cringe';
+        // create button only if not self-bite
+        let row = null;
+        if (!isSelf) {
+            const button = new Discord.MessageButton()
+                .setCustomId(`biteBack:${user.id}`)
+                .setLabel('Morder de volta❓')
+                .setStyle('PRIMARY');
+
+            row = new Discord.MessageActionRow().addComponents(button);
         };
 
-        // create an waiting embed
+        // temporary waiting embed
         const waitingEmbed = new Discord.MessageEmbed()
             .setColor('RANDOM')
             .setDescription('⏳ Pensando...')
             .setTimestamp()
-            .setFooter({
-                text: 'Atualizado'
-            });
+            .setFooter({ text: 'Atualizado' });
 
-        // temporary message
-        const msg = await message.reply({
-            embeds: [waitingEmbed]
-        });
+        // send temporary message
+        const msg = await message.reply({ embeds: [waitingEmbed] });
 
         // get image
         let img = await getImg(endpoint);
+        if (!img || typeof img !== 'string') img = fallbackImage;
 
-        // final safety check (guarantee valid string)
-        if (!img || typeof img !== 'string') {
-            img = fallbackImage;
-        };
-
-        // set image
         embed.setImage(img);
 
-        // edit immediately after ready
-        msg.edit({
-            embeds: [embed]
+        // edit final message with button
+        await msg.edit({
+            embeds: [embed],
+            components: row ? [row] : []
         });
     }
 };

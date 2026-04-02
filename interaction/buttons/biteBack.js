@@ -8,62 +8,60 @@ const path = require('path');
 const {
     fallbackImage,
     getImg
-} = require(path.join(__dirname, '../../../functions/waifuApi.js'));
+} = require(path.join(__dirname, '../../functions/waifuApi.js'));
 
 module.exports = {
     customId: 'biteBack',
     async execute(interaction) {
-        let endpoint = 'bite';
-
+        // check if this is a button
         if (!interaction.isButton()) return;
 
         await interaction.deferUpdate();
 
-        // get data safely
-        const [, userId] = interaction.customId.split(':');
-        if (!userId) return;
+        // get original author id from button
+        const [, targetId] = interaction.customId.split(':');
+        if (!targetId) return;
 
-        // 🔒 lock button to original user
-        const authorId = interaction.message.interaction?.user?.id;
-        if (authorId && interaction.user.id !== authorId) {
+        // only the original target (the person mentioned) can click
+        if (interaction.user.id !== targetId) {
             return interaction.followUp({
-                content: '❌ Você não pode usar esse botão.',
+                content: 'Apenas o alvo pode revidar. ❌',
                 ephemeral: true
             });
         };
 
-        // get user safely
-        let user = interaction.client.users.cache.get(userId);
-        if (!user) {
-            user = await interaction.client.users.fetch(userId).catch(() => null);
+        // fetch original user
+        let target = interaction.client.users.cache.get(targetId);
+        if (!target) {
+            target = await interaction.client.users.fetch(targetId).catch(() => null);
         };
 
-        if (!user) {
+        if (!target) {
             return interaction.followUp({
-                content: '❌ Usuário não encontrado.',
+                content: 'Usuário original não encontrado. ❌',
                 ephemeral: true
             });
         };
 
-        // get image
-        const img = (await getImg(endpoint)) || fallbackImage;
+        // get bite image
+        const img = (await getImg('bite')) || fallbackImage;
 
+        // create revenge embed
         const embed = new Discord.MessageEmbed()
             .setColor('RANDOM')
             .setAuthor({
-                iconURL: user.displayAvatarURL(),
-                name: `@${user.username}`
+                iconURL: target.displayAvatarURL(),
+                name: `@${target.username}`
             })
-            .setDescription(`😡 **<@${interaction.user.id}> mordeu <@${user.id}> de volta**❗`)
+            .setDescription(`😡 **<@${target.id}> mordeu de volta**❗`)
             .setImage(img)
             .setTimestamp()
-            .setFooter({
-                text: 'Atualizado'
-            });
+            .setFooter({ text: 'Atualizado' });
 
+        // remove the button after click
         await interaction.message.edit({
             embeds: [embed],
-            components: interaction.message.components
+            components: []
         });
     }
 };

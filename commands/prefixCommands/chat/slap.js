@@ -6,11 +6,9 @@ const path = require('path');
 
 // importing custom functions
 const {
-	fallbackImage
-} = require(path.join(__dirname, '../../../functions/waifuApi.js'));
-const {
+	fallbackImage,
 	getImg
-} = require('../../../functions/waifuApi.js');
+} = require(path.join(__dirname, '../../../functions/waifuApi.js'));
 
 module.exports = {
 	// "name" will receive the value that will be the chat message that the bot captures as a command
