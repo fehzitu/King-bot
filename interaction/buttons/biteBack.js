@@ -53,7 +53,7 @@ module.exports = {
                 iconURL: target.displayAvatarURL(),
                 name: `@${target.username}`
             })
-            .setDescription(`😡 **<@${target.id}> mordeu de volta**❗`)
+            .setDescription(`😡 **<@${target.id}> te mordeu de volta**❗`)
             .setImage(img)
             .setTimestamp()
             .setFooter({ text: 'Atualizado' });

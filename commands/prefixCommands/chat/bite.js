@@ -1,4 +1,5 @@
 // discord implements
+const { channel } = require('diagnostics_channel');
 const Discord = require('discord.js');
 
 // node file system
