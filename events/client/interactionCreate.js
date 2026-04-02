@@ -1,7 +1,4 @@
-const Discord = require('discord.js');
-
 // node file system
-const fs = require('fs');
 const path = require('path');
 
 // database json file
@@ -20,17 +17,33 @@ const {
     checkLevelUp
 } = require('../../functions/levelSystem.js');
 
+// universal handler for components
+async function safeExecute(handler, interaction) {
+    try {
+        await handler.execute(interaction);
+    } catch (error) {
+        console.error(error);
+
+        // log if we got an error with this interaction
+        if (!interaction.replied && !interaction.deferred) {
+            await interaction.reply({
+                content: '❌ Erro ao executar interação.',
+                ephemeral: true
+            });
+        }
+    };
+};
+
 module.exports = {
     name: 'interactionCreate',
     async execute(interaction) {
+        // With this we can get the dynamic data, example "action:data"
+        const [customId] = interaction.customId ? interaction.customId.split(':') : [];
 
         // button interaction
         if (interaction.isButton()) {
-            // With this we can get the dynamic data, example "action:data"
-            const [buttonId] = interaction.customId.split(':');
-            // Get the first part of the customId.
-            const button = interaction.client.buttons?.get(buttonId);
             // Get the button corresponding to this ID within the bot collection
+            const button = interaction.client.buttons?.get(customId);
 
             // log if we got an erro with the interaction
             if (!button) {
@@ -38,19 +51,8 @@ module.exports = {
                 return;
             };
 
-            try {
-                await button.execute(interaction);
-            } catch (error) {
-                console.error(error);
-
-                // log if we have error using an interaction
-                if (!interaction.replied && !interaction.deferred) {
-                    await interaction.reply({
-                        content: '❌ Erro ao executar interação.',
-                        ephemeral: true
-                    });
-                }
-            };
+            // handler
+            await safeExecute(button, interaction);
 
             // stop execution here
             return;
@@ -58,11 +60,8 @@ module.exports = {
 
         // select menu interaction
         if (interaction.isSelectMenu()) {
-            // With this we can get the dynamic data, example "action:data"
-            const [selectId] = interaction.customId.split(':');
-            // Get the first part of the customId.
-            const select = interaction.client.selects?.get(selectId);
             // Get the select menu corresponding to this ID within the bot collection
+            const select = interaction.client.selects?.get(customId);
 
             // log if we got an erro with the interaction
             if (!select) {
@@ -70,19 +69,8 @@ module.exports = {
                 return;
             };
 
-            try {
-                await select.execute(interaction);
-            } catch (error) {
-                console.error(error);
-
-                // log if we have error using an interaction
-                if (!interaction.replied && !interaction.deferred) {
-                    await interaction.reply({
-                        content: '❌ Erro ao executar interação.',
-                        ephemeral: true
-                    });
-                }
-            };
+            // handler
+            await safeExecute(select, interaction);
 
             // stop interaction here
             return;
@@ -90,11 +78,8 @@ module.exports = {
 
         // modal interaction
         if (interaction.isModalSubmit()) {
-            // With this we can get the dynamic data, example "action:data"
-            const [modalId] = interaction.customId.split(':');
-            // Get the first part of the customId.
-            const modal = interaction.client.modals?.get(modalId);
             // Get the modal corresponding to this ID within the bot collection
+            const modal = interaction.client.modals?.get(customId);
 
             // log if we got an erro with the interaction
             if (!modal) {
@@ -102,19 +87,8 @@ module.exports = {
                 return;
             };
 
-            try {
-                await modal.execute(interaction);
-            } catch (error) {
-                console.error(error);
-
-                // log if we have error using an interaction
-                if (!interaction.replied && !interaction.deferred) {
-                    await interaction.reply({
-                        content: '❌ Erro ao executar interação.',
-                        ephemeral: true
-                    });
-                }
-            };
+            // handler
+            await safeExecute(modal, interaction);
 
             // stop interaction
             return;
@@ -192,12 +166,12 @@ module.exports = {
 
             if (interaction.replied || interaction.deferred) {
                 await interaction.followUp({
-                    content: '[🔴] Command execution error [🔴]',
+                    content: '[🔴] Erro ao executar o comando! [🔴]',
                     ephemeral: true
                 });
             } else {
                 await interaction.reply({
-                    content: '[🔴] Command execution error [🔴]',
+                    content: '[🔴] Erro ao executar o comando! [🔴]',
                     ephemeral: true
                 });
             };
