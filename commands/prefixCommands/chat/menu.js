@@ -1,12 +1,6 @@
 // discord implements
 const Discord = require('discord.js');
 
-// node file system
-const path = require('path');
-
-// importing custom fallback
-const { menuImage } = require(path.join(__dirname, '../../../interaction/itens/fallbacks.js'));
-
 module.exports = {
     name: 'menu',
     async execute(message) {
