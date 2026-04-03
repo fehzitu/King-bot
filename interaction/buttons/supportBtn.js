@@ -51,6 +51,16 @@ module.exports = {
                 text: 'Atualizado'
             });
 
+        // support menu button
+        const backButton = new Discord.MessageButton()
+            .setCustomId(`backMenuBtn:${targetId}`)
+            .setLabel('↩️')
+            .setStyle('PRIMARY')
+            .setDisabled(true);
+
+        // add itens on this row
+        let row = new Discord.MessageActionRow().addComponents(backButton);
+
         // remove the button after click
         await interaction.message.edit({
             embeds: [embed],
