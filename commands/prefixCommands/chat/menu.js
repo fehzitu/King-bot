@@ -23,7 +23,7 @@ module.exports = {
             .addFields({
                 name: `**Menu interativo📜**`, value: '**📦: Inventário 📄: Comandos ⚙️: Suporte**'
             })
-            .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1489738513095196793/user-profile.png?ex=69d1829b&is=69d0311b&hm=ddea025af94a3ad22f5c3c702d6b056b5f5404a999a85c5ce1adb0895739ef54')
+            .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1489750534926897282/list.png?ex=69d18dcd&is=69d03c4d&hm=6f5e1b560e61527b415802e6e901269f033e14ecd07f73aa725fbd130e297b96')
             .setTimestamp()
             .setFooter({ text: 'Atualizado' });
 

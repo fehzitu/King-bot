@@ -46,13 +46,15 @@ This project focuses not only on features, but also on code quality, structure, 
 ┃ ┣ 📂 slashCommands (/ commands here)
 ┃ ┗ 📂 prefixCommands (prefix commands here)
 ┣ 📂 functions (some functions here)
-┣ 📂 interaction (some components here)
+┣ 📂 interaction
+┃ ┣ 📂 buttons (buttons here)
+┃ ┗ 📂 itens (some custom emoji/imgs here)
 ┣ 📂 events
 ┃ ┣ 📂 client
 ┃ ┃ ┣ 📜 interactionCreate.js
 ┃ ┃ ┣ 📜 messageCreate.js
 ┃ ┃ ┗ 📜 ready.js
-┃ ┗ 📂 guild (guild events)
+┃ ┗ 📂 guild (guild events like "member join")
 ┣ 📜 users.json (all users profile data, will be created automatically)
 ┣ 📜 deploy-commands.js
 ┣ 📜 index.js
