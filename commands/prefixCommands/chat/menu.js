@@ -26,11 +26,26 @@ module.exports = {
             .setTimestamp()
             .setFooter({ text: 'Atualizado' });
 
-        // create an button
-        const button = new Discord.MessageButton()
-            .setCustomId(`menuBtn:${message.author.id}`)
+        // inventory menu button
+        const inventoryMenuBtn = new Discord.MessageButton()
+            .setCustomId(`inventoryMenuBtn:${message.author.id}`)
             .setLabel('📦')
-            .setStyle('PRIMARY');
+            .setStyle('PRIMARY')
+            .setDisabled(true);
+
+        // commands menu button
+        const commandsMenuBtn = new Discord.MessageButton()
+            .setCustomId(`commandsMenuBtn:${message.author.id}`)
+            .setLabel('🕹️')
+            .setStyle('PRIMARY')
+            .setDisabled(true);
+
+        // support menu button
+        const supportMenuBtn = new Discord.MessageButton()
+            .setCustomId(`supportMenuBtn:${message.author.id}`)
+            .setLabel('⚙️')
+            .setStyle('PRIMARY')
+            .setDisabled(true);
 
         // add itens on this row
         let row = new Discord.MessageActionRow().addComponents(button);

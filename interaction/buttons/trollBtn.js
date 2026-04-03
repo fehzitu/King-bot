@@ -2,7 +2,7 @@
 const Discord = require('discord.js');
 
 module.exports = {
-    customId: 'menuBtn',
+    customId: 'trollBtn',
     async execute(interaction) {
         // check if this is a button
         if (!interaction.isButton()) return;
