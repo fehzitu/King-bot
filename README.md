@@ -46,6 +46,7 @@ This project focuses not only on features, but also on code quality, structure, 
 ┃ ┣ 📂 slashCommands (/ commands here)
 ┃ ┗ 📂 prefixCommands (prefix commands here)
 ┣ 📂 functions (some functions here)
+┣ 📂 interaction (some components here)
 ┣ 📂 events
 ┃ ┣ 📂 client
 ┃ ┃ ┣ 📜 interactionCreate.js
