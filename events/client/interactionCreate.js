@@ -47,7 +47,7 @@ module.exports = {
 
             // log if we got an erro with the interaction
             if (!button) {
-                console.warn(`[⚠️] Botão não encontrado: ${interaction.customId}`);
+                console.warn(`[🟡] Botão não encontrado: ${interaction.customId}`);
                 return;
             };
 
@@ -65,7 +65,7 @@ module.exports = {
 
             // log if we got an erro with the interaction
             if (!select) {
-                console.warn(`[⚠️] Menu seletor não encontrado: ${interaction.customId}`);
+                console.warn(`[🟡] Menu seletor não encontrado: ${interaction.customId}`);
                 return;
             };
 
@@ -83,7 +83,7 @@ module.exports = {
 
             // log if we got an erro with the interaction
             if (!modal) {
-                console.warn(`[⚠️] Modal não encontrado: ${interaction.customId}`);
+                console.warn(`[🟡] Modal não encontrado: ${interaction.customId}`);
                 return;
             };
 
@@ -140,7 +140,7 @@ module.exports = {
             await command.execute(interaction);
 
             // xp will be added to the user
-            const xpGain = 100;
+            const xpGain = 500;
 
             // add xp
             profile.rpg.xp += xpGain;

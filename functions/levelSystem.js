@@ -18,7 +18,7 @@ const defaultUser = {
 // calculate XP needed for next level
 function getXpNeeded(level) {
     // linear xp up
-    return Math.floor(25 * Math.pow(level, 1.5));
+    return Math.floor(100 * Math.pow(level + 1, 1.5));
     /*
         1 = 25 XP
         2 = 25 × (2¹·⁵ ≈ 2.82) 70 XP
