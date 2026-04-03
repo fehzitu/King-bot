@@ -3,7 +3,7 @@ const defaultUser = {
     profileCreatedAt: new Date().toISOString(),
     rpg: {
         money: 100,
-        level: 0,
+        level: 1,
         xp: 0
     },
     stats: {

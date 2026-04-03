@@ -43,7 +43,7 @@ module.exports = {
             // await for consistency with async saving
 
             // log
-            console.log(`🏆 New profile created for ${userTag}`);
+            console.log(`🏆 Novo perfil criado para ${userTag}`);
         };
 
         // get user profile

@@ -21,8 +21,9 @@ module.exports = {
                 name: `@${message.author.username}`
             })
             .addFields({
-                name: `**Menu interativo📜**`, value: '📦**: Inventário**'
+                name: `**Menu interativo📜**`, value: '**📦: Inventário 📄: Comandos ⚙️: Suporte**'
             })
+            .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1477308406774632459/20260228_081056.jpg?ex=69d11d2b&is=69cfcbab&hm=3479091cb8f66f9b607e5bdd2eda0b0203cb6aebd3c4f7b4d7b3143c1bcd0828')
             .setTimestamp()
             .setFooter({ text: 'Atualizado' });
 
@@ -36,7 +37,7 @@ module.exports = {
         // commands menu button
         const commandsMenuBtn = new Discord.MessageButton()
             .setCustomId(`commandsMenuBtn:${message.author.id}`)
-            .setLabel('🕹️')
+            .setLabel('📄')
             .setStyle('PRIMARY')
             .setDisabled(true);
 

@@ -11,7 +11,7 @@ const { brokenImage } = require(path.join(__dirname, '../../../interaction/itens
 const { getImg } = require(path.join(__dirname, '../../../functions/waifuApi.js'));
 
 module.exports = {
-    name: 'morder',
+    name: 'mordida',
     async execute(message) {
         if (message.author.bot) return;
 

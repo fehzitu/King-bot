@@ -118,7 +118,7 @@ module.exports = {
 
             await saveJson(filePath, users);
 
-            console.log(`🏆 New profile created for ${userTag}`);
+            console.log(`🏆 Novo perfil criado para ${userTag}`);
         };
 
         // get profile
