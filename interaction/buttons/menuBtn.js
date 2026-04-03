@@ -1,17 +1,8 @@
 // discord implements
 const Discord = require('discord.js');
 
-// node file system
-const path = require('path');
-
-// importing custom fallback
-const { brokenImage } = require(path.join(__dirname, '../itens/fallbacks.js'));
-
-// importing custom functions
-const { getImg } = require(path.join(__dirname, '../../functions/waifuApi.js'));
-
 module.exports = {
-    customId: 'biteBack',
+    customId: 'menuBtn',
     async execute(interaction) {
         // check if this is a button
         if (!interaction.isButton()) return;
@@ -44,9 +35,6 @@ module.exports = {
             });
         };
 
-        // get bite image
-        const img = (await getImg('bite')) || brokenImage;
-
         // create revenge embed
         const embed = new Discord.MessageEmbed()
             .setColor('RANDOM')
@@ -54,8 +42,7 @@ module.exports = {
                 iconURL: target.displayAvatarURL(),
                 name: `@${target.username}`
             })
-            .setDescription(`😡 **<@${targetId}> te mordeu de volta**❗`)
-            .setImage(img)
+            .setDescription(`**<@${targetId}> clicou feito um otário**❗`)
             .setTimestamp()
             .setFooter({ text: 'Atualizado' });
 

@@ -4,11 +4,11 @@ const Discord = require('discord.js');
 // node file system
 const path = require('path');
 
+// importing custom fallback
+const { brokenImage } = require(path.join(__dirname, '../../../interaction/itens/fallbacks.js'));
+
 // importing custom functions
-const {
-	fallbackImage,
-	getImg
-} = require(path.join(__dirname, '../../../functions/waifuApi.js'));
+const { getImg } = require(path.join(__dirname, '../../../functions/waifuApi.js'));
 
 module.exports = {
 	// "name" will receive the value that will be the chat message that the bot captures as a command
@@ -73,9 +73,7 @@ module.exports = {
 		let img = await getImg(endpoint);
 
 		// final safety check (guarantee valid string)
-		if (!img || typeof img !== 'string') {
-			img = fallbackImage;
-		};
+		if (!img || typeof img !== 'string') img = brokenImage;
 
 		// set image
 		embed.setImage(img);
