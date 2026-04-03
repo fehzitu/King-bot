@@ -48,7 +48,7 @@ module.exports = {
             .setDisabled(true);
 
         // add itens on this row
-        let row = new Discord.MessageActionRow().addComponents(button);
+        let row = new Discord.MessageActionRow().addComponents(inventoryMenuBtn, commandsMenuBtn, supportMenuBtn);
 
         // send response
         await message.reply({
