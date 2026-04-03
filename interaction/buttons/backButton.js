@@ -2,23 +2,45 @@
 const Discord = require('discord.js');
 
 module.exports = {
-    name: 'menu',
-    async execute(message) {
-        if (message.author.bot) return;
+    customId: 'backMenuBtn',
+    async execute(interaction) {
+        // check if this is a button
+        if (!interaction.isButton()) return;
 
-        // anti-spam (3s)
-        if (!message.client.cooldowns) message.client.cooldowns = new Set();
-        if (message.client.cooldowns.has(message.author.id)) return;
+        await interaction.deferUpdate();
 
-        message.client.cooldowns.add(message.author.id);
-        setTimeout(() => message.client.cooldowns.delete(message.author.id), 3000);
+        // get id from the user thats click the button
+        const [, targetId] = interaction.customId.split(':');
+        if (!targetId) return;
+
+        // only the original target (the person mentioned) can click
+        if (interaction.user.id !== targetId) {
+            return interaction.followUp({
+                content: 'Apenas o usuário pode interagir. ❌',
+                ephemeral: true
+            });
+        };
+
+        // fetch original user
+        let target = interaction.client.users.cache.get(targetId);
+        if (!target) {
+            target = await interaction.client.users.fetch(targetId).catch(() => null);
+        };
+
+        // check the message target
+        if (!target) {
+            return interaction.followUp({
+                content: 'Usuário original não encontrado. ❌',
+                ephemeral: true
+            });
+        };
 
         // base embed
         const embed = new Discord.MessageEmbed()
             .setColor('RANDOM')
             .setAuthor({
-                iconURL: `${message.author.displayAvatarURL()}`,
-                name: `@${message.author.username}`
+                iconURL: target.displayAvatarURL(),
+                name: `@${target.username}`
             })
             .addFields({
                 name: `**Menu interativo📜**`, value: '**📦: Inventário 📄: Comandos ⚙️: Suporte**'
@@ -29,29 +51,29 @@ module.exports = {
 
         // inventory menu button
         const inventoryMenuBtn = new Discord.MessageButton()
-            .setCustomId(`inventoryMenuBtn:${message.author.id}`)
+            .setCustomId(`inventoryMenuBtn:${targetId}`)
             .setLabel('📦')
             .setStyle('PRIMARY')
             .setDisabled(true);
 
         // commands menu button
         const commandsMenuBtn = new Discord.MessageButton()
-            .setCustomId(`commandsMenuBtn:${message.author.id}`)
+            .setCustomId(`commandsMenuBtn:${targetId}`)
             .setLabel('📄')
             .setStyle('PRIMARY')
             .setDisabled(true);
 
         // support menu button
         const supportMenuBtn = new Discord.MessageButton()
-            .setCustomId(`supportMenuBtn:${message.author.id}`)
+            .setCustomId(`supportMenuBtn:${targetId}`)
             .setLabel('⚙️')
             .setStyle('PRIMARY');
 
         // add itens on this row
         let row = new Discord.MessageActionRow().addComponents(inventoryMenuBtn, commandsMenuBtn, supportMenuBtn);
 
-        // send response
-        await message.reply({
+        // remove the button after click
+        await interaction.message.edit({
             embeds: [embed],
             components: row ? [row] : []
         });

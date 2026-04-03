@@ -1,17 +1,8 @@
 // discord implements
 const Discord = require('discord.js');
 
-// node file system
-const path = require('path');
-
-// importing custom fallback
-const { brokenImage } = require(path.join(__dirname, '../itens/fallbacks.js'));
-
-// importing custom functions
-const { getImg } = require(path.join(__dirname, '../../functions/waifuApi.js'));
-
 module.exports = {
-    customId: 'biteBack',
+    customId: 'supportMenuBtn',
     async execute(interaction) {
         // check if this is a button
         if (!interaction.isButton()) return;
@@ -25,7 +16,7 @@ module.exports = {
         // only the original target (the person mentioned) can click
         if (interaction.user.id !== targetId) {
             return interaction.followUp({
-                content: 'Apenas o alvo pode interagir. ❌',
+                content: 'Apenas o usuário pode interagir. ❌',
                 ephemeral: true
             });
         };
@@ -44,24 +35,35 @@ module.exports = {
             });
         };
 
-        // get bite image
-        const img = (await getImg('bite')) || brokenImage;
-
-        // create revenge embed
         const embed = new Discord.MessageEmbed()
             .setColor('RANDOM')
             .setAuthor({
                 iconURL: target.displayAvatarURL(),
                 name: `@${target.username}`
             })
-            .setDescription(`😡 **<@${targetId}> te mordeu de volta**❗`)
-            .setImage(img)
+            .setTitle('🤖 **{ Ainda estou em desenvolvimento então pode ser que algo de errado ou inesperado aconteça. Se for o caso informe aos desenvolvedores bellzitu / dr3ssa }\n\n**')
+            .addFields({
+                name: '☕ **Ajude a nossa equipe!**',
+                value: '😉 **Qualquer ajuda será bem vinda!**'
+            })
             .setTimestamp()
-            .setFooter({ text: 'Atualizado' });
+            .setFooter({
+                text: 'Atualizado'
+            });
+
+        // support menu button
+        const backButton = new Discord.MessageButton()
+            .setCustomId(`backMenuBtn:${targetId}`)
+            .setLabel('↩️')
+            .setStyle('PRIMARY')
+
+        // add itens on this row
+        let row = new Discord.MessageActionRow().addComponents(backButton);
 
         // remove the button after click
         await interaction.message.edit({
-            embeds: [embed]
+            embeds: [embed],
+            components: row ? [row] : []
         });
     }
 };
