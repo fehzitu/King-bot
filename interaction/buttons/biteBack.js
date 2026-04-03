@@ -26,7 +26,7 @@ module.exports = {
         // only the original target (the person mentioned) can click
         if (interaction.user.id !== targetId) {
             return interaction.followUp({
-                content: 'Apenas o alvo pode revidar. ❌',
+                content: 'Apenas o alvo pode interagir. ❌',
                 ephemeral: true
             });
         };
