@@ -48,6 +48,7 @@ This project focuses not only on features, but also on code quality, structure, 
 ┣ 📂 functions (some functions here)
 ┣ 📂 interaction
 ┃ ┣ 📂 buttons (buttons here)
+┃ ┣ 📂 pages (pages to menus here)
 ┃ ┗ 📂 itens (some custom emoji/imgs here)
 ┣ 📂 events
 ┃ ┣ 📂 client

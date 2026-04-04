@@ -108,25 +108,37 @@ if (fs.existsSync(interactionsFolderPath)) {
 			const interactionFilePath = path.join(interactionPath, file);
 			const interaction = require(interactionFilePath);
 
-			// BUTTONS [NEW]
+			// folder buttons
 			if (folder === 'buttons') {
-				if ('customId' in interaction && 'execute' in interaction) {
-					client.buttons.set(interaction.customId, interaction);
+				const buttonFiles = fs.readdirSync(interactionPath);
+
+				for (const file of buttonFiles) {
+					const filePath = path.join(interactionPath, file);
+
+					if (fs.lstatSync(filePath).isDirectory()) continue;
+
+					if (!file.endsWith('.js')) continue;
+
+					const interaction = require(filePath);
+
+					if ('name' in interaction && 'execute' in interaction) {
+						client.buttons.set(interaction.name, interaction);
+					};
 				}
 			};
 
-			// SELECT MENUS [NEW]
+			// select menu
 			if (folder === 'selects') {
 				if ('customId' in interaction && 'execute' in interaction) {
 					client.selects.set(interaction.customId, interaction);
-				}
+				};
 			};
 
-			// MODALS [NEW]
+			// modals
 			if (folder === 'modals') {
 				if ('customId' in interaction && 'execute' in interaction) {
 					client.modals.set(interaction.customId, interaction);
-				}
+				};
 			};
 		};
 	}

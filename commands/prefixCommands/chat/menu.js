@@ -1,59 +1,35 @@
-// discord implements
-const Discord = require('discord.js');
+const path = require('path');
+
+// get the home page
+const home = require(path.join(__dirname, '../../../interaction/pages/menu/home.js'));
 
 module.exports = {
     name: 'menu',
     async execute(message) {
         if (message.author.bot) return;
 
-        // anti-spam (3s)
-        if (!message.client.cooldowns) message.client.cooldowns = new Set();
-        if (message.client.cooldowns.has(message.author.id)) return;
+        // cooldown system (scalable)
+        if (!message.client.cooldowns) message.client.cooldowns = new Map();
 
-        message.client.cooldowns.add(message.author.id);
-        setTimeout(() => message.client.cooldowns.delete(message.author.id), 3000);
+        const cooldown = message.client.cooldowns.get('menu') || new Set();
 
-        // base embed
-        const embed = new Discord.MessageEmbed()
-            .setColor('RANDOM')
-            .setAuthor({
-                iconURL: `${message.author.displayAvatarURL()}`,
-                name: `@${message.author.username}`
-            })
-            .addFields({
-                name: `**Menu interativo📜**`, value: '**📦: Inventário 📄: Comandos ⚙️: Suporte**'
-            })
-            .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1489750534926897282/list.png?ex=69d18dcd&is=69d03c4d&hm=6f5e1b560e61527b415802e6e901269f033e14ecd07f73aa725fbd130e297b96')
-            .setTimestamp()
-            .setFooter({ text: 'Atualizado' });
+        if (cooldown.has(message.author.id)) return;
 
-        // inventory menu button
-        const inventoryMenuBtn = new Discord.MessageButton()
-            .setCustomId(`inventoryMenuBtn:${message.author.id}`)
-            .setLabel('📦')
-            .setStyle('PRIMARY')
-            .setDisabled(true);
+        cooldown.add(message.author.id);
+        message.client.cooldowns.set('menu', cooldown);
 
-        // commands menu button
-        const commandsMenuBtn = new Discord.MessageButton()
-            .setCustomId(`commandsMenuBtn:${message.author.id}`)
-            .setLabel('📄')
-            .setStyle('PRIMARY')
-            .setDisabled(true);
+        setTimeout(() => cooldown.delete(message.author.id), 3000);
 
-        // support menu button
-        const supportMenuBtn = new Discord.MessageButton()
-            .setCustomId(`supportMenuBtn:${message.author.id}`)
-            .setLabel('⚙️')
-            .setStyle('PRIMARY');
+        // page
+        const page = home.execute(message.author);
+        if (!page) return;
 
-        // add itens on this row
-        let row = new Discord.MessageActionRow().addComponents(inventoryMenuBtn, commandsMenuBtn, supportMenuBtn);
+        const { embed, components } = page;
 
-        // send response
+        // response
         await message.reply({
             embeds: [embed],
-            components: row ? [row] : []
+            components
         });
     }
 };

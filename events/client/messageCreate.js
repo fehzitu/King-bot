@@ -1,7 +1,4 @@
-const Discord = require('discord.js');
-
 // node file system
-const fs = require('fs');
 const path = require('path');
 
 // database json file
