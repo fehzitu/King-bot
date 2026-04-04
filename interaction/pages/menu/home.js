@@ -13,7 +13,7 @@ module.exports = {
             })
             .addFields([{
                 name: `**Menu interativo📜**`,
-                value: '**> 👤: Perfil 📦: Inventário 📄: Comandos\n> ⚙️: Suporte**'
+                value: '> **👤: Perfil 📦: Inventário 📄: Comandos**\n> **⚙️: Suporte**'
             }])
             .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1489750534926897282/list.png')
             .setTimestamp()

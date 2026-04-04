@@ -9,7 +9,7 @@ module.exports = {
                 iconURL: user.displayAvatarURL(),
                 name: `@${user.username}`
             })
-            .setTitle('🤖 **{ Ainda estou em desenvolvimento então pode ser que algo de errado ou inesperado aconteça. Se for o caso informe aos desenvolvedores bellzitu / dr3ssa }\n\n**')
+            .setTitle('🤖 **{ Ainda estou em desenvolvimento então pode ser que algo de errado ou inesperado aconteça. Se for o caso informe aos desenvolvedores bellzitu / dr3ssa }**')
             .addFields([
                 {
                     name: '☕ Ajude a nossa equipe!',
