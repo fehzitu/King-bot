@@ -42,10 +42,10 @@ module.exports = {
                 name: `@${target.username}`
             })
             .setTitle('🤖 **{ Ainda estou em desenvolvimento então pode ser que algo de errado ou inesperado aconteça. Se for o caso informe aos desenvolvedores bellzitu / dr3ssa }\n\n**')
-            .addFields({
+            .addFields([{
                 name: '☕ **Ajude a nossa equipe!**',
                 value: '😉 **Qualquer ajuda será bem vinda!**'
-            })
+            }])
             .setTimestamp()
             .setFooter({
                 text: 'Atualizado'

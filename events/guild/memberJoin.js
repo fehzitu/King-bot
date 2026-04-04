@@ -18,10 +18,10 @@ module.exports = {
 		.setColor('RANDOM')
 		.setTitle('👥 **Novo membro!**')
 		.setDescription(`📡 Salve **${member}**, tudo bom?`)
-		.addFields({
+		.addFields([{
 			name: `🛡 Tag:\n${member.user.tag}`,
 			value: `👥 **Id:**\n${member.id}`
-		})
+		}])
 		.setThumbnail(member.user.displayAvatarURL())
 		.setTimestamp()
 		.setFooter({

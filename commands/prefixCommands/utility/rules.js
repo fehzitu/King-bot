@@ -24,7 +24,7 @@ module.exports = {
                 iconURL: `${message.author.displayAvatarURL()}`,
                 name: `@${message.author.username}`
             })
-            .addFields(data.field)
+            .addFields([data.field])
             .setTimestamp()
             .setFooter({
                 text: 'Atualizado'
