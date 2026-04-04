@@ -13,7 +13,7 @@ module.exports = {
             })
             .addFields([{
                 name: `**Menu interativo📜**`,
-                value: '**📦: Inventário 📄: Comandos ⚙️: Suporte**'
+                value: '**> 👤: Perfil 📦: Inventário 📄: Comandos\n> ⚙️: Suporte**'
             }])
             .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1489750534926897282/list.png')
             .setTimestamp()
@@ -24,6 +24,12 @@ module.exports = {
 
         // create some buttons inside a row
         row = new Discord.MessageActionRow().addComponents(
+            new Discord.MessageButton()
+                .setCustomId(`menu:page:profile:${user.id}`)
+                .setLabel('👤')
+                .setStyle('PRIMARY')
+                .setDisabled(true),
+
             new Discord.MessageButton()
                 .setCustomId(`menu:page:inventory:${user.id}`)
                 .setLabel('📦')
