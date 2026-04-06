@@ -4,8 +4,10 @@ const path = require('path');
 const home = require(path.join(__dirname, '../../../interaction/pages/menu/home.js'));
 
 module.exports = {
+    // "name" will receive the value that will be the chat message that the bot captures as a command
     name: 'menu',
     async execute(message) {
+        // check if an bot has send the message
         if (message.author.bot) return;
 
         // cooldown system (scalable)
