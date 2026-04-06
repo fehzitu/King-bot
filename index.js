@@ -208,7 +208,7 @@ client.usersData = loadJson(filePath, {});
 // autosave users database every X seconds
 setInterval(async () => {
 	try {
-		console.log("💾 Salvando dados sos usuários");
+		console.log("💾 Salvando dados sos usuários.");
 		await saveJson(filePath, client.usersData);
 	} catch (err) {
 		console.error("👾 Erro ao salvar:", err);

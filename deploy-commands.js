@@ -20,7 +20,7 @@ const commandFolders = fs.readdirSync(foldersPath).filter(file =>
 );
 
 // log
-console.log('🔄 Iniciando leitura dos comandos...\n');
+console.log('🔄 Iniciando leitura dos comandos.');
 
 // reading files
 for (const folder of commandFolders) {
@@ -50,7 +50,7 @@ for (const folder of commandFolders) {
                 loadedInFolder++;
             } else {
                 // error log
-                console.warn(`⚠ Comando inválido em: ${filePath} (Está faltando "data" ou "execute")`);
+                console.warn(`⚠ Comando inválido em: ${filePath} (Está faltando "data" ou "execute").`);
             };
         } catch (err) {
             console.error(`❌ Erro ao carregar: ${filePath}\n`, err);
@@ -62,7 +62,7 @@ for (const folder of commandFolders) {
 };
 
 // log for ready commands
-console.log(`📦 Total de comandos preparados: ${commands.length}`);
+console.log(`📦 Total de comandos preparados: ${commands.length}.`);
 
 // discord API
 const rest = new REST({ version: '10' }).setToken(token);
@@ -71,7 +71,7 @@ const rest = new REST({ version: '10' }).setToken(token);
 (async () => {
     try {
         // strat log
-        console.log('🚀 Iniciando deploy dos comandos...');
+        console.log('🚀 Iniciando deploy dos comandos.');
 
 		// defines a route to save the comands in the bot database
         const data = await rest.put(
