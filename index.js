@@ -129,6 +129,17 @@ if (fs.existsSync(interactionsFolderPath)) {
 
 			// select menu
 			if (folder === 'selects') {
+				const selectFiles = fs.readdirSync(interactionPath);
+
+				for (const file of selectFiles) {
+					const filePath = path.join(interactionPath, file);
+
+					if (fs.lstatSync(filePath).isDirectory()) continue;
+
+					if (!file.endsWith('.js')) continue;
+
+					const interaction = require(filePath);
+					
 				if ('customId' in interaction && 'execute' in interaction) {
 					client.selects.set(interaction.customId, interaction);
 				};
@@ -136,6 +147,17 @@ if (fs.existsSync(interactionsFolderPath)) {
 
 			// modals
 			if (folder === 'modals') {
+				const modalFiles = fs.readdirSync(interactionPath);
+
+				for (const file of modalFiles) {
+					const filePath = path.join(interactionPath, file);
+
+					if (fs.lstatSync(filePath).isDirectory()) continue;
+
+					if (!file.endsWith('.js')) continue;
+
+					const interaction = require(filePath);
+					
 				if ('customId' in interaction && 'execute' in interaction) {
 					client.modals.set(interaction.customId, interaction);
 				};
@@ -183,15 +205,15 @@ for (const folder of eventFolders) {
 // load users database once
 client.usersData = loadJson(filePath, {});
 
-// autosave users database every 60 seconds
+// autosave users database every X seconds
 setInterval(async () => {
 	try {
-		console.log("💾 Autosaving users database...");
+		console.log("💾 Salvando dados sos usuários");
 		await saveJson(filePath, client.usersData);
 	} catch (err) {
-		console.error("👾 Autosave error:", err);
+		console.error("👾 Erro ao salvar:", err);
 	}
-}, 60000);
+}, 240000);
 
 // login with bot data/info
 client.login(Token.token);

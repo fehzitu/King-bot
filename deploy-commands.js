@@ -13,7 +13,8 @@ const foldersPath = path.join(__dirname, 'commands/slashCommands');
 if (!fs.existsSync(foldersPath)) {
     console.log('❌ Pasta "slashCommands" não encontrada.');
     process.exit(0);
-}
+};
+
 const commandFolders = fs.readdirSync(foldersPath).filter(file =>
     fs.statSync(path.join(foldersPath, file)).isDirectory()
 );
@@ -32,7 +33,7 @@ for (const folder of commandFolders) {
     if (commandFiles.length === 0) {
         console.log(`⚠ Pasta "${folder}" não possui comandos.`);
         continue;
-    }
+    };
 
     let loadedInFolder = 0;
 
@@ -50,16 +51,15 @@ for (const folder of commandFolders) {
             } else {
                 // error log
                 console.warn(`⚠ Comando inválido em: ${filePath} (Está faltando "data" ou "execute")`);
-            }
-
+            };
         } catch (err) {
             console.error(`❌ Erro ao carregar: ${filePath}\n`, err);
         }
-    }
+    };
 
     // log to valid commands
-    console.log(`📁 ${folder}: ${loadedInFolder}/${commandFiles.length} comandos válidos carregados.`);
-}
+    console.log(`📁 Pasta ${folder} tem: ${loadedInFolder}/${commandFiles.length} comandos válidos carregados.`);
+};
 
 // log for ready commands
 console.log(`📦 Total de comandos preparados: ${commands.length}`);
@@ -71,7 +71,7 @@ const rest = new REST({ version: '10' }).setToken(token);
 (async () => {
     try {
         // strat log
-        console.log('🚀 Iniciando deploy dos comandos...\n');
+        console.log('🚀 Iniciando deploy dos comandos...');
 
 		// defines a route to save the comands in the bot database
         const data = await rest.put(
@@ -82,10 +82,10 @@ const rest = new REST({ version: '10' }).setToken(token);
         );
 
         // final log
-        console.log(`📊 ${data.length}/${commands.length} comandos registrados.`);
+        console.log(`📊 Comandos carregados: ${data.length}/${commands.length}.`);
 
     } catch (error) {
         // error on deploy commands
         console.error('❌ Erro durante o deploy dos comandos:\n', error);
-    }
+    };
 })();

@@ -4,18 +4,12 @@ const path = require('path');
 // database json file
 const filePath = path.join(__dirname, '../../users.json');
 
-// import default user
+// import default user and custom functions
 const {
-    defaultUser
-} = require(path.join(__dirname, '../../functions/levelSystem.js'));
-
-// importing custom functions
-const {
-    saveJson
-} = require(path.join(__dirname, '../../functions/saveJson.js'));
-const {
+    defaultUser,
+    saveJson,
     checkLevelUp
-} = require('../../functions/levelSystem.js');
+} = require(path.join(__dirname, '../../functions/levelSystem.js'));
 
 // universal handler for components
 async function safeExecute(handler, interaction) {
@@ -101,7 +95,7 @@ module.exports = {
         const command = interaction.client.slashCommands.get(interaction.commandName);
 
         if (!command) {
-            console.error(`[🔴] Command not found: "${interaction.commandName}"`);
+            console.error(`[🔴] Comando não encontrado: "${interaction.commandName}"`);
             return;
         };
 
@@ -149,7 +143,7 @@ module.exports = {
 
             // level up message
             if (result.leveledUp) {
-                const levelMsg = `🎉 **${interaction.user}** reached **level ${result.level}**!`;
+                const levelMsg = `🎉 **${interaction.user} subiu para o nível ${result.level}**!`;
 
                 if (interaction.replied || interaction.deferred) {
                     await interaction.followUp({

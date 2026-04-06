@@ -4,16 +4,10 @@ const path = require('path');
 // database json file
 const filePath = path.join(__dirname, '../../users.json');
 
-// import default user
+// import default user and custom functions
 const {
-    defaultUser
-} = require(path.join(__dirname, '../../functions/levelSystem.js'));
-
-// importing custom functions
-const {
-    saveJson
-} = require(path.join(__dirname, '../../functions/saveJson.js'));
-const {
+    defaultUser,
+    saveJson,
     checkLevelUp
 } = require(path.join(__dirname, '../../functions/levelSystem.js'));
 
@@ -66,7 +60,7 @@ module.exports = {
             if (result.leveledUp) {
                 if (message.channel) {
                     // safety check (future-proof for different channel types)
-                    message.channel.send(`🎉 **${message.author}** subiu para o **nível ${result.level}**!`);
+                    message.channel.send(`🎉 **${message.author} subiu para o nível ${result.level}**!`);
                 };
             };
 
