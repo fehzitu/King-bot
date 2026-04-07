@@ -24,7 +24,7 @@ module.exports = {
                 name: `@${interaction.user.username}`
             })
             .setTitle(data.title)
-            .addFields([data.field])
+            .addFields(data.field)
             .setTimestamp()
             .setFooter({
                 text: 'Atualizado'

@@ -7,9 +7,13 @@ const filePath = path.join(__dirname, '../../users.json');
 // import default user and custom functions
 const {
     defaultUser,
-    saveJson,
     checkLevelUp
 } = require(path.join(__dirname, '../../functions/levelSystem.js'));
+
+// importing custom functions from other file
+const {
+    saveJson
+} = require(path.join(__dirname, '../../functions/saveJson.js'));
 
 module.exports = {
     name: 'messageCreate',
