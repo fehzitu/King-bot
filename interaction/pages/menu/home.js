@@ -13,9 +13,8 @@ module.exports = {
             })
             .addFields([{
                 name: `**Menu interativo📜**`,
-                value: '> **👤: Perfil 📦: Inventário 📄: Comandos**\n> **⚙️: Suporte**'
+                value: '```👤: Perfil\n┗ Abre seu perfil\n📦: Inventário\n┗ Navega pelo inventário\n📄: Comandos\n┗ Lista de comandos\n⚙️: Suporte\n┗ Tenha suporte\n❓: Informações\n┗ Informações sobre mim```'
             }])
-            .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1489750534926897282/list.png')
             .setTimestamp()
             .setFooter({ text: 'Atualizado' });
 
@@ -45,7 +44,13 @@ module.exports = {
             new Discord.MessageButton()
                 .setCustomId(`menu:page:support:${user.id}`)
                 .setLabel('⚙️')
+                .setStyle('PRIMARY'),
+
+            new Discord.MessageButton()
+                .setCustomId(`menu:page:info:${user.id}`)
+                .setLabel('❓')
                 .setStyle('PRIMARY')
+                .setDisabled(true)
         );
 
         return {

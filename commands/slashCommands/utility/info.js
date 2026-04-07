@@ -25,10 +25,10 @@ module.exports = {
                 name: `👑 Nome e Id: **${interaction.client.user.tag}** | **${interaction.client.user.id}**`,
                 value: `⏳ Uptime: **${Math.floor(interaction.client.uptime / 1000)} seconds**\n📡 Ping: **${interaction.client.ws.ping}ms**`
             },
-                {
-                    name: `🏠 Servidores: **${totalGuilds}**`,
-                    value: `📚 Canais: **${totalChannels}**\n👥 Usuários: **${totalUsers}**`
-                }])
+            {
+                name: `🏠 Servidores: **${totalGuilds}**`,
+                value: `📚 Canais: **${totalChannels}**\n👥 Usuários: **${totalUsers}**`
+            }])
             .setTimestamp()
             .setFooter({
                 text: 'Atualizado'
