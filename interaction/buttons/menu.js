@@ -30,7 +30,7 @@ module.exports = {
         if (!page) return;
 
         // execute the page
-        const { embed, components } = page.execute(interaction.user);
+        const { embed, components } = page.execute(interaction);
 
         // load messagem
         return interaction.update({

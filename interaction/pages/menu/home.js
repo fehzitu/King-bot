@@ -3,7 +3,10 @@ const Discord = require('discord.js');
 
 module.exports = {
     name: 'home',
-    execute(user) {
+    execute(interaction) {
+        // get the user
+        const user = interaction.user;
+        
         // create an embed
         const embed = new Discord.MessageEmbed()
             .setColor('RANDOM')
@@ -50,7 +53,6 @@ module.exports = {
                 .setCustomId(`menu:page:info:${user.id}`)
                 .setLabel('❓')
                 .setStyle('PRIMARY')
-                .setDisabled(true)
         );
 
         return {
