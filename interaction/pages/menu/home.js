@@ -39,8 +39,8 @@ module.exports = {
                 .setDisabled(true),
 
             new Discord.MessageButton()
-                .setCustomId(`menu:page:inventory:${user.id}`)
-                .setLabel('📦')
+                .setCustomId(`menu:page:ranking:${user.id}`)
+                .setLabel('🏆')
                 .setStyle('PRIMARY')
                 .setDisabled(true),
 
