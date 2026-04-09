@@ -20,15 +20,11 @@ module.exports = {
                 name: `@${interaction.user.username}`
             })
             .setTitle('**🤖 Informações do bot**')
-            .setThumbnail(`${interaction.client.user.displayAvatarURL()}`)
             .addFields([{
                 name: `👑 Nome e Id: **${interaction.client.user.tag}** | **${interaction.client.user.id}**`,
                 value: `⏳ Uptime: **${Math.floor(interaction.client.uptime / 1000)} seconds**\n📡 Ping: **${interaction.client.ws.ping}ms**`
-            },
-            {
-                name: `🏠 Servidores: **${totalGuilds}**`,
-                value: `📚 Canais: **${totalChannels}**\n👥 Usuários: **${totalUsers}**`
             }])
+            .setImage('https://cdn.discordapp.com/attachments/1478819111906705430/1491724642589736970/images_2.jpeg?ex=69d8bc55&is=69d76ad5&hm=c3251ef4c9365df3c11f34df64de6109064f4268a539c2e1a03cf5315d3b8098&')
             .setTimestamp()
             .setFooter({
                 text: 'Atualizado'

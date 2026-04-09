@@ -2,20 +2,11 @@
 const Discord = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
-// node file system
-const fs = require('fs');
-const path = require('path');
-const filePath = path.join(__dirname, 'complements/help.json');
-
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('ajuda')
         .setDescription('Recebe ajuda sobre nosso sistema!'),
     async execute(interaction) {
-        // reading the file in real time
-        const rawData = fs.readFileSync(filePath, 'utf8');
-        const data = JSON.parse(rawData);
-
         // create an embed
         const embed = new Discord.MessageEmbed()
             .setColor('RANDOM')
@@ -23,8 +14,11 @@ module.exports = {
                 iconURL: `${interaction.user.displayAvatarURL()}`,
                 name: `@${interaction.user.username}`
             })
-            .setTitle(data.title)
-            .addFields(data.field)
+            .setImage('https://cdn.discordapp.com/attachments/1478819111906705430/1491724642799583322/images.jpeg?ex=69d8bc55&is=69d76ad5&hm=20d6a24780e97cda50b1b41b0721d16a856c588b144551bd7c3e26dfb7b3fb14&')
+            .addFields([{
+            name: "👑 **Drakay**\n🔗 **https://discord.gg/Wpgu4qXWUk**",
+            value: "> __Utilize **k.menu** no chat❗__"
+        }])
             .setTimestamp()
             .setFooter({
                 text: 'Atualizado'

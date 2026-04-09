@@ -25,9 +25,8 @@ module.exports = {
                 iconURL: user.displayAvatarURL(),
                 name: `@${user.username}`
             })
-            .setTitle('**🤖 Informações do bot**')
             .addFields({
-                name: `👑 Nome e Id: **${client.user.tag}** | **${client.user.id}**`,
+                name: `👑 Nome: **${client.user.tag}**`,
                 value: `⏳ Uptime: **${Math.floor(client.uptime / 1000)} seconds**\n📡 Ping: **${client.ws.ping}ms**`
             },
                 {
