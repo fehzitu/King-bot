@@ -6,13 +6,13 @@ module.exports = {
     execute(ctx) {
         // get the user
         const user = ctx.user || ctx.author;
-        
+
         // error log
-        if(!user) {
+        if (!user) {
             console.log('Erro no usuário:', ctx);
             return;
         };
-        
+
         // create an embed
         const embed = new Discord.MessageEmbed()
             .setColor('RANDOM')
@@ -22,7 +22,7 @@ module.exports = {
             })
             .addFields([{
                 name: `**Menu interativo📜**`,
-                value: '```👤: Abre seu perfil\n📦: Sla vey KJKK\n📄: Lista de comandos\n⚙️: Informações sobre suporte\n❓: Informações sobre mim```'
+                value: '```👤: Perfil\n🏆: Ranking\n📄: Comandos\n⚙️: Suporte\n❓: Informações```'
             }])
             .setTimestamp()
             .setFooter({ text: 'Atualizado' });
