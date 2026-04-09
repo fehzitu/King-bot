@@ -188,7 +188,7 @@ for (const folder of eventFolders) {
 // load users database once
 client.usersData = loadJson(filePath, {});
 
-// autosave users database every 30 minutes
+// autosave users database every x seconds
 setInterval(async () => {
     try {
         console.log("💾 Salvando dados sos usuários.");
@@ -196,7 +196,7 @@ setInterval(async () => {
     } catch (err) {
         console.error("👾 Erro ao salvar:", err);
     };
-}, 1800000);
+}, 60000);
 
 // login with bot data/info
 client.login(Token.token);
