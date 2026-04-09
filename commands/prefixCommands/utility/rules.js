@@ -9,9 +9,15 @@ const filePath = path.join(__dirname, 'complements/rules.json');
 module.exports = {
     // "name" will receive the value that will be the chat message that the bot captures as a command
     name: 'regras',
-    async execute(message) {
+    async execute(ctx) {
         // get the user
-        const user = message.author;
+        const user = ctx.user || ctx.author;
+        
+        // error log
+        if(!user) {
+            console.log('Erro no usuário:', ctx);
+            return;
+        };
 
         // reading the file in real time
         const rawData = fs.readFileSync(filePath, 'utf8');
@@ -31,7 +37,7 @@ module.exports = {
             });
 
         // response
-        await message.reply({
+        await ctx.reply({
             embeds: [embed]
         });
     }

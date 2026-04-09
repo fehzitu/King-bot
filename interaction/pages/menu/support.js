@@ -2,9 +2,15 @@ const Discord = require('discord.js');
 
 module.exports = {
     name: 'support',
-    execute(interaction) {
+    execute(ctx) {
         // get the user
-        const user = interaction.user;
+        const user = ctx.user || ctx.author;
+        
+        // error log
+        if(!user) {
+            console.log('Erro no usuário:', ctx);
+            return;
+        };
         
         // create an embed
         const embed = new Discord.MessageEmbed()
