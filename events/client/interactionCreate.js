@@ -153,15 +153,16 @@ module.exports = {
                     await interaction.followUp({
                         content: levelMsg
                     });
+                    await interaction.channel.send('https://cdn.discordapp.com/attachments/1477290272638632068/1491805991048712232/930929516350693437.gif?ex=69d90818&is=69d7b698&hm=ae8680b87109b1952cf70d0ff32104f14fb7223f0ab1de35200466bc7dc71131&');
                 } else {
                     await interaction.reply({
                         content: levelMsg
                     });
+                    await interaction.channel.send('https://cdn.discordapp.com/attachments/1477290272638632068/1491805991048712232/930929516350693437.gif?ex=69d90818&is=69d7b698&hm=ae8680b87109b1952cf70d0ff32104f14fb7223f0ab1de35200466bc7dc71131&');
                 };
             };
         } catch (error) {
             console.error(error);
-
             if (interaction.replied || interaction.deferred) {
                 await interaction.followUp({
                     content: '[🔴] Erro ao executar o comando! [🔴]',
