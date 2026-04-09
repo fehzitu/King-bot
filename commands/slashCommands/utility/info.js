@@ -7,11 +7,6 @@ module.exports = {
         .setName('info')
         .setDescription('Mostra informações do bot!'),
     async execute(interaction) {
-        // bot info
-        const totalUsers = interaction.client.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0);
-        const totalChannels = interaction.client.channels.cache.size;
-        const totalGuilds = interaction.client.guilds.cache.size;
-
         // create an embed
         const embed = new Discord.MessageEmbed()
             .setColor('RANDOM')
@@ -19,12 +14,12 @@ module.exports = {
                 iconURL: `${interaction.user.displayAvatarURL()}`,
                 name: `@${interaction.user.username}`
             })
-            .setTitle('**🤖 Informações do bot**')
+            .setTitle('Title')
             .addFields([{
-                name: `👑 Nome e Id: **${interaction.client.user.tag}** | **${interaction.client.user.id}**`,
-                value: `⏳ Uptime: **${Math.floor(interaction.client.uptime / 1000)} seconds**\n📡 Ping: **${interaction.client.ws.ping}ms**`
+                name: `Name`,
+                value: `Value`
             }])
-            .setImage('https://cdn.discordapp.com/attachments/1478819111906705430/1491724642589736970/images_2.jpeg?ex=69d8bc55&is=69d76ad5&hm=c3251ef4c9365df3c11f34df64de6109064f4268a539c2e1a03cf5315d3b8098&')
+            .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1491764536322035802/yuliowo.gif?ex=69d8e17d&is=69d78ffd&hm=93ba3d94e4fa0d41eacb0ffc689604c26d884ee632a491e54c9c3e9b6cfd9e9f')
             .setTimestamp()
             .setFooter({
                 text: 'Atualizado'
