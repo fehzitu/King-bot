@@ -12,9 +12,9 @@ module.exports = {
     async execute(ctx) {
         // get the user
         const user = ctx.user || ctx.author;
-        
+
         // error log
-        if(!user) {
+        if (!user) {
             console.log('Erro no usuário:', ctx);
             return;
         };
@@ -31,6 +31,7 @@ module.exports = {
                 name: `@${user.username}`
             })
             .addFields(data)
+            .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1491798480581296308/mBOLoZc.gif?ex=69d9011a&is=69d7af9a&hm=6b89d1b6723910aa80b309722db1f5abd40753b2e1872e32622e152787e6fc33&')
             .setTimestamp()
             .setFooter({
                 text: 'Atualizado'
