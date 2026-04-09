@@ -16,7 +16,7 @@ module.exports = {
             })
             .addFields([{
                 name: `**Menu interativo📜**`,
-                value: '```👤: Perfil\n┗ Abre seu perfil\n📦: Inventário\n┗ Navega pelo inventário\n📄: Comandos\n┗ Lista de comandos\n⚙️: Suporte\n┗ Tenha suporte\n❓: Informações\n┗ Informações sobre mim```'
+                value: '```👤: Abre seu perfil\n📦: Sla vey KJKK\n📄: Lista de comandos\n⚙️: Informações sobre suporte\n❓: Informações sobre mim```'
             }])
             .setTimestamp()
             .setFooter({ text: 'Atualizado' });

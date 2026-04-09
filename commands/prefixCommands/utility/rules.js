@@ -10,8 +10,8 @@ module.exports = {
     // "name" will receive the value that will be the chat message that the bot captures as a command
     name: 'regras',
     async execute(message) {
-        // check if an bot has send the message
-        if (message.author.bot) return;
+        // get the user
+        const user = message.author;
 
         // reading the file in real time
         const rawData = fs.readFileSync(filePath, 'utf8');
@@ -21,10 +21,10 @@ module.exports = {
         const embed = new Discord.MessageEmbed()
             .setColor('RANDOM')
             .setAuthor({
-                iconURL: `${message.author.displayAvatarURL()}`,
-                name: `@${message.author.username}`
+                iconURL: user.displayAvatarURL(),
+                name: `@${user.username}`
             })
-            .addFields([data.field])
+            .addFields(data)
             .setTimestamp()
             .setFooter({
                 text: 'Atualizado'
