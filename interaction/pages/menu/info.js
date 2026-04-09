@@ -3,17 +3,15 @@ const Discord = require('discord.js');
 module.exports = {
     name: 'info',
     execute(ctx) {
-        // get the user
+        // get the user and client
         const user = ctx.user || ctx.author;
+        const client = ctx.client;
         
         // error log
         if(!user) {
             console.log('Erro no usuário:', ctx);
             return;
         };
-        
-        // get the client
-        const client = ctx.client;
         
         // bot info
         const totalUsers = client.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0);

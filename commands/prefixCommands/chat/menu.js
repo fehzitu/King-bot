@@ -1,37 +1,51 @@
 const path = require('path');
 
-// get the home page
 const home = require(path.join(__dirname, '../../../interaction/pages/menu/home.js'));
 
 module.exports = {
-    // "name" will receive the value that will be the chat message that the bot captures as a command
     name: 'menu',
-    async execute(message) {
-        // check if an bot has send the message
-        if (message.author.bot) return;
+    async execute(ctx) {
+        // get the user and client
+        const user = ctx.user || ctx.author;
+        const client = ctx.client;
 
-        // cooldown system (scalable)
-        if (!message.client.cooldowns) message.client.cooldowns = new Map();
+        if (!user) {
+            console.log('Erro no usuário:', ctx);
+            return;
+        };
 
-        const cooldown = message.client.cooldowns.get('menu') || new Set();
+        // return if bot
+        if (user.bot) return;
 
-        if (cooldown.has(message.author.id)) return;
+        // cooldown
+        if (!client.cooldowns) client.cooldowns = new Map();
 
-        cooldown.add(message.author.id);
-        message.client.cooldowns.set('menu', cooldown);
+        const cooldown = client.cooldowns.get('menu') || new Set();
 
-        setTimeout(() => cooldown.delete(message.author.id), 3000);
+        if (cooldown.has(user.id)) return;
+
+        cooldown.add(user.id);
+        client.cooldowns.set('menu', cooldown);
+
+        setTimeout(() => cooldown.delete(user.id), 3000);
 
         // page
-        const page = home.execute(message.author);
+        const page = home.execute(ctx);
         if (!page) return;
 
         const { embed, components } = page;
 
         // response
-        await message.reply({
-            embeds: [embed],
-            components
-        });
+        if (ctx.reply) {
+            await ctx.reply({
+                embeds: [embed],
+                components
+            });
+        } else if (ctx.followUp) {
+            await ctx.followUp({
+                embeds: [embed],
+                components
+            });
+        };
     }
 };
