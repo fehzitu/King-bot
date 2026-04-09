@@ -130,7 +130,7 @@ module.exports = {
         const channelName = interaction.guild ? interaction.channel.name : "DM";
 
         console.log(
-            `[${new Date().toLocaleTimeString()}] @${userTag} ${guildName} ${channelName}: /${command.data.name}`
+            `[${new Date().toLocaleDateString()}][${new Date().toLocaleTimeString()}] @${userTag} ${guildName} ${channelName}: /${command.data.name}`
         );
 
         try {
