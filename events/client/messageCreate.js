@@ -77,7 +77,7 @@ module.exports = {
         const guildName = message.guild ? message.guild.name : "DM";
         const channelName = message.guild ? message.channel.name : "DM";
 
-        console.log(`[${new Date().toLocaleDateString()}][${new Date().toLocaleTimeString()}] @${userTag} ${guildName} ${channelName}: ${message.content}`);
+        console.log(`[${new Date().toLocaleDateString()}] [${new Date().toLocaleTimeString()}] [@${userTag}] [${guildName}] [${channelName}] : ${message.content}`);
 
         // commands prefix
         const prefix = "k.";

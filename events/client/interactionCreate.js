@@ -129,8 +129,7 @@ module.exports = {
         const guildName = interaction.guild ? interaction.guild.name : "DM";
         const channelName = interaction.guild ? interaction.channel.name : "DM";
 
-        console.log(
-            `[${new Date().toLocaleDateString()}][${new Date().toLocaleTimeString()}] @${userTag} ${guildName} ${channelName}: /${command.data.name}`
+        console.log(`[${new Date().toLocaleDateString()}] [${new Date().toLocaleTimeString()}] [@${userTag}] [${guildName}] [${channelName}] : /${command.data.name}`
         );
 
         try {
