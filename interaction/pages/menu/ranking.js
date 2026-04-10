@@ -23,7 +23,7 @@ module.exports = {
                 name: '#1 bellzitu',
                 value: 'Lv10 | Xp2948 | R$100'
             }])
-            //.setImage('')
+            .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1492308028995928134/7C65091E-1577-4AE5-ABFB-31A55260A19D.gif?ex=69dadba7&is=69d98a27&hm=42efbc93ef98401702c281afd82e5ee7501499ee7ec6a435c7fc7428981a2ae0&')
             .setTimestamp()
             .setFooter({
                 text: 'Atualizado'
