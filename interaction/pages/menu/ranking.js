@@ -1,5 +1,16 @@
 const Discord = require('discord.js');
 
+// node file system
+const path = require('path');
+
+// get the users from users.json
+const filePath = path.join(__dirname, '../../../users.json');
+
+// import custom functions
+const { loadJson } = require(path.join(__dirname, '../../../functions/loadJson.js'));
+const { objectListToArray } = require(path.join(__dirname, '../../../functions/objectListToArray.js'));
+const { sortArrayByKey } = require(path.join(__dirname, '../../../functions/sortArrayByKey.js'));
+
 module.exports = {
     name: 'ranking',
     execute(ctx) {
@@ -11,6 +22,10 @@ module.exports = {
             console.log('Erro no usuário:', ctx);
             return;
         };
+        
+        // load users data
+        const usersObj = loadJson(filePath, {});
+        const usersArray = objectListToArray(usersObj);
 
         // create an embed
         const embed = new Discord.MessageEmbed()
