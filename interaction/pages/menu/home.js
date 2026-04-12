@@ -24,7 +24,7 @@ module.exports = {
                 name: '**💫: Menu de interação**',
                 value: '**👤: Perfil - ``Acessa os dados do perfil``\n📄: Comandos - ``Lista de comandos``\n🏆: Ranking - ``Lista de ranking``\n⚙️: Informações - ``Infos do client``\n❓: Suporte - ``Suporte do client``**'
             }])
-            .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1491805989479907408/6D1510C7-334E-4562-BA2F-7AC458BE2AF2.gif?ex=69d90818&is=69d7b698&hm=8e7604a4bd1749852b4db89d18f742d1c7e4e8adc7b52d618922db55378d7240&')
+            .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1492176849478881481/6D1510C7-334E-4562-BA2F-7AC458BE2AF2.gif?ex=69dbb2fc&is=69da617c&hm=de7e998bd6a0ae9d05ec1cba4480b5f9faf69a1b3d5da212775d70d863302e3e&')
             .setTimestamp()
             .setFooter({
                 text: 'Atualizado'
