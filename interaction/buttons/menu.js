@@ -3,14 +3,35 @@ const path = require('path');
 
 // load all pages
 const pages = {};
-const pagesPath = path.join(__dirname, '../pages/menu');
+const pagesPath = path.join(__dirname, '../pages');
 
-const files = fs.readdirSync(pagesPath);
+// recursive function
+function loadPages(dir) {
+    const files = fs.readdirSync(dir);
 
-for (const file of files) {
-    const page = require(path.join(__dirname, `../pages/menu/${file}`));
-    pages[page.name] = page;
+    for (const file of files) {
+        const fullPath = path.join(dir, file);
+        const stat = fs.statSync(fullPath);
+
+        if (stat.isDirectory()) {
+            // access subfolders
+            loadPages(fullPath);
+        } else {
+            if (stat.isDirectory()) {
+                loadPages(fullPath);
+            } else if (file.endsWith('.js')) {
+                const page = require(fullPath);
+            
+                if (page.name && typeof page.execute === 'function') {
+                    pages[page.name] = page;
+                };
+            };
+        };
+    }
 };
+
+// load everything
+loadPages(pagesPath);
 
 module.exports = {
     name: 'menu',

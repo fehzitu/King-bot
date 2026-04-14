@@ -1,11 +1,5 @@
 const Discord = require('discord.js');
 
-// node file system
-const path = require('path');
-
-// get the users from users.json
-const filePath = path.join(__dirname, '../../../users.json');
-
 module.exports = {
     name: 'ranking',
     execute(ctx) {
@@ -41,19 +35,18 @@ module.exports = {
         // create some buttons inside a row
         row = new Discord.MessageActionRow().addComponents(
             new Discord.MessageButton()
-                .setCustomId(`menu:page:money:${user.id}`)
+                .setCustomId(`menu:page:moneyRank:${user.id}`)
                 .setLabel('💰')
-                .setStyle('PRIMARY')
-                .setDisabled(true),
+                .setStyle('PRIMARY'),
         
             new Discord.MessageButton()
-                .setCustomId(`menu:page:level:${user.id}`)
+                .setCustomId(`menu:page:levelRank:${user.id}`)
                 .setLabel('📈')
                 .setStyle('PRIMARY')
                 .setDisabled(true),
         
             new Discord.MessageButton()
-                .setCustomId(`menu:page:messages:${user.id}`)
+                .setCustomId(`menu:page:messageRank:${user.id}`)
                 .setLabel('💬')
                 .setStyle('PRIMARY')
                 .setDisabled(true),
