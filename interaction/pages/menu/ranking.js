@@ -37,7 +37,8 @@ module.exports = {
             new Discord.MessageButton()
                 .setCustomId(`menu:page:moneyRank:${user.id}`)
                 .setLabel('💰')
-                .setStyle('PRIMARY'),
+                .setStyle('PRIMARY')
+                .setDisabled(true),
         
             new Discord.MessageButton()
                 .setCustomId(`menu:page:levelRank:${user.id}`)
