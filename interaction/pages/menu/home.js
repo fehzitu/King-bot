@@ -36,29 +36,29 @@ module.exports = {
         // create some buttons inside a row
         row = new Discord.MessageActionRow().addComponents(
             new Discord.MessageButton()
-                .setCustomId(`menu:page:profile:${user.id}`)
+                .setCustomId(`page:menu:profile:${user.id}`)
                 .setLabel('👤')
                 .setStyle('PRIMARY')
                 .setDisabled(true),
 
             new Discord.MessageButton()
-                .setCustomId(`menu:page:commands:${user.id}`)
+                .setCustomId(`page:menu:message:${user.id}`)
                 .setLabel('📄')
                 .setStyle('PRIMARY')
                 .setDisabled(true),
-                
+
             new Discord.MessageButton()
-                .setCustomId(`menu:page:ranking:${user.id}`)
+                .setCustomId(`page:menu:ranking:${user.id}`)
                 .setLabel('🏆')
                 .setStyle('PRIMARY'),
 
             new Discord.MessageButton()
-                .setCustomId(`menu:page:info:${user.id}`)
+                .setCustomId(`page:menu:info:${user.id}`)
                 .setLabel('⚙️')
                 .setStyle('PRIMARY'),
 
             new Discord.MessageButton()
-                .setCustomId(`menu:page:support:${user.id}`)
+                .setCustomId(`page:menu:support:${user.id}`)
                 .setLabel('❓')
                 .setStyle('PRIMARY')
         );

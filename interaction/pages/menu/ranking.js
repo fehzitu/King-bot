@@ -35,25 +35,25 @@ module.exports = {
         // create some buttons inside a row
         row = new Discord.MessageActionRow().addComponents(
             new Discord.MessageButton()
-                .setCustomId(`menu:page:moneyRank:${user.id}`)
+                .setCustomId(`page:ranking:moneyRank:${user.id}`)
                 .setLabel('💰')
                 .setStyle('PRIMARY')
                 .setDisabled(true),
-        
+
             new Discord.MessageButton()
-                .setCustomId(`menu:page:levelRank:${user.id}`)
+                .setCustomId(`page:ranking:levelRank:${user.id}`)
                 .setLabel('📈')
                 .setStyle('PRIMARY')
                 .setDisabled(true),
-        
+
             new Discord.MessageButton()
-                .setCustomId(`menu:page:messageRank:${user.id}`)
+                .setCustomId(`page:ranking:messageRank:${user.id}`)
                 .setLabel('💬')
                 .setStyle('PRIMARY')
                 .setDisabled(true),
-            
+
             new Discord.MessageButton()
-                .setCustomId(`menu:page:home:${user.id}`)
+                .setCustomId(`page:menu:home:${user.id}`)
                 .setLabel('🏠')
                 .setStyle('PRIMARY')
         );

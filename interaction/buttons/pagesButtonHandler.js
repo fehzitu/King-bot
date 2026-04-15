@@ -17,14 +17,23 @@ function loadPages(dir) {
             // access subfolders
             loadPages(fullPath);
         } else {
-            if (stat.isDirectory()) {
-                loadPages(fullPath);
-            } else if (file.endsWith('.js')) {
-                const page = require(fullPath);
-            
-                if (page.name && typeof page.execute === 'function') {
-                    pages[page.name] = page;
-                };
+            if (!file.endsWith('.js')) continue;
+
+            const page = require(fullPath);
+
+            if (typeof page.execute === 'function') {
+                // generate key based on path
+                const relative = fullPath
+                    .replace(pagesPath, '')
+                    .replace(/\\/g, '/')
+                    .replace('.js', '');
+
+                const key = relative
+                    .split('/')
+                    .filter(Boolean)
+                    .join(':');
+
+                pages[key] = page;
             };
         };
     }
@@ -34,9 +43,10 @@ function loadPages(dir) {
 loadPages(pagesPath);
 
 module.exports = {
-    name: 'menu',
+    name: 'page',
     async execute(interaction) {
-        const [category, type, pageName, userId] = interaction.customId.split(':');
+        // pages system:<folder>:<file>:<user id>
+        const [system, category, pageName, userId] = interaction.customId.split(':');
 
         // security
         if (interaction.user.id !== userId) {
@@ -47,7 +57,8 @@ module.exports = {
         };
 
         // get the page
-        const page = pages[pageName];
+        const key = `${category}:${pageName}`;
+        const page = pages[key];
         if (!page) return;
 
         // execute the page

@@ -35,7 +35,7 @@ module.exports = {
         // create some buttons inside a row
         row = new Discord.MessageActionRow().addComponents(
             new Discord.MessageButton()
-                .setCustomId(`menu:page:home:${user.id}`)
+                .setCustomId(`page:menu:home:${user.id}`)
                 .setLabel('🏠')
                 .setStyle('PRIMARY')
         );
