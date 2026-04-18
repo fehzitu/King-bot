@@ -7,11 +7,9 @@ const filePath = path.join(__dirname, './users.json');
 
 // importing custom functions
 const {
-    loadJson
-} = require(path.join(__dirname, 'functions/loadJson.js'));
-const {
+    loadJson,
     saveJson
-} = require(path.join(__dirname, 'functions/saveJson.js'));
+} = require(path.join(__dirname, 'functions/jsonHandler.js'));
 
 // discord importations
 const Discord = require('discord.js');

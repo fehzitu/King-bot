@@ -1,3 +1,4 @@
+// discord implements
 const Discord = require('discord.js');
 
 module.exports = {

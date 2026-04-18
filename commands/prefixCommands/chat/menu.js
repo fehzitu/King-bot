@@ -1,3 +1,4 @@
+// node implements
 const path = require('path');
 
 const home = require(path.join(__dirname, '../../../interaction/pages/menu/home.js'));

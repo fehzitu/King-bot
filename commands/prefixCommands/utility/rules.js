@@ -4,6 +4,8 @@ const Discord = require('discord.js');
 // node file system
 const fs = require('fs');
 const path = require('path');
+
+// rules file
 const filePath = path.join(__dirname, 'complements/rules.json');
 
 module.exports = {

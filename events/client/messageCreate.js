@@ -13,7 +13,7 @@ const {
 // importing custom functions from other file
 const {
     saveJson
-} = require(path.join(__dirname, '../../functions/saveJson.js'));
+} = require(path.join(__dirname, '../../functions/jsonHandler.js'));
 
 module.exports = {
     name: 'messageCreate',
