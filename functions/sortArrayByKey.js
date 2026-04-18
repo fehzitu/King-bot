@@ -1,8 +1,8 @@
 // function to sort an array
-function sortArrayByKey(array, property, type = "string", order = "d") {
+function sortArrayByKey(array, property, type = 's', order = 'd') {
   return [...array].sort((a, b) => {
-    if (type === "number") {
-      if (order === "c") {
+    if (type == 'n') {
+      if (order == 'c') {
         return a[property] - b[property];
       };
       return b[property] - a[property];

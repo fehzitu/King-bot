@@ -23,7 +23,7 @@ module.exports = {
                 name: '**💰: Top dinheiro**',
                 value: '**__LIST[0]__**'
             }])
-            //.setImage('')
+            .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1494993506924757002/closeup-hands-holding-cash.jpg?ex=69e4a0b3&is=69e34f33&hm=25bebce8d9efe31f3131e2cb7c9a5a309ad26a3c1b120ccdf1eeb1f7b2e1ad53&')
             .setTimestamp()
             .setFooter({
                 text: 'Atualizado'
