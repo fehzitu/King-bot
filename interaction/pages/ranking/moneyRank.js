@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 
 module.exports = {
-    name: 'ranking',
+    name: 'moneyRank',
     execute(ctx) {
         // get the user
         const user = ctx.user || ctx.author;
@@ -20,10 +20,10 @@ module.exports = {
                 name: `@${user.username}`
             })
             .addFields([{
-                name: '**🏆: Rankings**',
-                value: '**💰: Top dinheiro - ``Veja os 5 mais ricos``\n📈: Top nivel - ``Veja os 5 com mais níveis``\n💬: Top mensagens - ``Veja os 5 mais hypados``**'
+                name: '**💰: Top dinheiro**',
+                value: '**__LIST[0]__**'
             }])
-            .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1492308028995928134/7C65091E-1577-4AE5-ABFB-31A55260A19D.gif?ex=69dadba7&is=69d98a27&hm=42efbc93ef98401702c281afd82e5ee7501499ee7ec6a435c7fc7428981a2ae0&')
+            //.setImage('')
             .setTimestamp()
             .setFooter({
                 text: 'Atualizado'
@@ -37,8 +37,8 @@ module.exports = {
             new Discord.MessageButton()
                 .setCustomId(`page:ranking:moneyRank:${user.id}`)
                 .setLabel('💰')
-                .setStyle('PRIMARY'),
-                //.setDisabled(true),
+                .setStyle('PRIMARY')
+                .setDisabled(true),
 
             new Discord.MessageButton()
                 .setCustomId(`page:ranking:levelRank:${user.id}`)
