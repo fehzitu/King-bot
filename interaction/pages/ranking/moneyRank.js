@@ -1,6 +1,18 @@
 // discord implements
 const Discord = require('discord.js');
 
+// node normal importations
+const fs = require('node:fs');
+const path = require('node:path');
+
+// database json file
+const filePath = path.join(__dirname, '../../../users.json');
+
+// importing custom functions
+const {
+    loadJson
+} = require(path.join(__dirname, '../../../functions/jsonHandler.js'));
+
 module.exports = {
     name: 'moneyRank',
     execute(ctx) {
@@ -12,6 +24,9 @@ module.exports = {
             console.log('Erro no usuário:', ctx);
             return;
         };
+        
+        // load all the users
+        const usersObject = loadJson(filePath);
 
         // create an embed
         const embed = new Discord.MessageEmbed()
