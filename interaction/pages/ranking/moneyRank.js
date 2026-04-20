@@ -12,6 +12,9 @@ const filePath = path.join(__dirname, '../../../users.json');
 const {
     loadJson
 } = require(path.join(__dirname, '../../../functions/jsonHandler.js'));
+const {
+    sortUsers
+} = require(path.join(__dirname, '../../../functions/sortUsers.js'));
 
 module.exports = {
     name: 'moneyRank',
@@ -27,6 +30,13 @@ module.exports = {
         
         // load all the users
         const usersObject = loadJson(filePath);
+        
+        // sort user list
+        const sortedUsers = sortUsers(usersObject, 'rpg.money');
+        
+        // get the first five users (if have)
+        let topFive = sortedUsers;
+        if (sortedUsers.length >= 5) topFive = sortedUsers.slice(0, 5);
 
         // create an embed
         const embed = new Discord.MessageEmbed()
@@ -37,7 +47,7 @@ module.exports = {
             })
             .addFields([{
                 name: '**💰: Top dinheiro**',
-                value: '**__LIST[0]__**'
+                value: `${sortedUsers}`
             }])
             .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1494993506924757002/closeup-hands-holding-cash.jpg?ex=69e4a0b3&is=69e34f33&hm=25bebce8d9efe31f3131e2cb7c9a5a309ad26a3c1b120ccdf1eeb1f7b2e1ad53&')
             .setTimestamp()
