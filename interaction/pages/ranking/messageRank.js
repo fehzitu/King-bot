@@ -32,13 +32,14 @@ module.exports = {
         const usersObject = loadJson(filePath);
         
         // sort user list
-        const sortedUsers = sortUsers(usersObject, 'rpg.stats');
+        const sortedUsers = sortUsers(usersObject, 'stats.messages');
         
         // get only 5 users
         const topUsers = sortedUsers.slice(0, 5);
         
         // string list
         const list = topUsers.map(user => `**<@${user[0]}>** | Msg: **${user[1].stats.messages}** Cmd: **${user[1].stats.commands}**`).join('\n') || 'Nenhum usuário encontrado.';
+        console.log(list)
 
         // create an embed
         const embed = new Discord.MessageEmbed()
