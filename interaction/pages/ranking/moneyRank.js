@@ -38,7 +38,7 @@ module.exports = {
         const topUsers = sortedUsers.slice(0, 5);
         
         // string list
-        const list = topUsers.map(user => `<@${user[0]}> | R$${user[1].rpg.money}`).join('\n') || 'Nenhum usuário encontrado.';
+        const list = topUsers.map(user => `**<@${user[0]}>** | R$**${user[1].rpg.money}**`).join('\n') || 'Nenhum usuário encontrado.';
 
         // create an embed
         const embed = new Discord.MessageEmbed()
@@ -70,14 +70,12 @@ module.exports = {
             new Discord.MessageButton()
                 .setCustomId(`page:ranking:levelRank:${user.id}`)
                 .setLabel('📈')
-                .setStyle('PRIMARY')
-                .setDisabled(true),
+                .setStyle('PRIMARY'),
 
             new Discord.MessageButton()
                 .setCustomId(`page:ranking:messageRank:${user.id}`)
                 .setLabel('💬')
-                .setStyle('PRIMARY')
-                .setDisabled(true),
+                .setStyle('PRIMARY'),
             
             new Discord.MessageButton()
                 .setCustomId(`page:menu:ranking:${user.id}`)

@@ -38,7 +38,7 @@ module.exports = {
         const topUsers = sortedUsers.slice(0, 5);
         
         // string list
-        const list = topUsers.map(user => `<@${user[0]}> | R$${user[1].rpg.level}`).join('\n') || 'Nenhum usuário encontrado.';
+        const list = topUsers.map(user => `**<@${user[0]}>** | Lv.**${user[1].rpg.level}**`).join('\n') || 'Nenhum usuário encontrado.';
 
         // create an embed
         const embed = new Discord.MessageEmbed()
@@ -51,7 +51,7 @@ module.exports = {
                 name: '**📈: Top level**',
                 value: list
             }])
-            //.setImage('')
+            .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1496180164088958976/Animated_bar_chart.gif?ex=69e8f1dc&is=69e7a05c&hm=0ef944418ed41d4f37b90c3345a1da453a87ca4e1f7dccf1421cd37270f68493&')
             .setTimestamp()
             .setFooter({
                 text: 'Atualizado'
@@ -75,8 +75,7 @@ module.exports = {
             new Discord.MessageButton()
                 .setCustomId(`page:ranking:messageRank:${user.id}`)
                 .setLabel('💬')
-                .setStyle('PRIMARY')
-                .setDisabled(true),
+                .setStyle('PRIMARY'),
             
             new Discord.MessageButton()
                 .setCustomId(`page:menu:ranking:${user.id}`)

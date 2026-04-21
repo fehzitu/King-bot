@@ -1,8 +1,23 @@
 // discord implements
 const Discord = require('discord.js');
 
+// node normal importations
+const fs = require('node:fs');
+const path = require('node:path');
+
+// database json file
+const filePath = path.join(__dirname, '../../../users.json');
+
+// importing custom functions
+const {
+    loadJson
+} = require(path.join(__dirname, '../../../functions/jsonHandler.js'));
+const {
+    sortUsers
+} = require(path.join(__dirname, '../../../functions/sortUsers.js'));
+
 module.exports = {
-    name: 'ranking',
+    name: 'messageRank',
     execute(ctx) {
         // get the user
         const user = ctx.user || ctx.author;
@@ -12,6 +27,18 @@ module.exports = {
             console.log('Erro no usuário:', ctx);
             return;
         };
+        
+        // load all the users
+        const usersObject = loadJson(filePath);
+        
+        // sort user list
+        const sortedUsers = sortUsers(usersObject, 'rpg.stats');
+        
+        // get only 5 users
+        const topUsers = sortedUsers.slice(0, 5);
+        
+        // string list
+        const list = topUsers.map(user => `**<@${user[0]}>** | Msg: **${user[1].stats.messages}** Cmd: **${user[1].stats.commands}**`).join('\n') || 'Nenhum usuário encontrado.';
 
         // create an embed
         const embed = new Discord.MessageEmbed()
@@ -21,10 +48,10 @@ module.exports = {
                 name: `@${user.username}`
             })
             .addFields([{
-                name: '**🏆: Rankings**',
-                value: '**💰: Top dinheiro - ``Veja os 5 mais ricos``\n📈: Top nivel - ``Veja os 5 com mais níveis``\n💬: Top mensagens - ``Veja os 5 mais hypados``**'
+                name: '**💬: Top mensagens**',
+                value: list
             }])
-            .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1492308028995928134/7C65091E-1577-4AE5-ABFB-31A55260A19D.gif?ex=69dadba7&is=69d98a27&hm=42efbc93ef98401702c281afd82e5ee7501499ee7ec6a435c7fc7428981a2ae0&')
+            .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1496256443790266398/Animacoes_Legais.gif?ex=69e938e7&is=69e7e767&hm=5587a339c9ec632888b5f0e14541e3bbe245740da38283b6973e26809e13a9d3&')
             .setTimestamp()
             .setFooter({
                 text: 'Atualizado'
@@ -47,11 +74,11 @@ module.exports = {
 
             new Discord.MessageButton()
                 .setCustomId(`page:ranking:messageRank:${user.id}`)
-                .setLabel('💬')
+                .setLabel('🔄')
                 .setStyle('PRIMARY'),
-                
+            
             new Discord.MessageButton()
-                .setCustomId(`page:menu:home:${user.id}`)
+                .setCustomId(`page:menu:ranking:${user.id}`)
                 .setLabel('↩️')
                 .setStyle('PRIMARY')
         );
