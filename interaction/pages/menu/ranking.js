@@ -51,10 +51,10 @@ module.exports = {
                 .setLabel('💬')
                 .setStyle('PRIMARY')
                 .setDisabled(true),
-
+                
             new Discord.MessageButton()
                 .setCustomId(`page:menu:home:${user.id}`)
-                .setLabel('🏠')
+                .setLabel('↩️')
                 .setStyle('PRIMARY')
         );
 

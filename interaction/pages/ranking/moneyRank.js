@@ -34,9 +34,11 @@ module.exports = {
         // sort user list
         const sortedUsers = sortUsers(usersObject, 'rpg.money');
         
-        // get the first five users (if have)
-        let topFive = sortedUsers;
-        if (sortedUsers.length >= 5) topFive = sortedUsers.slice(0, 5);
+        // get only 5 users
+        const topUsers = sortedUsers.slice(0, 5);
+        
+        // string list
+        const list = topUsers.map(user => `<@${user[0]}> | R$${user[1].rpg.money}`).join('\n') || 'Nenhum usuário encontrado.';
 
         // create an embed
         const embed = new Discord.MessageEmbed()
@@ -47,7 +49,7 @@ module.exports = {
             })
             .addFields([{
                 name: '**💰: Top dinheiro**',
-                value: `${sortedUsers}`
+                value: list
             }])
             .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1494993506924757002/closeup-hands-holding-cash.jpg?ex=69e4a0b3&is=69e34f33&hm=25bebce8d9efe31f3131e2cb7c9a5a309ad26a3c1b120ccdf1eeb1f7b2e1ad53&')
             .setTimestamp()
@@ -62,9 +64,8 @@ module.exports = {
         row = new Discord.MessageActionRow().addComponents(
             new Discord.MessageButton()
                 .setCustomId(`page:ranking:moneyRank:${user.id}`)
-                .setLabel('💰')
-                .setStyle('PRIMARY')
-                .setDisabled(true),
+                .setLabel('🔄')
+                .setStyle('PRIMARY'),
 
             new Discord.MessageButton()
                 .setCustomId(`page:ranking:levelRank:${user.id}`)
@@ -77,10 +78,10 @@ module.exports = {
                 .setLabel('💬')
                 .setStyle('PRIMARY')
                 .setDisabled(true),
-
+            
             new Discord.MessageButton()
-                .setCustomId(`page:menu:home:${user.id}`)
-                .setLabel('🏠')
+                .setCustomId(`page:menu:ranking:${user.id}`)
+                .setLabel('↩️')
                 .setStyle('PRIMARY')
         );
 

@@ -49,7 +49,7 @@ module.exports = {
         row = new Discord.MessageActionRow().addComponents(
             new Discord.MessageButton()
                 .setCustomId(`page:menu:home:${user.id}`)
-                .setLabel('🏠')
+                .setLabel('↩️')
                 .setStyle('PRIMARY')
         );
 
