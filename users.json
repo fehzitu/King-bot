@@ -1,1 +1,17 @@
-{}
+{
+  "830634043560296468": {
+    "profileCreatedAt": "2026-04-22T09:54:20.638Z",
+    "rpg": {
+      "money": 175,
+      "level": 2,
+      "xp": 68
+    },
+    "stats": {
+      "messages": 3,
+      "commands": 3
+    },
+    "cooldowns": {
+      "xp": 1776851863517
+    }
+  }
+}

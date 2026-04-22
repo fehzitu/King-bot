@@ -140,7 +140,7 @@ module.exports = {
             await command.execute(interaction);
 
             // add xp
-            profile.rpg.xp += 50;
+            profile.rpg.xp += 100;
 
             const result = checkLevelUp(profile);
 
