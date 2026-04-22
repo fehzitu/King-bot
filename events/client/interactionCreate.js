@@ -124,9 +124,6 @@ module.exports = {
 
         // increase command counter
         profile.stats.commands++;
-        
-        // increase money
-        profile.rpg.money += 5;
 
         // log command execution
         const guildName = interaction.guild ? interaction.guild.name : "DM";

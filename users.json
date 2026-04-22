@@ -1,1 +1,47 @@
-{}
+{
+  "830634043560296468": {
+    "profileCreatedAt": "2026-04-22T11:49:18.996Z",
+    "rpg": {
+      "money": 15,
+      "level": 1,
+      "xp": 250
+    },
+    "stats": {
+      "messages": 5,
+      "commands": 0
+    },
+    "cooldowns": {
+      "xp": 1776859444635
+    }
+  },
+  "1496472481496825972": {
+    "profileCreatedAt": "2026-04-22T11:49:18.996Z",
+    "rpg": {
+      "money": 15,
+      "level": 1,
+      "xp": 200
+    },
+    "stats": {
+      "messages": 5,
+      "commands": 0
+    },
+    "cooldowns": {
+      "xp": 1776859036125
+    }
+  },
+  "1335722284576407562": {
+    "profileCreatedAt": "2026-04-22T11:55:00.808Z",
+    "rpg": {
+      "money": 45,
+      "level": 3,
+      "xp": 49
+    },
+    "stats": {
+      "messages": 5,
+      "commands": 6
+    },
+    "cooldowns": {
+      "xp": 1776859336121
+    }
+  }
+}
