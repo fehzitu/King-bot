@@ -4,8 +4,8 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName('link')
-        .setDescription('Link do nosso servidor de suporte!'),
+        .setName('suporte')
+        .setDescription('Nosso servidor de suporte!'),
     async execute(interaction) {
         // get the user
         const user = interaction.user || interaction.author;
