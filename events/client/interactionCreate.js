@@ -16,15 +16,15 @@ const {
 } = require(path.join(__dirname, '../../functions/jsonHandler.js'));
 
 // universal handler for components
-async function safeExecute(handler, interaction) {
+async function safeExecute(handler, ctx) {
     try {
-        await handler.execute(interaction);
+        await handler.execute(ctx);
     } catch (error) {
         console.error(error);
 
         // log if we got an error with this interaction
-        if (!interaction.replied && !interaction.deferred) {
-            await interaction.reply({
+        if (!ctx.replied && !ctx.deferred) {
+            await ctx.reply({
                 content: '❌ Erro ao executar interação.',
                 ephemeral: true
             });
@@ -34,13 +34,13 @@ async function safeExecute(handler, interaction) {
 
 module.exports = {
     name: 'interactionCreate',
-    async execute(interaction) {
+    async execute(ctx) {
         // get user id and tag
-        const userId = interaction.user.id;
-        const userTag = interaction.user.tag;
+        const userId = ctx.user.id;
+        const userTag = ctx.user.tag;
 
         // load users database
-        const users = interaction.client.usersData;
+        const users = ctx.client.usersData;
 
         // create profile if not exists
         if (!users[userId]) {
@@ -55,70 +55,70 @@ module.exports = {
         const profile = users[userId];
 
         // With this we can get the dynamic data, example "action:data"
-        const [customId] = interaction.customId ? interaction.customId.split(':') : [];
+        const [customId] = ctx.customId ? ctx.customId.split(':') : [];
 
         // button interaction
-        if (interaction.isButton()) {
+        if (ctx.isButton()) {
             // Get the button corresponding to this ID within the bot collection
-            const button = interaction.client.buttons?.get(customId);
+            const button = ctx.client.buttons?.get(customId);
 
             // log if we got an erro with the interaction
             if (!button) {
-                console.warn(`[🟡] Botão não encontrado: ${interaction.customId}`);
+                console.warn(`[🟡] Botão não encontrado: ${ctx.customId}`);
                 return;
             };
 
             // handler
-            await safeExecute(button, interaction);
+            await safeExecute(button, ctx);
 
             // stop execution here
             return;
         };
 
         // select menu interaction
-        if (interaction.isSelectMenu()) {
+        if (ctx.isSelectMenu()) {
             // Get the select menu corresponding to this ID within the bot collection
-            const select = interaction.client.selects?.get(customId);
+            const select = ctx.client.selects?.get(customId);
 
             // log if we got an erro with the interaction
             if (!select) {
-                console.warn(`[🟡] Menu seletor não encontrado: ${interaction.customId}`);
+                console.warn(`[🟡] Menu seletor não encontrado: ${ctx.customId}`);
                 return;
             };
 
             // handler
-            await safeExecute(select, interaction);
+            await safeExecute(select, ctx);
 
             // stop interaction here
             return;
         };
 
         // modal interaction
-        if (interaction.isModalSubmit()) {
+        if (ctx.isModalSubmit()) {
             // Get the modal corresponding to this ID within the bot collection
-            const modal = interaction.client.modals?.get(customId);
+            const modal = ctx.client.modals?.get(customId);
 
             // log if we got an erro with the interaction
             if (!modal) {
-                console.warn(`[🟡] Modal não encontrado: ${interaction.customId}`);
+                console.warn(`[🟡] Modal não encontrado: ${ctx.customId}`);
                 return;
             };
 
             // handler
-            await safeExecute(modal, interaction);
+            await safeExecute(modal, ctx);
 
             // stop interaction
             return;
         };
 
         // check if the interaction is a slash command
-        if (!interaction.isCommand()) return;
+        if (!ctx.isCommand()) return;
 
         // get the command
-        const command = interaction.client.slashCommands.get(interaction.commandName);
+        const command = ctx.client.slashCommands.get(ctx.commandName);
 
         if (!command) {
-            console.error(`[🔴] Comando não encontrado: "${interaction.commandName}"`);
+            console.error(`[🔴] Comando não encontrado: "${ctx.commandName}"`);
             return;
         };
 
@@ -126,15 +126,15 @@ module.exports = {
         profile.stats.commands++;
 
         // log command execution
-        const guildName = interaction.guild ? interaction.guild.name : "DM";
-        const channelName = interaction.guild ? interaction.channel.name : "DM";
+        const guildName = ctx.guild ? ctx.guild.name : "DM";
+        const channelName = ctx.guild ? ctx.channel.name : "DM";
 
         console.log(`[${new Date().toLocaleDateString()}] [${new Date().toLocaleTimeString()}] [@${userTag}] [${guildName}] [${channelName}] : /${command.data.name}`
         );
 
         try {
             // execute command
-            await command.execute(interaction);
+            await command.execute(ctx);
 
             // add xp
             profile.rpg.xp += 100;
@@ -143,27 +143,27 @@ module.exports = {
 
             // level up message
             if (result.leveledUp) {
-                const levelMsg = `🎉 **${interaction.user} subiu para o nível ${result.level}**!`;
+                const levelMsg = `🎉 **${ctx.user} subiu para o nível ${result.level}**!`;
 
-                if (interaction.replied || interaction.deferred) {
-                    await interaction.followUp({
+                if (ctx.replied || ctx.deferred) {
+                    await ctx.followUp({
                         content: levelMsg
                     });
                 } else {
-                    await interaction.reply({
+                    await ctx.reply({
                         content: levelMsg
                     });
                 };
             };
         } catch (error) {
             console.error(error);
-            if (interaction.replied || interaction.deferred) {
-                await interaction.followUp({
+            if (ctx.replied || ctx.deferred) {
+                await ctx.followUp({
                     content: '[🔴] Erro ao executar o comando! [🔴]',
                     ephemeral: true
                 });
             } else {
-                await interaction.reply({
+                await ctx.reply({
                     content: '[🔴] Erro ao executar o comando! [🔴]',
                     ephemeral: true
                 });

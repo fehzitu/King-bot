@@ -6,13 +6,13 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('ajuda')
         .setDescription('Recebe ajuda sobre nosso sistema!'),
-    async execute(interaction) {
+    async execute(ctx) {
         // get the user
-        const user = interaction.user || interaction.author;
+        const user = ctx.user || ctx.author;
 
         // error log
         if (!user) {
-            console.log('Erro no usuário:', interaction);
+            console.log('Erro no usuário:', ctx);
             return;
         };
 
@@ -20,8 +20,8 @@ module.exports = {
         const embed = new Discord.MessageEmbed()
             .setColor('RANDOM')
             .setAuthor({
-                iconURL: `${interaction.user.displayAvatarURL()}`,
-                name: `@${interaction.user.username}`
+                iconURL: `${user.displayAvatarURL()}`,
+                name: `@${user.username}`
             })
             .addFields([{
                 name: '🥀 Em **qualquer servidor que eu estiver** basta **você utilizar** meu comando base pra **abrir o menu e interagir comigo** no chat.',
@@ -45,7 +45,7 @@ module.exports = {
         );
 
         // set the main message to be send
-        await interaction.reply({
+        await ctx.reply({
             embeds: [embed],
             components: row ? [row] : []
         });

@@ -17,16 +17,16 @@ const {
 
 module.exports = {
     name: 'messageCreate',
-    async execute(message) {
+    async execute(ctx) {
         // ignore bot messages
-        if (message.author.bot) return;
+        if (ctx.author.bot) return;
 
         // get user id and tag
-        const userId = message.author.id;
-        const userTag = message.author.tag;
+        const userId = ctx.author.id;
+        const userTag = ctx.author.tag;
 
         // load users database once
-        const users = message.client.usersData;
+        const users = ctx.client.usersData;
 
         // check if the user has a profile
         if (!users[userId]) {
@@ -59,9 +59,9 @@ module.exports = {
 
             // check xp result
             if (result.leveledUp) {
-                if (message.channel) {
+                if (ctx.channel) {
                     // safety check (future-proof for different channel types)
-                    message.channel.send(`🎉 **${message.author} subiu para o nível ${result.level}**!`);
+                    ctx.channel.send(`🎉 **${ctx.author} subiu para o nível ${result.level}**!`);
                 };
             };
 
@@ -70,16 +70,16 @@ module.exports = {
         };
 
         // log message info
-        const guildName = message.guild ? message.guild.name : "DM";
-        const channelName = message.guild ? message.channel.name : "DM";
+        const guildName = ctx.guild ? message.guild.name : "DM";
+        const channelName = ctx.guild ? message.channel.name : "DM";
 
-        console.log(`[${new Date().toLocaleDateString()}] [${new Date().toLocaleTimeString()}] [@${userTag}] [${guildName}] [${channelName}] : ${message.content}`);
+        console.log(`[${new Date().toLocaleDateString()}] [${new Date().toLocaleTimeString()}] [@${userTag}] [${guildName}] [${channelName}] : ${ctx.content}`);
 
         // commands prefix
         const prefix = "k.";
 
         // set message content to lower case
-        const content = message.content.toLowerCase();
+        const content = ctx.content.toLowerCase();
 
         // check if message starts with prefix
         if (!content.startsWith(prefix)) return;
@@ -89,7 +89,7 @@ module.exports = {
         const commandName = args.shift();
 
         // get command from collection
-        const command = message.client.prefixCommands.get(commandName);
+        const command = ctx.client.prefixCommands.get(commandName);
         if (!command) {
             console.log(`[🟡] Comando desconhecido: "${commandName}"`);
             return;
@@ -100,7 +100,7 @@ module.exports = {
 
         // execute command
         try {
-            await command.execute(message, args);
+            await command.execute(ctx, args);
         } catch (error) {
             console.error(error);
         };
