@@ -37,25 +37,6 @@ module.exports = {
     async execute(interaction) {
         // With this we can get the dynamic data, example "action:data"
         const [customId] = interaction.customId ? interaction.customId.split(':') : [];
-        
-        // get user id and tag
-        const userId = interaction.user.id;
-        const userTag = interaction.user.tag;
-
-        // load users database
-        const users = interaction.client.usersData;
-
-        // create profile if not exists
-        if (!users[userId]) {
-            users[userId] = defaultUser;
-
-            await saveJson(filePath, users);
-
-            console.log(`🏆 Novo perfil criado para ${userTag}`);
-        };
-
-        // get profile
-        const profile = users[userId];
 
         // button interaction
         if (interaction.isButton()) {
@@ -121,6 +102,25 @@ module.exports = {
             console.error(`[🔴] Comando não encontrado: "${interaction.commandName}"`);
             return;
         };
+
+        // get user id and tag
+        const userId = interaction.user.id;
+        const userTag = interaction.user.tag;
+
+        // load users database
+        const users = interaction.client.usersData;
+
+        // create profile if not exists
+        if (!users[userId]) {
+            users[userId] = defaultUser;
+
+            await saveJson(filePath, users);
+
+            console.log(`🏆 Novo perfil criado para ${userTag}`);
+        };
+
+        // get profile
+        const profile = users[userId];
 
         // increase command counter
         profile.stats.commands++;
