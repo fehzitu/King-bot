@@ -48,7 +48,7 @@ module.exports = {
         profile.stats.messages++;
         
         // increase money
-        profile.rpg.money += 25;
+        profile.rpg.money += 3;
 
         // XP system with cooldown (30 seconds)
         const now = Date.now();

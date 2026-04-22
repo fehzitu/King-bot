@@ -35,6 +35,25 @@ async function safeExecute(handler, interaction) {
 module.exports = {
     name: 'interactionCreate',
     async execute(interaction) {
+        // get user id and tag
+        const userId = interaction.user.id;
+        const userTag = interaction.user.tag;
+
+        // load users database
+        const users = interaction.client.usersData;
+
+        // create profile if not exists
+        if (!users[userId]) {
+            users[userId] = defaultUser;
+
+            await saveJson(filePath, users);
+
+            console.log(`🏆 Novo perfil criado para ${userTag}`);
+        };
+
+        // get profile
+        const profile = users[userId];
+
         // With this we can get the dynamic data, example "action:data"
         const [customId] = interaction.customId ? interaction.customId.split(':') : [];
 
@@ -103,30 +122,11 @@ module.exports = {
             return;
         };
 
-        // get user id and tag
-        const userId = interaction.user.id;
-        const userTag = interaction.user.tag;
-
-        // load users database
-        const users = interaction.client.usersData;
-
-        // create profile if not exists
-        if (!users[userId]) {
-            users[userId] = defaultUser;
-
-            await saveJson(filePath, users);
-
-            console.log(`🏆 Novo perfil criado para ${userTag}`);
-        };
-
-        // get profile
-        const profile = users[userId];
-
         // increase command counter
         profile.stats.commands++;
         
         // increase money
-        profile.rpg.money += 50;
+        profile.rpg.money += 5;
 
         // log command execution
         const guildName = interaction.guild ? interaction.guild.name : "DM";
