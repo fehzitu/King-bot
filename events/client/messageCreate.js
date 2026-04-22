@@ -70,8 +70,8 @@ module.exports = {
         };
 
         // log message info
-        const guildName = ctx.guild ? message.guild.name : "DM";
-        const channelName = ctx.guild ? message.channel.name : "DM";
+        const guildName = ctx.guild ? ctx.guild.name : "DM";
+        const channelName = ctx.guild ? ctx.channel.name : "DM";
 
         console.log(`[${new Date().toLocaleDateString()}] [${new Date().toLocaleTimeString()}] [@${userTag}] [${guildName}] [${channelName}] : ${ctx.content}`);
 

@@ -11,7 +11,7 @@ const foldersPath = path.join(__dirname, 'commands/slashCommands');
 
 // hardly filters pastes
 if (!fs.existsSync(foldersPath)) {
-    console.log('❌ Pasta "slashCommands" não encontrada.');
+    console.log('❌ Pasta "slashCommands" não encontrada');
     process.exit(0);
 };
 
@@ -20,7 +20,7 @@ const commandFolders = fs.readdirSync(foldersPath).filter(file =>
 );
 
 // log
-console.log('🔄 Iniciando leitura dos comandos.');
+console.log('🔄 Iniciando leitura dos comandos');
 
 // reading files
 for (const folder of commandFolders) {
@@ -31,7 +31,7 @@ for (const folder of commandFolders) {
 
     // check empty folders
     if (commandFiles.length === 0) {
-        console.log(`⚠ Pasta "${folder}" não possui comandos.`);
+        console.log(`⚠ Pasta "${folder}" não possui comandos`);
         continue;
     };
 
@@ -50,7 +50,7 @@ for (const folder of commandFolders) {
                 loadedInFolder++;
             } else {
                 // error log
-                console.warn(`⚠ Comando inválido em: ${filePath} (Está faltando "data" ou "execute").`);
+                console.warn(`⚠ Comando inválido em: ${filePath} (Está faltando "data" ou "execute")`);
             };
         } catch (err) {
             console.error(`❌ Erro ao carregar: ${filePath}\n`, err);
@@ -58,11 +58,11 @@ for (const folder of commandFolders) {
     };
 
     // log to valid commands
-    console.log(`📁 Pasta ${folder} tem: ${loadedInFolder}/${commandFiles.length} comandos válidos carregados.`);
+    console.log(`📁 Pasta ${folder} tem: ${loadedInFolder}/${commandFiles.length} comandos válidos`);
 };
 
 // log for ready commands
-console.log(`📦 Total de comandos preparados: ${commands.length}.`);
+console.log(`📦 Total de comandos preparados: ${commands.length}`);
 
 // discord API
 const rest = new REST({ version: '10' }).setToken(token);
@@ -71,7 +71,7 @@ const rest = new REST({ version: '10' }).setToken(token);
 (async () => {
     try {
         // strat log
-        console.log('🚀 Iniciando deploy dos comandos.');
+        console.log('🚀 Iniciando deploy dos comandos');
 
 		// defines a route to save the comands in the bot database
         const data = await rest.put(
@@ -82,7 +82,7 @@ const rest = new REST({ version: '10' }).setToken(token);
         );
 
         // final log
-        console.log(`📊 Comandos carregados: ${data.length}/${commands.length}.`);
+        console.log(`📊 Comandos carregados: ${data.length}/${commands.length}`);
 
     } catch (error) {
         // error on deploy commands
