@@ -39,7 +39,6 @@ module.exports = {
         
         // string list
         const list = topUsers.map(user => `**<@${user[0]}>** | Msg: **${user[1].stats.messages}** Cmd: **${user[1].stats.commands}**`).join('\n') || 'Nenhum usuário encontrado.';
-        console.log(list)
 
         // create an embed
         const embed = new Discord.MessageEmbed()

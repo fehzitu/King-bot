@@ -7,6 +7,15 @@ module.exports = {
         .setName('link')
         .setDescription('Link do nosso servidor de suporte!'),
     async execute(interaction) {
+        // get the user
+        const user = interaction.user || interaction.author;
+
+        // error log
+        if (!user) {
+            console.log('Erro no usuário:', interaction);
+            return;
+        };
+
         // create an embed
         const embed = new Discord.MessageEmbed()
             .setColor('RANDOM')
@@ -23,10 +32,22 @@ module.exports = {
             .setFooter({
                 text: 'Atualizado'
             });
+            
+        // create the row
+        let row = null;
+
+        // create some buttons inside a row
+        row = new Discord.MessageActionRow().addComponents(
+            new Discord.MessageButton()
+                .setCustomId(`page:menu:home:${user.id}`)
+                .setLabel('🏠')
+                .setStyle('PRIMARY')
+        );
 
         // set the main message to be send
         await interaction.reply({
-            embeds: [embed]
+            embeds: [embed],
+            components: row ? [row] : []
         });
     }
 };

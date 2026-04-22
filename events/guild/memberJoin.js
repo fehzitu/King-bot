@@ -20,7 +20,7 @@ module.exports = {
 		.setDescription(`📡 Salve **${member}**, tudo bom?`)
 		.addFields([{
 			name: `🛡 Tag:\n${member.user.tag}`,
-			value: `👥 **Id:**\n${member.id}`
+			value: `👥 **Id:\n${member.id}**`
 		}])
 		.setThumbnail(member.user.displayAvatarURL())
 		.setTimestamp()

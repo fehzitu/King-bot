@@ -51,7 +51,7 @@ module.exports = {
                 name: '**💰: Top dinheiro**',
                 value: list
             }])
-            .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1496007007562633331/mine-count.gif?ex=69e85099&is=69e6ff19&hm=aea942a8f1a39005d9ef604f42a5150503634b3caf2a2d0072494b6d7b2fe4ec&')
+            .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1496295806339383440/Money_Cash_GIF_-_Money_Cash_-_Discover__Share_GIFs.gif?ex=69e95d90&is=69e80c10&hm=84a3b747a6df8f17103153c24412c45e46719532faac0cb1475c64688ce841c8&')
             .setTimestamp()
             .setFooter({
                 text: 'Atualizado'

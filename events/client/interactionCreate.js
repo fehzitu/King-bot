@@ -124,6 +124,9 @@ module.exports = {
 
         // increase command counter
         profile.stats.commands++;
+        
+        // increase money
+        profile.rpg.money += 50;
 
         // log command execution
         const guildName = interaction.guild ? interaction.guild.name : "DM";
@@ -136,11 +139,8 @@ module.exports = {
             // execute command
             await command.execute(interaction);
 
-            // xp will be added to the user
-            const xpGain = 500;
-
             // add xp
-            profile.rpg.xp += xpGain;
+            profile.rpg.xp += 50;
 
             const result = checkLevelUp(profile);
 

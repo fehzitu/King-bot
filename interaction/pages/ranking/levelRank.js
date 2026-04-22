@@ -38,7 +38,7 @@ module.exports = {
         const topUsers = sortedUsers.slice(0, 5);
         
         // string list
-        const list = topUsers.map(user => `**<@${user[0]}>** | Lv.**${user[1].rpg.level}**`).join('\n') || 'Nenhum usuário encontrado.';
+        const list = topUsers.map(user => `**<@${user[0]}>** | Lv: **${user[1].rpg.level}** Xp: **${user[1].rpg.xp}**`).join('\n') || 'Nenhum usuário encontrado.';
 
         // create an embed
         const embed = new Discord.MessageEmbed()
