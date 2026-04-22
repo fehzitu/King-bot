@@ -1,18 +1,15 @@
 // discord implements
 const Discord = require('discord.js');
-const { SlashCommandBuilder } = require('@discordjs/builders');
 
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('ajuda')
-        .setDescription('Recebe ajuda sobre nosso sistema!'),
-    async execute(interaction) {
+    name: 'help',
+    execute(ctx) {
         // get the user
-        const user = interaction.user || interaction.author;
+        const user = ctx.user || ctx.author;
 
         // error log
         if (!user) {
-            console.log('Erro no usuário:', interaction);
+            console.log('Erro no usuário:', ctx);
             return;
         };
 
@@ -20,8 +17,8 @@ module.exports = {
         const embed = new Discord.MessageEmbed()
             .setColor('RANDOM')
             .setAuthor({
-                iconURL: `${interaction.user.displayAvatarURL()}`,
-                name: `@${interaction.user.username}`
+                iconURL: user.displayAvatarURL(),
+                name: `@${user.username}`
             })
             .addFields([{
                 name: '🥀 Em **qualquer servidor que eu estiver** basta **você utilizar** meu comando base pra **abrir o menu e interagir comigo** no chat.',
@@ -44,10 +41,9 @@ module.exports = {
                 .setStyle('PRIMARY')
         );
 
-        // set the main message to be send
-        await interaction.reply({
-            embeds: [embed],
+        return {
+            embed,
             components: row ? [row] : []
-        });
+        };
     }
 };
