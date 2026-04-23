@@ -42,10 +42,9 @@ module.exports = {
                 .setDisabled(true),
 
             new Discord.MessageButton()
-                .setCustomId(`page:menu:message:${user.id}`)
+                .setCustomId(`page:menu:commands:${user.id}`)
                 .setLabel('📄')
-                .setStyle('PRIMARY')
-                .setDisabled(true),
+                .setStyle('PRIMARY'),
 
             new Discord.MessageButton()
                 .setCustomId(`page:menu:ranking:${user.id}`)

@@ -49,7 +49,7 @@ module.exports = {
                 .setCustomId(`page:ranking:messageRank:${user.id}`)
                 .setLabel('💬')
                 .setStyle('PRIMARY'),
-                
+
             new Discord.MessageButton()
                 .setCustomId(`page:menu:home:${user.id}`)
                 .setLabel('↩️')
