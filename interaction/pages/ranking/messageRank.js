@@ -74,8 +74,9 @@ module.exports = {
 
             new Discord.MessageButton()
                 .setCustomId(`page:ranking:messageRank:${user.id}`)
-                .setLabel('🔄')
-                .setStyle('PRIMARY'),
+                .setLabel('💬')
+                .setStyle('PRIMARY')
+                .setDisabled(true),
             
             new Discord.MessageButton()
                 .setCustomId(`page:menu:ranking:${user.id}`)

@@ -27,16 +27,16 @@ module.exports = {
             console.log('Erro no usuário:', ctx);
             return;
         };
-        
+
         // load all the users
         const usersObject = loadJson(filePath);
-        
+
         // sort user list
         const sortedUsers = sortUsers(usersObject, 'rpg.level');
-        
+
         // get only 5 users
         const topUsers = sortedUsers.slice(0, 5);
-        
+
         // string list
         const list = topUsers.map(user => `**<@${user[0]}>** | Lv: **${user[1].rpg.level}** Xp: **${user[1].rpg.xp}**`).join('\n') || 'Nenhum usuário encontrado.';
 
@@ -69,14 +69,15 @@ module.exports = {
 
             new Discord.MessageButton()
                 .setCustomId(`page:ranking:levelRank:${user.id}`)
-                .setLabel('🔄')
-                .setStyle('PRIMARY'),
+                .setLabel('📈')
+                .setStyle('PRIMARY')
+                .setDisabled(true),
 
             new Discord.MessageButton()
                 .setCustomId(`page:ranking:messageRank:${user.id}`)
                 .setLabel('💬')
                 .setStyle('PRIMARY'),
-            
+
             new Discord.MessageButton()
                 .setCustomId(`page:menu:ranking:${user.id}`)
                 .setLabel('↩️')

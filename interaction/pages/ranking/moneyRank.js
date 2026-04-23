@@ -64,8 +64,9 @@ module.exports = {
         row = new Discord.MessageActionRow().addComponents(
             new Discord.MessageButton()
                 .setCustomId(`page:ranking:moneyRank:${user.id}`)
-                .setLabel('🔄')
-                .setStyle('PRIMARY'),
+                .setLabel('💰')
+                .setStyle('PRIMARY')
+                .setDisabled(true),
 
             new Discord.MessageButton()
                 .setCustomId(`page:ranking:levelRank:${user.id}`)
