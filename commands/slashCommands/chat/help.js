@@ -32,7 +32,7 @@ module.exports = {
             .setFooter({
                 text: 'Atualizado'
             });
-            
+
         // create the row
         let row = null;
 

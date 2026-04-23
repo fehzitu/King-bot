@@ -31,9 +31,21 @@ module.exports = {
                 text: 'Atualizado'
             });
 
-        // response
+        // create the row
+        let row = null;
+
+        // create some buttons inside a row
+        row = new Discord.MessageActionRow().addComponents(
+            new Discord.MessageButton()
+                .setCustomId(`page:menu:home:${user.id}`)
+                .setLabel('🏠')
+                .setStyle('PRIMARY')
+        );
+
+        // set the main message to be send
         await ctx.reply({
-            embeds: [embed]
+            embeds: [embed],
+            components: row ? [row] : []
         });
     }
 };
