@@ -31,7 +31,7 @@ module.exports = {
             });
 
         // create some buttons inside a row
-        let row1 = new Discord.MessageActionRow().addComponents(
+        const row1 = new Discord.MessageActionRow().addComponents(
             new Discord.MessageButton()
                 .setCustomId(`page:menu:profile:${user.id}`)
                 .setLabel('👤')
@@ -58,7 +58,7 @@ module.exports = {
                 .setStyle('PRIMARY')
         );
 
-        let row2 = new Discord.MessageActionRow().addComponents(
+        const row2 = new Discord.MessageActionRow().addComponents(
             new Discord.MessageButton()
                 .setCustomId(`page:games:gamelist:${user.id}`)
                 .setLabel('🎮')

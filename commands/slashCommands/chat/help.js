@@ -33,11 +33,8 @@ module.exports = {
                 text: 'Atualizado'
             });
 
-        // create the row
-        let row = null;
-
         // create some buttons inside a row
-        row = new Discord.MessageActionRow().addComponents(
+        const row = new Discord.MessageActionRow().addComponents(
             new Discord.MessageButton()
                 .setCustomId(`page:menu:home:${user.id}`)
                 .setLabel('🏠')
