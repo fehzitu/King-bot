@@ -193,7 +193,7 @@ setInterval(async () => {
     } catch (err) {
         console.error("👾 Erro ao salvar usuários:", err);
     };
-}, 15000);
+}, 30000);
 
 // login with bot data/info
 client.login(Token.token);
