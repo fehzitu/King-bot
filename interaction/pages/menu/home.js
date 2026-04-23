@@ -60,10 +60,9 @@ module.exports = {
 
         const row2 = new Discord.MessageActionRow().addComponents(
             new Discord.MessageButton()
-                .setCustomId(`page:games:gamelist:${user.id}`)
+                .setCustomId(`page:games:gamesList:${user.id}`)
                 .setLabel('🎮')
                 .setStyle('PRIMARY')
-                .setDisabled(true)
         );
 
         return {
