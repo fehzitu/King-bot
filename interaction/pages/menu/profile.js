@@ -10,6 +10,9 @@ const filePath = path.join(__dirname, '../../../users.json');
 
 // importing custom functions
 const {
+    defaultUser
+} = require(path.join(__dirname, '../../../functions/levelSystem.js'));
+const {
     loadJson
 } = require(path.join(__dirname, '../../../functions/jsonHandler.js'));
 
@@ -29,18 +32,7 @@ module.exports = {
         const usersObject = loadJson(filePath);
 
         // get the user
-        const rpgUser = usersObject[user.id] || {
-            profileCreatedAt: new Date().toISOString(),
-            rpg: {
-                money: 100,
-                level: 1,
-                xp: 0
-            },
-            stats: {
-                messages: 0,
-                commands: 0
-            }
-        };
+        const rpgUser = usersObject[user.id] || defaultUser;
 
         // create an embed
         const embed = new Discord.MessageEmbed()
@@ -50,8 +42,8 @@ module.exports = {
                 name: `@${user.username}`
             })
             .addFields([{
-                name: `**👤 ${user.globalName} (${user.username})**`,
-                value: `**⏳ Lv.${rpgUser.rpg.level} 『 ${rpgUser.rpg.xp}xp / ${Math.floor(100 * Math.pow(rpgUser.rpg.level + 1, 1.5))}xp 』\n💰 Saldo: R$${rpgUser.rpg.money}\n📚 Msgs: ${rpgUser.stats.messages} Cmds: ${rpgUser.stats.commands}**`
+                name: `**👤Usuário: ${user.globalName} __(${user.username})__**`,
+                value: `> ⏳ Lv.${rpgUser.rpg.level}『 ${rpgUser.rpg.xp}xp / ${Math.floor(100 * Math.pow(rpgUser.rpg.level + 1, 1.5))}xp 』\n> 💰 Saldo: R$${rpgUser.rpg.money}\n> 📚 Mensagens: ${rpgUser.stats.messages} Comandos: ${rpgUser.stats.commands}\n> 💎 Medalhas:『${rpgUser.rpg.medals}』`
             }])
             .setImage('https://i.pinimg.com/originals/fb/7d/25/fb7d25365c6f2deca04b86f35c8fee63.gif')
             .setTimestamp()

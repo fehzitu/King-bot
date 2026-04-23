@@ -4,7 +4,8 @@ const defaultUser = {
     rpg: {
         money: 100,
         level: 1,
-        xp: 0
+        xp: 0,
+        medals: []
     },
     stats: {
         messages: 0,
