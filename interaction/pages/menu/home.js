@@ -38,8 +38,7 @@ module.exports = {
             new Discord.MessageButton()
                 .setCustomId(`page:menu:profile:${user.id}`)
                 .setLabel('👤')
-                .setStyle('PRIMARY')
-                .setDisabled(true),
+                .setStyle('PRIMARY'),
 
             new Discord.MessageButton()
                 .setCustomId(`page:menu:commands:${user.id}`)
