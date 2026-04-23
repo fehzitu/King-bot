@@ -1,16 +1,9 @@
 // discord implements
 const Discord = require('discord.js');
 
-// node file system
-const fs = require('fs');
-const path = require('path');
-
-// rules file
-const filePath = path.join(__dirname, 'complements/rules.json');
-
 module.exports = {
     // "name" will receive the value that will be the chat message that the bot captures as a command
-    name: 'regras',
+    name: 'admin',
     async execute(ctx) {
         // get the user
         const user = ctx.user || ctx.author;
@@ -21,10 +14,6 @@ module.exports = {
             return;
         };
 
-        // reading the file in real time
-        const rawData = fs.readFileSync(filePath, 'utf8');
-        const data = JSON.parse(rawData);
-
         // create an embed
         const embed = new Discord.MessageEmbed()
             .setColor('RANDOM')
@@ -32,8 +21,11 @@ module.exports = {
                 iconURL: user.displayAvatarURL(),
                 name: `@${user.username}`
             })
-            .addFields(data)
-            .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1491798480581296308/mBOLoZc.gif?ex=69d9011a&is=69d7af9a&hm=6b89d1b6723910aa80b309722db1f5abd40753b2e1872e32622e152787e6fc33&')
+            .addFields([{
+                name: '**TU ACHOU MESMO QUE TERIA ISSO LIVREMENTE ASSIM?!**',
+                value: 'KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK'
+            }])
+            .setImage('https://wallpapers.com/images/high/troll-face-typing-gif-fb3m9a4czeu0d36a.webp')
             .setTimestamp()
             .setFooter({
                 text: 'Atualizado'
