@@ -1,6 +1,9 @@
 // discord implements
 const Discord = require('discord.js');
 
+// node file system
+const path = require('path');
+
 // importing custom functions from other file
 const {
     defaultUser
@@ -34,9 +37,9 @@ module.exports = {
         const users = ctx.client.usersData;
 
         // fix user
-        if (!users[userId]) {
+        if (!users[user.id]) {
             // create new profile
-            users[userId] = defaultUser;
+            users[user.id] = defaultUser;
         };
 
         // get user profile
