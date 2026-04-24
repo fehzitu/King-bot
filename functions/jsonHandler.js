@@ -9,7 +9,7 @@ function loadJson(path, defaultData = {}) {
     try {
         // check if file exists, if not create it with default data
         if (!fs.existsSync(path)) {
-            fs.writeFileSync(path, JSON.stringify(defaultData, null, 2));
+            fs.writeFileSync(path, JSON.stringify(defaultData, null, 4));
             return defaultData;
         };
 
@@ -25,7 +25,7 @@ function loadJson(path, defaultData = {}) {
 
         // rewrite file with default data if corrupted
         try {
-            fs.writeFileSync(path, JSON.stringify(defaultData, null, 2));
+            fs.writeFileSync(path, JSON.stringify(defaultData, null, 4));
         } catch (writeErr) {
             console.error("Error rewriting JSON file:", writeErr);
         };
@@ -38,7 +38,7 @@ function loadJson(path, defaultData = {}) {
 // function to safely save json data
 function saveJson(path, data) {
     // convert object to formatted json string
-    const json = JSON.stringify(data, null, 2);
+    const json = JSON.stringify(data, null, 4);
 
     // get previous write promise for this path (or empty promise)
     const previous = writeQueue.get(path) || Promise.resolve();
