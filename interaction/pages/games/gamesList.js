@@ -22,7 +22,7 @@ module.exports = {
             })
             .addFields([{
                 name: '**🎮 Lista completa dos jogos!**',
-                value: '> 💸 **``Aposta R$50 no coinflip``**'
+                value: '> 💸 **``Apostar R$50 no coinflip``**'
             }])
             .setImage('https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYWJpN3hqM3kxaG5pZHRvZmNnd2psMjJvdXpoanQwOTJ2bHl2cHNidSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZEkQofMp9jWhvPHj8C/giphy.gif')
             .setTimestamp()

@@ -48,7 +48,7 @@ module.exports = {
                 name: `@${user.username}`
             })
             .addFields([{
-                name: '**💰: Top dinheiro**',
+                name: '**💰 Top dinheiro**',
                 value: list
             }])
             .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1496295806339383440/Money_Cash_GIF_-_Money_Cash_-_Discover__Share_GIFs.gif?ex=69e95d90&is=69e80c10&hm=84a3b747a6df8f17103153c24412c45e46719532faac0cb1475c64688ce841c8&')

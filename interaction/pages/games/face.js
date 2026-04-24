@@ -71,7 +71,7 @@ module.exports = {
                 .setDisabled(true),
 
             new Discord.MessageButton()
-                .setCustomId(`page:games:coinflip:${user.id}`)
+                .setCustomId(`page:games:gamesList:${user.id}`)
                 .setLabel('↩️')
                 .setStyle('PRIMARY')
         );
@@ -92,7 +92,7 @@ module.exports = {
             
             row = new Discord.MessageActionRow().addComponents(
                 new Discord.MessageButton()
-                    .setCustomId(`page:games:coinflip:${user.id}`)
+                    .setCustomId(`page:games:gamesList:${user.id}`)
                     .setLabel('↩️')
                     .setStyle('PRIMARY')
             );
