@@ -46,6 +46,11 @@ module.exports = {
             new Discord.MessageButton()
                 .setCustomId(`page:games:gamesList:${user.id}`)
                 .setLabel('↩️')
+                .setStyle('PRIMARY'),
+
+            new Discord.MessageButton()
+                .setCustomId(`page:menu:home:${user.id}`)
+                .setLabel('🏠')
                 .setStyle('PRIMARY')
         );
 
