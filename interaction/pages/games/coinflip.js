@@ -35,8 +35,7 @@ module.exports = {
             new Discord.MessageButton()
                 .setCustomId(`page:games:face:${user.id}`)
                 .setLabel('👨')
-                .setStyle('PRIMARY')
-                .setDisabled(true),
+                .setStyle('PRIMARY'),
 
             new Discord.MessageButton()
                 .setCustomId(`page:games:crown:${user.id}`)

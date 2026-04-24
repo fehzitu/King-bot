@@ -2,7 +2,6 @@
 const Discord = require('discord.js');
 
 // node normal importations
-const fs = require('node:fs');
 const path = require('node:path');
 
 // database json file
