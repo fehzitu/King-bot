@@ -53,6 +53,11 @@ module.exports = {
         // create some buttons inside a row
         const row = new Discord.MessageActionRow().addComponents(
             new Discord.MessageButton()
+                .setCustomId(`page:menu:profile:${user.id}`)
+                .setLabel('🔄')
+                .setStyle('PRIMARY'),
+            
+            new Discord.MessageButton()
                 .setCustomId(`page:menu:home:${user.id}`)
                 .setLabel('↩️')
                 .setStyle('PRIMARY')
