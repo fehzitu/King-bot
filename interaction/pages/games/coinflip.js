@@ -2,7 +2,7 @@
 const Discord = require('discord.js');
 
 module.exports = {
-    name: 'gamesList',
+    name: 'coinflip',
     execute(ctx) {
         // get the user
         const user = ctx.user || ctx.author;
@@ -21,10 +21,10 @@ module.exports = {
                 name: `@${user.username}`
             })
             .addFields([{
-                name: '**🎮 Lista completa dos jogos!**',
-                value: '> 💸 **- ``Aposta R$50 no coinflip``**'
+                name: '**💸 Deseja apostar R$50?**',
+                value: '> 👨 **Apostar em cara ``taxa de sucesso 50%``**\n> 👑 **Apostar em coroa ``taxa de sucesso 50%``**'
             }])
-            .setImage('https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYWJpN3hqM3kxaG5pZHRvZmNnd2psMjJvdXpoanQwOTJ2bHl2cHNidSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZEkQofMp9jWhvPHj8C/giphy.gif')
+            .setImage('https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHgzem04dHE5aTFhbnp4eGhhc3Y2bnoxaW0xcW55b3dnYW9pcWRkbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/SABvdsgeZrcu4SbdA6/giphy.gif')
             .setTimestamp()
             .setFooter({
                 text: 'Atualizado'
@@ -33,12 +33,19 @@ module.exports = {
         // create some buttons inside a row
         const row = new Discord.MessageActionRow().addComponents(
             new Discord.MessageButton()
-                .setCustomId(`page:games:coinflip:${user.id}`)
-                .setLabel('💸')
-                .setStyle('PRIMARY'),
+                .setCustomId(`page:games:face:${user.id}`)
+                .setLabel('👨')
+                .setStyle('PRIMARY')
+                .setDisabled(true),
 
             new Discord.MessageButton()
-                .setCustomId(`page:menu:home:${user.id}`)
+                .setCustomId(`page:games:crown:${user.id}`)
+                .setLabel('👑')
+                .setStyle('PRIMARY')
+                .setDisabled(true),
+
+            new Discord.MessageButton()
+                .setCustomId(`page:games:gamesList:${user.id}`)
                 .setLabel('↩️')
                 .setStyle('PRIMARY')
         );
