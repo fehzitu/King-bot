@@ -61,11 +61,16 @@ module.exports = {
         const page = pages[key];
         if (!page) return;
 
+        // interaction ack
+        if (!interaction.deferred && !interaction.replied) {
+            await interaction.deferUpdate();
+        };
+
         // execute the page
         const { embed, components } = page.execute(interaction);
 
         // load messagem
-        return interaction.update({
+        return interaction.message.edit({
             embeds: [embed],
             components
         });
