@@ -15,6 +15,11 @@ const {
     saveJson
 } = require(path.join(__dirname, '../../functions/jsonHandler.js'));
 
+// helper
+const {
+    safeEdit
+} = require(path.join(__dirname, '../../utils/messageHelper.js'));
+
 // universal handler for components
 async function safeExecute(handler, ctx) {
     try {
@@ -74,12 +79,9 @@ module.exports = {
 
             const { embeds = [], components = [], content } = result;
 
-            if (!ctx.deferred && !ctx.replied) {
-                await ctx.deferUpdate();
-            };
-
-            await ctx.message.edit({
-                content: content ?? undefined,
+            // handler universal
+            await safeEdit(ctx, {
+                content,
                 embeds,
                 components
             });
@@ -105,12 +107,9 @@ module.exports = {
 
             const { embeds = [], components = [], content } = result;
 
-            if (!ctx.deferred && !ctx.replied) {
-                await ctx.deferUpdate();
-            };
-
-            await ctx.message.edit({
-                content: content ?? undefined,
+            // handler universal
+            await safeEdit(ctx, {
+                content,
                 embeds,
                 components
             });
@@ -136,19 +135,12 @@ module.exports = {
 
             const { embeds = [], components = [], content } = result;
 
-            if (ctx.replied || ctx.deferred) {
-                await ctx.followUp({
-                    content: content ?? undefined,
-                    embeds,
-                    components
-                });
-            } else {
-                await ctx.reply({
-                    content: content ?? undefined,
-                    embeds,
-                    components
-                });
-            };
+            // handler universal
+            await safeEdit(ctx, {
+                content,
+                embeds,
+                components
+            });
 
             // stop interaction
             return;
@@ -182,19 +174,12 @@ module.exports = {
             if (result) {
                 const { embeds = [], components = [], content } = result;
 
-                if (ctx.replied || ctx.deferred) {
-                    await ctx.followUp({
-                        content: content ?? undefined,
-                        embeds,
-                        components
-                    });
-                } else {
-                    await ctx.reply({
-                        content: content ?? undefined,
-                        embeds,
-                        components
-                    });
-                };
+                // handler universal
+                await safeEdit(ctx, {
+                    content,
+                    embeds,
+                    components
+                });
             };
 
             // add xp
