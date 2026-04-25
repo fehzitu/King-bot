@@ -15,11 +15,6 @@ const {
     saveJson
 } = require(path.join(__dirname, '../../functions/jsonHandler.js'));
 
-// helper
-const {
-    safeEdit
-} = require(path.join(__dirname, '../../utils/messageHelper.js'));
-
 // universal handler for components
 async function safeExecute(handler, ctx) {
     try {
@@ -79,13 +74,6 @@ module.exports = {
 
             const { embeds = [], components = [], content } = result;
 
-            // handler universal
-            await safeEdit(ctx, {
-                content,
-                embeds,
-                components
-            });
-
             // stop execution here
             return;
         };
@@ -107,13 +95,6 @@ module.exports = {
 
             const { embeds = [], components = [], content } = result;
 
-            // handler universal
-            await safeEdit(ctx, {
-                content,
-                embeds,
-                components
-            });
-
             // stop interaction here
             return;
         };
@@ -134,13 +115,6 @@ module.exports = {
             if (!result) return;
 
             const { embeds = [], components = [], content } = result;
-
-            // handler universal
-            await safeEdit(ctx, {
-                content,
-                embeds,
-                components
-            });
 
             // stop interaction
             return;
@@ -173,13 +147,6 @@ module.exports = {
 
             if (result) {
                 const { embeds = [], components = [], content } = result;
-
-                // handler universal
-                await safeEdit(ctx, {
-                    content,
-                    embeds,
-                    components
-                });
             };
 
             // add xp
