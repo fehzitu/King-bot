@@ -2,11 +2,11 @@
 const defaultUser = {
     profileCreatedAt: new Date().toISOString(),
     rpg: {
-        money: 100,
         level: 1,
         xp: 0,
-        medals: [],
-        karma: '🤍'
+        karma: '🤍',
+        money: 100,
+        medals: []
     },
     stats: {
         messages: 0,
