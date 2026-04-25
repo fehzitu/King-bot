@@ -1,70 +1,45 @@
 const Discord = require('discord.js');
 
+function hasVisibleContent(data) {
+    return Boolean(
+        data.title ||
+        data.description ||
+        (data.fields && data.fields.length > 0) ||
+        data.image ||
+        data.thumbnail ||
+        data.author ||
+        data.footer
+    );
+};
+
 function normalizeEmbeds(embeds = []) {
     return embeds.map(embed => {
         if (!embed) return embed;
 
-        // transform to JSON
         const data = embed instanceof Discord.MessageEmbed
             ? embed.toJSON()
             : embed;
 
-        // valid descriptions
+        // remove empty description
         if (!data.description || data.description.trim() === '') {
-            data.description = '\u200b';
+            delete data.description;
         };
 
-        // valids fields
+        // remove empty fields
         if (data.fields && data.fields.length === 0) {
             delete data.fields;
         };
 
+        // 🧠 if there is NO visible content → force description
+        if (!hasVisibleContent(data)) {
+            data.description = '\u200b';
+        };
+
+        // 🧠 special case: fields without description (common Discord issue)
+        if (data.fields && !data.description) {
+            data.description = '\u200b';
+        };
+
         return data;
     });
-};
-
-async function safeEdit(ctx, options = {}) {
-    let {
-        embeds = [],
-        components,
-        content
-    } = options;
-
-    // clean components
-    if (components === undefined) components = [];
-
-    const payload = {
-        embeds: normalizeEmbeds(embeds),
-        components
-    };
-
-    // check if we have content to use
-    if (typeof content === 'string' && content.trim() !== '') {
-        payload.content = content;
-    };
-
-    // button
-    if (ctx.isButton && ctx.isButton()) {
-        if (!ctx.deferred && !ctx.replied) {
-            await ctx.deferUpdate();
-        };
-
-        return ctx.message.edit(payload);
-    };
-
-    // interaction
-    if (ctx.reply) {
-        if (ctx.replied || ctx.deferred) {
-            return ctx.followUp(payload);
-        };
-
-        return ctx.reply(payload);
-    };
-
-    // fallback
-    return ctx.channel.send(payload);
-};
-
-module.exports = {
-    safeEdit
 };

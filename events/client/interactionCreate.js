@@ -23,7 +23,7 @@ const {
 // universal handler for components
 async function safeExecute(handler, ctx) {
     try {
-        return await handler.execute(ctx); // ✅ AGORA RETORNA
+        return await handler.execute(ctx);
     } catch (error) {
         console.error(error);
 
