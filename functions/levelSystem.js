@@ -6,7 +6,7 @@ const defaultUser = {
         level: 1,
         xp: 0,
         medals: [],
-        state: '🤍'
+        karma: '🤍'
     },
     stats: {
         messages: 0,
