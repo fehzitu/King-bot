@@ -48,7 +48,10 @@ module.exports = {
                 .setTimestamp()
                 .setFooter({ text: 'Atualizado' });
 
-            return ctx.reply({ embeds: [embed] });
+            return ctx.reply({
+                embeds: [embed],
+                components: []
+            });
         };
 
         // game logic
