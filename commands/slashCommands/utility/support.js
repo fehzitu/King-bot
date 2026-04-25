@@ -25,7 +25,7 @@ module.exports = {
             })
             .addFields([{
                 name: `👑 **Drakay**, nosso servidor de suporte!`,
-                value: "🔗 **https://discord.gg/Wpgu4qXWUk**"
+                value: '🔗 **https://discord.gg/Wpgu4qXWUk**'
             }])
             .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1491798798505082920/images_2.jpeg?ex=69d90165&is=69d7afe5&hm=03c7377c4333769a4dc11c52413d49aa3c3f6fdc3cbf5b3c006b42c11fbf30e3')
             .setTimestamp()

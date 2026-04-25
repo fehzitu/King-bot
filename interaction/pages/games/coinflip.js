@@ -21,8 +21,8 @@ module.exports = {
                 name: `@${user.username}`
             })
             .addFields([{
-                name: '**💸 Deseja apostar R$50?**',
-                value: '> 👨 **Apostar em cara ``taxa de sucesso 50%``**\n> 👑 **Apostar em coroa ``taxa de sucesso 50%``**'
+                name: '**💸 Deseja apostar na moeda?**',
+                value: '>>> 👨 **Lucro de: 2x do valor ``taxa de sucesso 50%``**\n👑 **Perca total do valor ``taxa de sucesso 50%``**'
             }])
             .setImage('https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHgzem04dHE5aTFhbnp4eGhhc3Y2bnoxaW0xcW55b3dnYW9pcWRkbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/SABvdsgeZrcu4SbdA6/giphy.gif')
             .setTimestamp()
@@ -31,17 +31,39 @@ module.exports = {
             });
 
         // create some buttons inside a row
-        const row = new Discord.MessageActionRow().addComponents(
+        const row1 = new Discord.MessageActionRow().addComponents(
             new Discord.MessageButton()
-                .setCustomId(`page:games:face:${user.id}`)
-                .setLabel('👨')
+                .setCustomId(`page:games:coinflipResult:${user.id}:50`)
+                .setLabel('R$50,00')
                 .setStyle('PRIMARY'),
 
             new Discord.MessageButton()
-                .setCustomId(`page:games:crown:${user.id}`)
-                .setLabel('👑')
+                .setCustomId(`page:games:coinflipResult:${user.id}:100`)
+                .setLabel('R$100,00')
                 .setStyle('PRIMARY'),
+            //.setDisabled(true),
 
+            new Discord.MessageButton()
+                .setCustomId(`page:games:coinflipResult:${user.id}:500`)
+                .setLabel('R$500,00')
+                .setStyle('PRIMARY')
+                .setDisabled(true),
+
+            new Discord.MessageButton()
+                .setCustomId(`page:games:coinflipResult:${user.id}:1000`)
+                .setLabel('R$1000,00')
+                .setStyle('PRIMARY')
+                .setDisabled(true),
+
+            new Discord.MessageButton()
+                .setCustomId(`page:games:coinflipResult:${user.id}:5000`)
+                .setLabel('R$5000,00')
+                .setStyle('PRIMARY')
+                .setDisabled(true)
+        );
+
+        // create some buttons inside a row
+        const row2 = new Discord.MessageActionRow().addComponents(
             new Discord.MessageButton()
                 .setCustomId(`page:games:gamesList:${user.id}`)
                 .setLabel('↩️')
@@ -55,7 +77,7 @@ module.exports = {
 
         return {
             embed,
-            components: row ? [row] : []
+            components: [row1, row2]
         };
     }
 };

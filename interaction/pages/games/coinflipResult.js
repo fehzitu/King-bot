@@ -10,10 +10,13 @@ const {
 } = require(path.join(__dirname, '../../../functions/levelSystem.js'));
 
 module.exports = {
-    name: 'crown',
+    name: 'coinflipResult',
     execute(ctx) {
         // get the user
         const user = ctx.user || ctx.author;
+
+        // get the button custom id valules
+        const [system, category, pageName, userId, value] = ctx.customId.split(':');
 
         // error log
         if (!user) {
@@ -25,7 +28,7 @@ module.exports = {
         const randomValue = Math.floor(Math.random() * 2);
 
         // embed itens
-        const titles = ['> 👑 **Caiu __coroa__ você ganhou R$100**\n> 🟢 ``Você apostou R$50 (-R$50)!``\n> 👍 ``Lucro: R$100``', '> 👨 **Caiu __cara__ você perdeu R$50**\n> 🔴 ``Você apostou R$50 (-R$50)!``\n> 👎 ``Lucro: R$0``'];
+        const titles = [`>>> 👨 **Caiu __cara__ você ganhou R$${value * 2}**\n🟢 Você apostou R$${value} (-R$${value})!\n👍 Lucro: R$${value * 2}`, `>>> 👑 **Caiu __coroa__ você perdeu R$${value}**\n🔴 Você apostou R$${value} (-R$${value})!\n👎 Lucro: R$0`];
         const imgs = ['https://cdn.discordapp.com/attachments/1477290272638632068/1497067466361143326/2026-04-24-ganhou.gif?ex=69ec2c3a&is=69eadaba&hm=c5e0bcd210aaec5e246f9ee0ee0cad59a9841791ffab4d7f8054230a71219e8d&', 'https://cdn.discordapp.com/attachments/1477290272638632068/1497067466654879834/2026-04-24-perdeu.gif?ex=69ec2c3a&is=69eadaba&hm=078a35700ee10c5a714a8d58ab51991710cf3773de73bce50f9bac2b2c9dc305&'];
         const color = ['GREEN', 'RED'];
 
@@ -77,7 +80,7 @@ module.exports = {
         );
 
         // check user money
-        if (profile.rpg.money < 50) {
+        if (profile.rpg.money < value) {
             embed = new Discord.MessageEmbed()
                 .setColor('RANDOM')
                 .setAuthor({
@@ -104,10 +107,10 @@ module.exports = {
         };
 
         // user pay
-        if (profile.rpg.money >= 50) profile.rpg.money -= 50;
+        if (profile.rpg.money >= value) profile.rpg.money -= value;
 
         // pay to user
-        if (randomValue == 0) profile.rpg.money += 100;
+        if (randomValue == 0) profile.rpg.money += (value * 2);
 
         return {
             embed,

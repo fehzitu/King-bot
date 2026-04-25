@@ -21,8 +21,8 @@ module.exports = {
                 name: `@${user.username}`
             })
             .addFields([{
-                name: "**📄 Lista completa dos comandos!**",
-                value: "**🇰.admin - ``Acessa o menu administrativo``\n🇰.menu - ``Acessa o menu principal``**"
+                name: '**📄 Lista completa dos comandos!**',
+                value: '>>> **🇰.admin - ``Acessa o menu administrativo``\n🇰.menu - ``Acessa o menu principal``**'
             }])
             .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1496841750462074880/1_Awi84KRY_5cFk9P0cIhtrw.gif?ex=69eb5a03&is=69ea0883&hm=a9504132fccc4380b23edea6bda87c84e09445b4ae7da996ddbfb743c55b31f9')
             .setTimestamp()

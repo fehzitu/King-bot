@@ -45,7 +45,7 @@ loadPages(pagesPath);
 module.exports = {
     name: 'page',
     async execute(interaction) {
-        // pages system:<folder>:<file>:<user id>
+        // pages system:<folder>:<file>:<user id>:value
         const [system, category, pageName, userId] = interaction.customId.split(':');
 
         // security
