@@ -34,7 +34,7 @@ This project focuses not only on features, but also on code quality, structure, 
 - [x] Fun commands
 - [x] Automatic logs
 - [x] Leveling system
-- [ ] Economy system
+- [x] Economy system
 - [ ] Persistent log
 - [ ] Moderation system
 - [ ] Database integration (future)
