@@ -87,7 +87,7 @@ module.exports = {
                     iconURL: user.displayAvatarURL(),
                     name: `@${user.username}`
                 })
-                .setTitle('❌ **Saldo insuficiente!**')
+                .setTitle('> ❌ **Saldo insuficiente!**')
                 .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1497721785477759206/wallet-penacony.gif?ex=69ee8d9b&is=69ed3c1b&hm=d921d7b4b91f99be8cf03616695cbf495307ed674a5e6946e6e5fccaa4ea9a48')
                 .setTimestamp()
                 .setFooter({
