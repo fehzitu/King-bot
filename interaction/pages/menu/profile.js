@@ -21,6 +21,9 @@ module.exports = {
         // get the user and client
         const user = ctx.user || ctx.author;
 
+        // get the client
+        const client = ctx.client;
+
         // error log
         if (!user) {
             console.log('Erro no usuário:', ctx);
@@ -28,7 +31,7 @@ module.exports = {
         };
 
         // load all the users
-        const usersObject = loadJson(filePath);
+        const usersObject = client.usersData;
 
         // get the user
         const rpgUser = usersObject[user.id] || defaultUser;
@@ -56,7 +59,7 @@ module.exports = {
                 .setCustomId(`page:menu:profile:${user.id}`)
                 .setLabel('🔄')
                 .setStyle('PRIMARY'),
-            
+
             new Discord.MessageButton()
                 .setCustomId(`page:menu:home:${user.id}`)
                 .setLabel('↩️')

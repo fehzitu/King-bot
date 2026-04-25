@@ -41,25 +41,21 @@ module.exports = {
                 .setCustomId(`page:games:coinflipResult:${user.id}:100`)
                 .setLabel('R$100,00')
                 .setStyle('PRIMARY'),
-            //.setDisabled(true),
 
             new Discord.MessageButton()
                 .setCustomId(`page:games:coinflipResult:${user.id}:500`)
                 .setLabel('R$500,00')
-                .setStyle('PRIMARY')
-                .setDisabled(true),
+                .setStyle('PRIMARY'),
 
             new Discord.MessageButton()
                 .setCustomId(`page:games:coinflipResult:${user.id}:1000`)
                 .setLabel('R$1000,00')
-                .setStyle('PRIMARY')
-                .setDisabled(true),
+                .setStyle('PRIMARY'),
 
             new Discord.MessageButton()
                 .setCustomId(`page:games:coinflipResult:${user.id}:5000`)
                 .setLabel('R$5000,00')
                 .setStyle('PRIMARY')
-                .setDisabled(true)
         );
 
         // create some buttons inside a row
