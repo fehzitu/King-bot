@@ -22,6 +22,9 @@ module.exports = {
         // get the user
         const user = ctx.user || ctx.author;
 
+        // get the client
+        const client = ctx.client;
+
         // error log
         if (!user) {
             console.log('Erro no usuário:', ctx);
@@ -29,7 +32,7 @@ module.exports = {
         };
 
         // load all the users
-        const usersObject = loadJson(filePath);
+        const usersObject = client.usersData;
 
         // sort user list
         const sortedUsers = sortUsers(usersObject, 'stats.messages');
@@ -71,9 +74,8 @@ module.exports = {
 
             new Discord.MessageButton()
                 .setCustomId(`page:ranking:messageRank:${user.id}`)
-                .setLabel('💬')
-                .setStyle('PRIMARY')
-                .setDisabled(true),
+                .setLabel('🔄')
+                .setStyle('PRIMARY'),
 
             new Discord.MessageButton()
                 .setCustomId(`page:menu:ranking:${user.id}`)

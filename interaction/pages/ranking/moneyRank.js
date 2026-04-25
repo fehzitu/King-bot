@@ -22,6 +22,9 @@ module.exports = {
         // get the user
         const user = ctx.user || ctx.author;
 
+        // get the client
+        const client = ctx.client;
+
         // error log
         if (!user) {
             console.log('Erro no usuário:', ctx);
@@ -29,7 +32,7 @@ module.exports = {
         };
 
         // load all the users
-        const usersObject = loadJson(filePath);
+        const usersObject = client.usersData;
 
         // sort user list
         const sortedUsers = sortUsers(usersObject, 'rpg.money');
@@ -61,9 +64,8 @@ module.exports = {
         const row = new Discord.MessageActionRow().addComponents(
             new Discord.MessageButton()
                 .setCustomId(`page:ranking:moneyRank:${user.id}`)
-                .setLabel('💰')
-                .setStyle('PRIMARY')
-                .setDisabled(true),
+                .setLabel('🔄')
+                .setStyle('PRIMARY'),
 
             new Discord.MessageButton()
                 .setCustomId(`page:ranking:levelRank:${user.id}`)
