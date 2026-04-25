@@ -10,7 +10,7 @@ const {
 } = require(path.join(__dirname, '../../../functions/levelSystem.js'));
 
 module.exports = {
-    name: 'face',
+    name: 'crown',
     execute(ctx) {
         // get the user
         const user = ctx.user || ctx.author;
@@ -75,21 +75,21 @@ module.exports = {
                 .setLabel('↩️')
                 .setStyle('PRIMARY')
         );
-        
+
         // check user money
         if (profile.rpg.money < 50) {
             embed = new Discord.MessageEmbed()
-            .setColor('RANDOM')
-            .setAuthor({
-                iconURL: user.displayAvatarURL(),
-                name: `@${user.username}`
-            })
-            .setDescription('❌ Saldo insuficiente!')
-            .setTimestamp()
-            .setFooter({
-                text: 'Atualizado'
-            });
-            
+                .setColor('RANDOM')
+                .setAuthor({
+                    iconURL: user.displayAvatarURL(),
+                    name: `@${user.username}`
+                })
+                .setDescription('❌ Saldo insuficiente!')
+                .setTimestamp()
+                .setFooter({
+                    text: 'Atualizado'
+                });
+
             row = new Discord.MessageActionRow().addComponents(
                 new Discord.MessageButton()
                     .setCustomId(`page:games:coinflip:${user.id}`)
@@ -102,10 +102,10 @@ module.exports = {
                 components: [row]
             };
         };
-        
+
         // user pay
         if (profile.rpg.money >= 50) profile.rpg.money -= 50;
-        
+
         // pay to user
         if (randomValue == 0) profile.rpg.money += 100;
 
