@@ -27,7 +27,7 @@ module.exports = {
                 name: `👑 **Drakay**, nosso servidor de suporte!`,
                 value: "🔗 **https://discord.gg/Wpgu4qXWUk**"
             }])
-            .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1491764536322035802/yuliowo.gif?ex=69d8e17d&is=69d78ffd&hm=93ba3d94e4fa0d41eacb0ffc689604c26d884ee632a491e54c9c3e9b6cfd9e9f')
+            .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1491798798505082920/images_2.jpeg?ex=69d90165&is=69d7afe5&hm=03c7377c4333769a4dc11c52413d49aa3c3f6fdc3cbf5b3c006b42c11fbf30e3')
             .setTimestamp()
             .setFooter({
                 text: 'Atualizado'
