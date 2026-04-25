@@ -6,6 +6,8 @@ module.exports = {
     execute(ctx) {
         // get the user and client
         const user = ctx.user || ctx.author;
+
+        // get the client
         const client = ctx.client;
 
         // error log

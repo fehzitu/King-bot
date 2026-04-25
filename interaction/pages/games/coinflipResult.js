@@ -15,14 +15,14 @@ module.exports = {
         // get the user
         const user = ctx.user || ctx.author;
 
-        // get the button custom id valules
-        const [system, category, pageName, userId, value] = ctx.customId.split(':');
-
         // error log
         if (!user) {
             console.log('Erro no usuário:', ctx);
             return;
         };
+
+        // get the button custom id valules
+        const [system, category, pageName, userId, value] = ctx.customId.split(':');
 
         // Returns either 0 or 1 (0 = win, 1 = lose)
         const randomValue = Math.floor(Math.random() * 2);
