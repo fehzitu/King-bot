@@ -9,6 +9,11 @@ const {
     defaultUser
 } = require(path.join(__dirname, '../../../functions/levelSystem.js'));
 
+// helper
+const {
+    safeEdit
+} = require(path.join(__dirname, '../../../utils/messageHelper.js'));
+
 module.exports = {
     name: 'face',
     async execute(ctx) {
@@ -48,9 +53,8 @@ module.exports = {
                 .setTimestamp()
                 .setFooter({ text: 'Atualizado' });
 
-            return ctx.reply({
-                embeds: [embed],
-                components: []
+            return safeEdit(ctx, {
+                embeds: [embed]
             });
         };
 
@@ -97,6 +101,7 @@ module.exports = {
                 name: '**💸 Resultado**',
                 value: titles[randomValue]
             }])
+            .setDescription('\u200b')
             .setImage(imgs[randomValue])
             .setTimestamp()
             .setFooter({ text: 'Atualizado' });
@@ -115,16 +120,15 @@ module.exports = {
         );
 
         // edit the first message from button
-        await ctx.message.edit({
-            embeds: [loadingEmbed],
-            components: []
+        await safeEdit(ctx, {
+            embeds: [loadingEmbed]
         });
 
         // fake delay
         await new Promise(res => setTimeout(res, 1500));
 
         // edit the final message
-        await ctx.message.edit({
+        await safeEdit(ctx, {
             embeds: [embed],
             components: [row]
         });

@@ -18,7 +18,7 @@ const {
 // universal handler for components
 async function safeExecute(handler, ctx) {
     try {
-        await handler.execute(ctx);
+        return await handler.execute(ctx); // ✅ AGORA RETORNA
     } catch (error) {
         console.error(error);
 
@@ -69,7 +69,20 @@ module.exports = {
             };
 
             // handler
-            await safeExecute(button, ctx);
+            const result = await safeExecute(button, ctx);
+            if (!result) return;
+
+            const { embeds = [], components = [], content } = result;
+
+            if (!ctx.deferred && !ctx.replied) {
+                await ctx.deferUpdate();
+            };
+
+            await ctx.message.edit({
+                content: content ?? undefined,
+                embeds,
+                components
+            });
 
             // stop execution here
             return;
@@ -87,7 +100,20 @@ module.exports = {
             };
 
             // handler
-            await safeExecute(select, ctx);
+            const result = await safeExecute(select, ctx);
+            if (!result) return;
+
+            const { embeds = [], components = [], content } = result;
+
+            if (!ctx.deferred && !ctx.replied) {
+                await ctx.deferUpdate();
+            };
+
+            await ctx.message.edit({
+                content: content ?? undefined,
+                embeds,
+                components
+            });
 
             // stop interaction here
             return;
@@ -105,7 +131,24 @@ module.exports = {
             };
 
             // handler
-            await safeExecute(modal, ctx);
+            const result = await safeExecute(modal, ctx);
+            if (!result) return;
+
+            const { embeds = [], components = [], content } = result;
+
+            if (ctx.replied || ctx.deferred) {
+                await ctx.followUp({
+                    content: content ?? undefined,
+                    embeds,
+                    components
+                });
+            } else {
+                await ctx.reply({
+                    content: content ?? undefined,
+                    embeds,
+                    components
+                });
+            };
 
             // stop interaction
             return;
@@ -134,16 +177,34 @@ module.exports = {
 
         try {
             // execute command
-            await command.execute(ctx);
+            const result = await command.execute(ctx);
+
+            if (result) {
+                const { embeds = [], components = [], content } = result;
+
+                if (ctx.replied || ctx.deferred) {
+                    await ctx.followUp({
+                        content: content ?? undefined,
+                        embeds,
+                        components
+                    });
+                } else {
+                    await ctx.reply({
+                        content: content ?? undefined,
+                        embeds,
+                        components
+                    });
+                };
+            };
 
             // add xp
             profile.rpg.xp += 100;
 
-            const result = checkLevelUp(profile);
+            const resultLevel = checkLevelUp(profile);
 
             // level up message
-            if (result.leveledUp) {
-                const levelMsg = `🎉 **${ctx.user} subiu para o nível ${result.level}**!`;
+            if (resultLevel.leveledUp) {
+                const levelMsg = `🎉 **${ctx.user} subiu para o nível ${resultLevel.level}**!`;
 
                 if (ctx.replied || ctx.deferred) {
                     await ctx.followUp({

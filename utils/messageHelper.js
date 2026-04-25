@@ -2,36 +2,48 @@ const Discord = require('discord.js');
 
 function normalizeEmbeds(embeds = []) {
     return embeds.map(embed => {
-        // if we have an valid embed
-        if (embed instanceof Discord.MessageEmbed) {
-            const data = embed.toJSON();
+        if (!embed) return embed;
 
-            // empty embed
-            if (!data.description && !data.fields?.length && !data.title) {
-                embed.setDescription('‎'); // invisible char
-            };
+        // transform to JSON
+        const data = embed instanceof Discord.MessageEmbed
+            ? embed.toJSON()
+            : embed;
 
-            return embed;
+        // valid descriptions
+        if (!data.description || data.description.trim() === '') {
+            data.description = '\u200b';
         };
 
-        return embed;
+        // valids fields
+        if (data.fields && data.fields.length === 0) {
+            delete data.fields;
+        };
+
+        return data;
     });
 };
 
 async function safeEdit(ctx, options = {}) {
-    const {
+    let {
         embeds = [],
         components,
         content
     } = options;
 
+    // clean components
+    if (components === undefined) components = [];
+
     const payload = {
         embeds: normalizeEmbeds(embeds),
-        content: content ?? undefined,
-        components: components === undefined ? [] : components // safe empty components
+        components
     };
 
-    // buttons
+    // check if we have content to use
+    if (typeof content === 'string' && content.trim() !== '') {
+        payload.content = content;
+    };
+
+    // button
     if (ctx.isButton && ctx.isButton()) {
         if (!ctx.deferred && !ctx.replied) {
             await ctx.deferUpdate();
@@ -40,7 +52,7 @@ async function safeEdit(ctx, options = {}) {
         return ctx.message.edit(payload);
     };
 
-    // slash components
+    // interaction
     if (ctx.reply) {
         if (ctx.replied || ctx.deferred) {
             return ctx.followUp(payload);
@@ -49,8 +61,8 @@ async function safeEdit(ctx, options = {}) {
         return ctx.reply(payload);
     };
 
-    // (prefix) commands
-    return ctx.reply(payload);
+    // fallback
+    return ctx.channel.send(payload);
 };
 
 module.exports = {
