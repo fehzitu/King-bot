@@ -4,7 +4,7 @@ const defaultUser = {
     rpg: {
         level: 1,
         xp: 0,
-        karma: '🤍',
+        karma: '🌀 (Sem karma)',
         money: 100,
         medals: []
     },
