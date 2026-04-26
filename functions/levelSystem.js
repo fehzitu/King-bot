@@ -12,6 +12,10 @@ const defaultUser = {
         messages: 0,
         commands: 0
     },
+    karma: {
+        positive: 0,
+        negative: 0
+    },
     cooldowns: {
         xp: 0
     }
