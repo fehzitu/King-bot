@@ -10,7 +10,10 @@ const {
     checkLevelUp
 } = require(path.join(__dirname, '../../functions/levelSystem.js'));
 
-// importing custom functions from other file
+const {
+    setKarma
+} = require(path.join(__dirname, '../../functions/karmaSystem.js'));
+
 const {
     saveJson
 } = require(path.join(__dirname, '../../functions/jsonHandler.js'));
@@ -43,6 +46,9 @@ module.exports = {
 
         // get user profile
         const profile = users[userId];
+        
+        // check the user karma
+        setKarma(profile);
 
         // increase message counter
         profile.stats.messages++;

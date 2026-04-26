@@ -1,11 +1,10 @@
 // func to check if karma is positive or negative
-function checkKarma(user) {
-    if (user.karma.positive == user.karma.negative) {
-        return '🤍';
-    };
-    return user.karma.positive > user.karma.negative ? '❤️' : '🖤';
+function setKarma(user) {
+    if (user.karma.positive == user.karma.negative) return user.rpg.karma = '🤍';
+    if (user.karma.positive > user.karma.negative) return user.rpg.karma = '❤️';
+    if (user.karma.positive < user.karma.negative) return user.rpg.karma = '🖤';
 };
 
 module.exports = {
-    checkKarma
+    setKarma
 };

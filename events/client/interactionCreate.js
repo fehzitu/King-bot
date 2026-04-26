@@ -10,7 +10,10 @@ const {
     checkLevelUp
 } = require(path.join(__dirname, '../../functions/levelSystem.js'));
 
-// importing custom functions from other file
+const {
+    setKarma
+} = require(path.join(__dirname, '../../functions/karmaSystem.js'));
+
 const {
     saveJson
 } = require(path.join(__dirname, '../../functions/jsonHandler.js'));
@@ -53,6 +56,9 @@ module.exports = {
 
         // get profile
         const profile = users[userId];
+        
+        // check the user karma
+        setKarma(profile);
 
         // With this we can get the dynamic data, example "action:data"
         const [customId] = ctx.customId ? ctx.customId.split(':') : [];
