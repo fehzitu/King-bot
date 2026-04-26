@@ -5,3 +5,7 @@ function checkKarma(user) {
     };
     return user.karma.positive > user.karma.negative ? '❤️' : '🖤';
 };
+
+module.exports = {
+    checkKarma
+};
