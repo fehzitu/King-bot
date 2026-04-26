@@ -51,7 +51,7 @@ module.exports = {
             .setColor('RANDOM')
             .setAuthor({
                 iconURL: user.displayAvatarURL(),
-                name: `@${user.username}`
+                name: `@${user.username} Lv.${rpgUser.rpg.level} ${rpgUser.rpg.medals}`
             })
             .addFields([{
                 name: '**💰 Top dinheiro**',
