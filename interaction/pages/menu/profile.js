@@ -44,7 +44,7 @@ module.exports = {
                 name: `@${user.username} Lv.${rpgUser.rpg.level} ${rpgUser.rpg.medals}`
             })
             .addFields([{
-                name: `**👤Usuário ${user.globalName} __(${user.username})__**`,
+                name: `**👤Usuário 〔 __${user.globalName}__ 〕**`,
                 value: `>>> ⏳ **Lv.${rpgUser.rpg.level}『 ${rpgUser.rpg.xp}xp / ${Math.floor(100 * Math.pow(rpgUser.rpg.level + 1, 1.5))}xp 』**\n🧿 **Karma: ${rpgUser.rpg.karma}**\n💰 **Saldo: R$${rpgUser.rpg.money}**\n📚 **Mensagens: ${rpgUser.stats.messages}**\n📡 **Comandos: ${rpgUser.stats.commands}**\n💎 **Medalhas: ${rpgUser.rpg.medals}**`
             }])
             .setImage('https://i.pinimg.com/originals/fb/7d/25/fb7d25365c6f2deca04b86f35c8fee63.gif')

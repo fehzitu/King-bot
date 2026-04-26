@@ -71,7 +71,31 @@ module.exports = {
             new Discord.MessageButton()
                 .setCustomId(`page:games:gamesList:${user.id}`)
                 .setLabel('🎮')
+                .setStyle('PRIMARY'),
+            
+            new Discord.MessageButton()
+                .setCustomId(`page:games:off:${user.id}:1`)
+                .setLabel('🚫')
                 .setStyle('PRIMARY')
+                .setDisabled(true),
+            
+            new Discord.MessageButton()
+                .setCustomId(`page:games:off:${user.id}:2`)
+                .setLabel('🚫')
+                .setStyle('PRIMARY')
+                .setDisabled(true),
+            
+            new Discord.MessageButton()
+                .setCustomId(`page:games:off:${user.id}:3`)
+                .setLabel('🚫')
+                .setStyle('PRIMARY')
+                .setDisabled(true),
+            
+            new Discord.MessageButton()
+                .setCustomId(`page:games:off:${user.id}:4`)
+                .setLabel('🚫')
+                .setStyle('PRIMARY')
+                .setDisabled(true)
         );
 
         return {
