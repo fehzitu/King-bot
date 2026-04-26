@@ -15,6 +15,21 @@ module.exports = {
         // get the user
         const user = ctx.user || ctx.author;
 
+        // get the client
+        const client = ctx.client;
+        
+        // load users database once
+        const users = ctx.client.usersData;
+
+        // get the user
+        const rpgUser = users[user.id] || defaultUser;
+
+        // fix user
+        if (!users[user.id]) {
+            // create new profile
+            users[user.id] = defaultUser;
+        };
+
         // error log
         if (!user) {
             console.log('Erro no usuário:', ctx);
@@ -36,24 +51,12 @@ module.exports = {
         const btnColor = ['SUCCESS', 'DANGER'];
         const btnSymbol = ['✔️', '❌'];
 
-        // load users database once
-        const users = ctx.client.usersData;
-
-        // fix user
-        if (!users[user.id]) {
-            // create new profile
-            users[user.id] = defaultUser;
-        };
-
-        // get user profile
-        const profile = users[user.id];
-
         // create an embed
         let embed = new Discord.MessageEmbed()
             .setColor(`${color[randomValue]}`)
             .setAuthor({
                 iconURL: user.displayAvatarURL(),
-                name: `@${user.username}`
+                name: `@${user.username} Lv.${rpgUser.rpg.level} ${rpgUser.rpg.medals}`
             })
             .addFields([{
                 name: '**💸 Resultado**',
@@ -80,12 +83,12 @@ module.exports = {
         );
 
         // check user money
-        if (profile.rpg.money < value) {
+        if (rpgUser.rpg.money < value) {
             embed = new Discord.MessageEmbed()
                 .setColor('RANDOM')
                 .setAuthor({
                     iconURL: user.displayAvatarURL(),
-                    name: `@${user.username}`
+                    name: `@${user.username} Lv.${rpgUser.rpg.level} ${rpgUser.rpg.medals}`
                 })
                 .setTitle('> ❌ **Saldo insuficiente!**')
                 .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1497721785477759206/wallet-penacony.gif?ex=69ee8d9b&is=69ed3c1b&hm=d921d7b4b91f99be8cf03616695cbf495307ed674a5e6946e6e5fccaa4ea9a48')
@@ -108,10 +111,10 @@ module.exports = {
         };
 
         // user pay
-        if (profile.rpg.money >= value) profile.rpg.money -= value;
+        if (rpgUser.rpg.money >= value) rpgUser.rpg.money -= value;
 
         // pay to user
-        if (randomValue == 0) profile.rpg.money += (value * 2);
+        if (randomValue == 0) rpgUser.rpg.money += (value * 2);
 
         return {
             embed,

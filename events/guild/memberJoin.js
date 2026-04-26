@@ -4,9 +4,9 @@ const Discord = require('discord.js');
 module.exports = {
 	// "name" will receive the value that will be the chat message that the bot captures as a command
 	name: 'guildMemberAdd',
-	async execute(member) {
+	async execute(ctx) {
 		// get a channel to send the embed
-		const channel = member.guild.systemChannel;
+		const channel = ctx.guild.systemChannel;
 
 		// log if dont have a channel to send the embed
 		if (!channel) {
@@ -17,12 +17,12 @@ module.exports = {
 		const embed = new Discord.MessageEmbed()
 		.setColor('RANDOM')
 		.setTitle('👥 **Novo membro!**')
-		.setDescription(`📡 Salve **${member}**, tudo bom?`)
+		.setDescription(`📡 Salve **${ctx}**, tudo bom?`)
 		.addFields([{
-			name: `🛡 Tag:\n${member.user.tag}`,
-			value: `👥 **Id:\n${member.id}**`
+			name: `🛡 Tag:\n${ctx.user.tag}`,
+			value: `👥 **Id:\n${ctx.id}**`
 		}])
-		.setThumbnail(member.user.displayAvatarURL())
+		.setThumbnail(ctx.user.displayAvatarURL())
 		.setTimestamp()
 		.setFooter({
 			text: 'Atualizado'

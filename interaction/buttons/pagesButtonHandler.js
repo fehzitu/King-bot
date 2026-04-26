@@ -44,13 +44,13 @@ loadPages(pagesPath);
 
 module.exports = {
     name: 'page',
-    async execute(interaction) {
+    async execute(ctx) {
         // pages system:<folder>:<file>:<user id>:value
-        const [system, category, pageName, userId] = interaction.customId.split(':');
+        const [system, category, pageName, userId] = ctx.customId.split(':');
 
         // security
-        if (interaction.user.id !== userId) {
-            return interaction.reply({
+        if (ctx.user.id !== userId) {
+            return ctx.reply({
                 content: 'Isso não é pra você.',
                 ephemeral: true
             });
@@ -62,15 +62,15 @@ module.exports = {
         if (!page) return;
 
         // interaction ack
-        if (!interaction.deferred && !interaction.replied) {
-            await interaction.deferUpdate();
+        if (!ctx.deferred && !ctx.replied) {
+            await ctx.deferUpdate();
         };
 
         // execute the page
-        const { embed, components } = page.execute(interaction);
+        const { embed, components } = page.execute(ctx);
 
         // load messagem
-        return interaction.message.edit({
+        return ctx.message.edit({
             embeds: [embed],
             components
         });

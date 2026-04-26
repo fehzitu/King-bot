@@ -25,14 +25,11 @@ module.exports = {
         // get the client
         const client = ctx.client;
 
-        // error log
-        if (!user) {
-            console.log('Erro no usuário:', ctx);
-            return;
-        };
-
         // load all the users
         const usersObject = client.usersData;
+
+        // get the user
+        const rpgUser = usersObject[user.id] || defaultUser;
 
         // sort user list
         const sortedUsers = sortUsers(usersObject, 'rpg.level');
@@ -43,12 +40,18 @@ module.exports = {
         // string list
         const list = topUsers.map(user => `**<@${user[0]}>** | Lv: **${user[1].rpg.level}** Xp: **${user[1].rpg.xp}**`).join('\n') || 'Nenhum usuário encontrado.';
 
+        // error log
+        if (!user) {
+            console.log('Erro no usuário:', ctx);
+            return;
+        };
+
         // create an embed
         const embed = new Discord.MessageEmbed()
             .setColor('RANDOM')
             .setAuthor({
                 iconURL: user.displayAvatarURL(),
-                name: `@${user.username}`
+                name: `@${user.username} Lv.${rpgUser.rpg.level} ${rpgUser.rpg.medals}`
             })
             .addFields([{
                 name: '**📈 Top level**',

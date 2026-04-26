@@ -8,6 +8,15 @@ module.exports = {
         // get the user
         const user = ctx.user || ctx.author;
 
+        // get the client
+        const client = ctx.client;
+
+        // load all the users
+        const usersObject = client.usersData;
+
+        // get the user
+        const rpgUser = usersObject[user.id] || defaultUser;
+
         // error log
         if (!user) {
             console.log('Erro no usuário:', ctx);
@@ -19,7 +28,7 @@ module.exports = {
             .setColor('RANDOM')
             .setAuthor({
                 iconURL: user.displayAvatarURL(),
-                name: `@${user.username}`
+                name: `@${user.username} Lv.${rpgUser.rpg.level} ${rpgUser.rpg.medals}`
             })
             .addFields([{
                 name: '**TU ACHOU MESMO QUE TERIA ISSO LIVREMENTE ASSIM?!**',
