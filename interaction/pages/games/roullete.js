@@ -31,7 +31,7 @@ module.exports = {
             })
             .addFields([{
                 name: '**💸 Deseja apostar na roleta?**',
-                value: '>>> 『Win』 **Lucro de: 1.5x do valor**\n『Lose』 **Perca total do valor**'
+                value: '>>> ️🔵 **Lucro de: 1.5x do valor**\n⚫️ **Lucro de: 1.5x do valor**\n🟢 **Lucro de: 15x do valor**\n❌️ **Perca total do valor**'
             }])
             //.setImage('')
             .setTimestamp()
@@ -42,32 +42,8 @@ module.exports = {
         // create some buttons inside a row
         const row1 = new Discord.MessageActionRow().addComponents(
             new Discord.MessageButton()
-                .setCustomId(`page:games:roulleteResult:${user.id}:50`)
-                .setLabel('R$50,00')
-                .setStyle('PRIMARY')
-                .setDisabled(true),
-
-            new Discord.MessageButton()
-                .setCustomId(`page:games:roulleteResult:${user.id}:100`)
-                .setLabel('R$100,00')
-                .setStyle('PRIMARY')
-                .setDisabled(true),
-
-            new Discord.MessageButton()
-                .setCustomId(`page:games:roulleteResult:${user.id}:500`)
-                .setLabel('R$500,00')
-                .setStyle('PRIMARY')
-                .setDisabled(true),
-
-            new Discord.MessageButton()
-                .setCustomId(`page:games:roulleteResult:${user.id}:1000`)
-                .setLabel('R$1000,00')
-                .setStyle('PRIMARY')
-                .setDisabled(true),
-
-            new Discord.MessageButton()
-                .setCustomId(`page:games:roulleteResult:${user.id}:5000`)
-                .setLabel('R$5000,00')
+                .setCustomId(`page:games:roulleteResult:${user.id}`)
+                .setLabel('---')
                 .setStyle('PRIMARY')
                 .setDisabled(true)
         );
