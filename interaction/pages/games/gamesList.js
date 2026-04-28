@@ -31,7 +31,7 @@ module.exports = {
             })
             .addFields([{
                 name: '**🎮 Lista completa dos jogos!**',
-                value: '>>> 💸 **``Apostar no coinflip``**'
+                value: '>>> 💸 **``Apostar no coinflip``**\n🧾 **``Apostar na roleta``**'
             }])
             .setImage('https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExYWJpN3hqM3kxaG5pZHRvZmNnd2psMjJvdXpoanQwOTJ2bHl2cHNidSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ZEkQofMp9jWhvPHj8C/giphy.gif')
             .setTimestamp()
@@ -44,6 +44,11 @@ module.exports = {
             new Discord.MessageButton()
                 .setCustomId(`page:games:coinflip:${user.id}`)
                 .setLabel('💸')
+                .setStyle('PRIMARY'),
+                
+            new Discord.MessageButton()
+                .setCustomId(`page:games:roullete:${user.id}`)
+                .setLabel('🧾')
                 .setStyle('PRIMARY'),
 
             new Discord.MessageButton()
