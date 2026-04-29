@@ -43,27 +43,27 @@ module.exports = {
         const row1 = new Discord.MessageActionRow().addComponents(
             new Discord.MessageButton()
                 .setCustomId(`page:games:coinflipResult:${user.id}:50`)
-                .setLabel('R$50,00')
+                .setLabel('R$50')
                 .setStyle('PRIMARY'),
 
             new Discord.MessageButton()
                 .setCustomId(`page:games:coinflipResult:${user.id}:100`)
-                .setLabel('R$100,00')
+                .setLabel('R$100')
                 .setStyle('PRIMARY'),
 
             new Discord.MessageButton()
                 .setCustomId(`page:games:coinflipResult:${user.id}:500`)
-                .setLabel('R$500,00')
+                .setLabel('R$500')
                 .setStyle('PRIMARY'),
 
             new Discord.MessageButton()
                 .setCustomId(`page:games:coinflipResult:${user.id}:1000`)
-                .setLabel('R$1000,00')
+                .setLabel('R$1000')
                 .setStyle('PRIMARY'),
 
             new Discord.MessageButton()
                 .setCustomId(`page:games:coinflipResult:${user.id}:5000`)
-                .setLabel('R$5000,00')
+                .setLabel('R$5000')
                 .setStyle('PRIMARY')
         );
 

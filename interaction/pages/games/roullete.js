@@ -31,7 +31,7 @@ module.exports = {
             })
             .addFields([{
                 name: '**💸 Deseja apostar na roleta?**',
-                value: '>>> ️🔵 **Lucro de: 1.5x do valor**\n⚫️ **Lucro de: 1.5x do valor**\n🟢 **Lucro de: 15x do valor**\n❌️ **Perca total do valor**'
+                value: '>>> ️🔵 **Lucro de: 2x do valor**\n⚫️ **Lucro de: 2x do valor**\n🟢 **Lucro de: 15x do valor**\n❌️ **Perca total do valor**'
             }])
             .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1498835458111570000/roulette-game.gif?ex=69f29acc&is=69f1494c&hm=8b8178e7949144954d7c9387f4f704f075bb3f2c964084ad11a7e49a71dcb670&')
             .setTimestamp()
@@ -42,14 +42,47 @@ module.exports = {
         // create some buttons inside a row
         const row1 = new Discord.MessageActionRow().addComponents(
             new Discord.MessageButton()
-                .setCustomId(`page:games:roulleteResult:${user.id}:moneyCount:color`)
-                .setLabel('---')
+                .setCustomId(`page:games:roulleteResult:${user.id}:250:blue`)
+                .setLabel('R$250')
                 .setStyle('PRIMARY')
+                .setDisabled(true),
+                
+            new Discord.MessageButton()
+                .setCustomId(`page:games:roulleteResult:${user.id}:250:black`)
+                .setLabel('R$250')
+                .setStyle('SECONDARY')
+                .setDisabled(true),
+                
+            new Discord.MessageButton()
+                .setCustomId(`page:games:roulleteResult:${user.id}:250:green`)
+                .setLabel('R$250')
+                .setStyle('SUCCESS')
+                .setDisabled(true)
+        );
+        
+       // create some buttons inside a row
+        const row2 = new Discord.MessageActionRow().addComponents(
+            new Discord.MessageButton()
+                .setCustomId(`page:games:roulleteResult:${user.id}:500:blue`)
+                .setLabel('R$500')
+                .setStyle('PRIMARY')
+                .setDisabled(true),
+
+            new Discord.MessageButton()
+                .setCustomId(`page:games:roulleteResult:${user.id}:500:black`)
+                .setLabel('R$500')
+                .setStyle('SECONDARY')
+                .setDisabled(true),
+                
+            new Discord.MessageButton()
+                .setCustomId(`page:games:roulleteResult:${user.id}:500:green`)
+                .setLabel('R$500')
+                .setStyle('SUCCESS')
                 .setDisabled(true)
         );
 
         // create some buttons inside a row
-        const row2 = new Discord.MessageActionRow().addComponents(
+        const row3 = new Discord.MessageActionRow().addComponents(
             new Discord.MessageButton()
                 .setCustomId(`page:games:gamesList:${user.id}`)
                 .setLabel('↩️')
@@ -63,7 +96,7 @@ module.exports = {
 
         return {
             embed,
-            components: [row1, row2]
+            components: [row1, row2, row3]
         };
     }
 };
