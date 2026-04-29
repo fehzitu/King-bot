@@ -33,7 +33,7 @@ module.exports = {
                 name: '**💸 Deseja apostar na roleta?**',
                 value: '>>> ️🔵 **Lucro de: 1.5x do valor**\n⚫️ **Lucro de: 1.5x do valor**\n🟢 **Lucro de: 15x do valor**\n❌️ **Perca total do valor**'
             }])
-            //.setImage('')
+            .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1498835458111570000/roulette-game.gif?ex=69f29acc&is=69f1494c&hm=8b8178e7949144954d7c9387f4f704f075bb3f2c964084ad11a7e49a71dcb670&')
             .setTimestamp()
             .setFooter({
                 text: 'Atualizado'
@@ -42,7 +42,7 @@ module.exports = {
         // create some buttons inside a row
         const row1 = new Discord.MessageActionRow().addComponents(
             new Discord.MessageButton()
-                .setCustomId(`page:games:roulleteResult:${user.id}`)
+                .setCustomId(`page:games:roulleteResult:${user.id}:moneyCount:color`)
                 .setLabel('---')
                 .setStyle('PRIMARY')
                 .setDisabled(true)
