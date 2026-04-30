@@ -44,20 +44,17 @@ module.exports = {
             new Discord.MessageButton()
                 .setCustomId(`page:games:roulleteResult:${user.id}:250:blue`)
                 .setLabel('R$250')
-                .setStyle('PRIMARY')
-                .setDisabled(true),
+                .setStyle('PRIMARY'),
                 
             new Discord.MessageButton()
                 .setCustomId(`page:games:roulleteResult:${user.id}:250:black`)
                 .setLabel('R$250')
-                .setStyle('SECONDARY')
-                .setDisabled(true),
+                .setStyle('SECONDARY'),
                 
             new Discord.MessageButton()
                 .setCustomId(`page:games:roulleteResult:${user.id}:250:green`)
                 .setLabel('R$250')
                 .setStyle('SUCCESS')
-                .setDisabled(true)
         );
         
        // create some buttons inside a row
