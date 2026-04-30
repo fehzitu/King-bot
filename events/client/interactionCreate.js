@@ -6,7 +6,7 @@ const filePath = path.join(__dirname, '../../users.json');
 
 // import default user and custom functions
 const {
-    defaultUser,
+    createDefaultUser,
     checkLevelUp
 } = require(path.join(__dirname, '../../functions/levelSystem.js'));
 
@@ -47,7 +47,7 @@ module.exports = {
 
         // create profile if not exists
         if (!users[userId]) {
-            users[userId] = defaultUser;
+            users[userId] = createDefaultUser();
 
             await saveJson(filePath, users);
 
