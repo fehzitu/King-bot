@@ -1,11 +1,20 @@
 // discord implements
 const Discord = require('discord.js');
 
+// import default user factory
+const { createDefaultUser } = require('../../../functions/levelSystem.js');
+
 module.exports = {
     name: 'gamesList',
     execute(ctx) {
         // get the user
         const user = ctx.user || ctx.author;
+
+        // error log
+        if (!user) {
+            console.log('Erro no usuário:', ctx);
+            return;
+        };
 
         // get the client
         const client = ctx.client;
@@ -24,11 +33,8 @@ module.exports = {
             };
         };
 
-        // error log
-        if (!user) {
-            console.log('Erro no usuário:', ctx);
-            return;
-        };
+        // get the user
+        const rpgUser = usersObject[user.id];
 
         // create an embed
         const embed = new Discord.MessageEmbed()
@@ -67,7 +73,7 @@ module.exports = {
 
         return {
             embed,
-            components: row ? [row] : []
+            components: [row]
         };
     }
 };
