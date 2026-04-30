@@ -30,12 +30,12 @@ function normalizeEmbeds(embeds = []) {
             delete data.fields;
         };
 
-        // 🧠 if there is NO visible content → force description
+        // if there is NO visible content → force description
         if (!hasVisibleContent(data)) {
             data.description = '\u200b';
         };
 
-        // 🧠 special case: fields without description (common Discord issue)
+        // special case: fields without description (common Discord issue)
         if (data.fields && !data.description) {
             data.description = '\u200b';
         };
