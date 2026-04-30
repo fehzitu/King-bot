@@ -8,6 +8,18 @@ const config = require('./config');
 const constants = require('./config/constants');
 const { loadJson, saveJson } = require('./utils/jsonHandler');
 
+// log system
+function log(type, message) {
+    const icons = constants.EMOJIS || {};
+
+    const colors = constants.LOG_COLORS || {};
+
+    const icon = icons[type.toUpperCase()] || '⚪';
+    const color = colors[type.toUpperCase()] || colors.RESET;
+
+    console.log(`${color}[${icon}] ${message}${colors.RESET}`);
+};
+
 // client
 const client = new Client({
     intents: config.discord.intents.map(i => Intents.FLAGS[i])
@@ -17,15 +29,12 @@ const client = new Client({
 client.commands = new Collection();
 client.interactions = new Collection();
 
-// log system
-function log(type, message) {
-    const icon = constants.EMOJIS[type.toUpperCase()] || "⚪";
-    console.log(`[${icon}] ${message}`);
-};
-
 // generic loader
 function loadFiles(dir, callback) {
-    if (!fs.existsSync(dir)) return;
+    if (!fs.existsSync(dir)) {
+        log('WARN', `Diretório não encontrado: ${dir}`);
+        return;
+    };
 
     const files = fs.readdirSync(dir);
 
@@ -41,7 +50,7 @@ function loadFiles(dir, callback) {
     }
 };
 
-// load commands
+// commands
 loadFiles(path.join(__dirname, 'commands'), (filePath) => {
     const command = require(filePath);
 
@@ -50,10 +59,10 @@ loadFiles(path.join(__dirname, 'commands'), (filePath) => {
     };
 
     client.commands.set(command.name, command);
-    log('SUCCESS', `Comando carregado: ${command.name}`);
+    log('SUCCESS', `Command carregado: ${command.name}`);
 });
 
-// load interactions
+// interactions
 loadFiles(path.join(__dirname, 'interactions'), (filePath) => {
     const interaction = require(filePath);
 
@@ -65,22 +74,46 @@ loadFiles(path.join(__dirname, 'interactions'), (filePath) => {
     log('SUCCESS', `Interaction carregada: ${interaction.customId}`);
 });
 
-// load events
-loadFiles(path.join(__dirname, 'events'), (filePath) => {
-    const event = require(filePath);
+// events
+const eventsPath = path.join(__dirname, 'events');
 
-    if (!event.name || !event.execute) {
-        return log('ERROR', `Evento inválido: ${filePath}`);
+function loadEvents(dir) {
+    if (!fs.existsSync(dir)) {
+        log('WARN', 'Pasta de eventos não encontrada');
+        return;
     };
 
-    if (event.once) {
-        client.once(event.name, (...args) => event.execute(client, ...args));
-    } else {
-        client.on(event.name, (...args) => event.execute(client, ...args));
-    };
+    const files = fs.readdirSync(dir);
 
-    log('INFO', `Evento carregado: ${event.name}`);
-});
+    for (const file of files) {
+        const filePath = path.join(dir, file);
+        const stat = fs.statSync(filePath);
+
+        if (stat.isDirectory()) {
+            loadEvents(filePath);
+            continue;
+        };
+
+        if (!file.endsWith('.js')) continue;
+
+        const event = require(filePath);
+
+        if (!event.name || !event.execute) {
+            log('ERROR', `Evento inválido: ${filePath}`);
+            continue;
+        };
+
+        if (event.once) {
+            client.once(event.name, (...args) => event.execute(client, ...args));
+        } else {
+            client.on(event.name, (...args) => event.execute(client, ...args));
+        };
+
+        log('INFO', `Event carregado: ${event.name}`);
+    };
+};
+
+loadEvents(eventsPath);
 
 // bot db
 const usersPath = config.database.usersPath;
@@ -94,4 +127,8 @@ setInterval(() => {
 }, 60000);
 
 // login
-client.login(config.token);
+client.login(config.token).then(() => {
+    log('SUCCESS', `Bot iniciando login...`);
+}).catch(err => {
+    log('ERROR', `Erro no login: ${err.message}`);
+});

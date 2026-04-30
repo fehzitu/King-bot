@@ -4,6 +4,14 @@ module.exports = {
         VERSION: "0.0.1",
     },
     
+    LOG_COLORS: {
+        SUCCESS: '\x1b[32m',
+        ERROR: '\x1b[31m',
+        WARNING: '\x1b[33m',
+        INFO: '\x1b[34m',
+        RESET: '\x1b[0m'
+    },
+    
     COLORS: {
         SUCCESS: 0x2ecc71,
         ERROR: 0xe74c3c,
