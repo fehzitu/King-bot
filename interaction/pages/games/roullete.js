@@ -1,11 +1,20 @@
 // discord implements
 const Discord = require('discord.js');
 
+// import default user factory
+const { createDefaultUser } = require('../../../functions/levelSystem.js');
+
 module.exports = {
     name: 'roullete',
     execute(ctx) {
         // get the user
         const user = ctx.user || ctx.author;
+
+        // error log
+        if (!user) {
+            console.log('Erro no usuário:', ctx);
+            return;
+        };
 
         // get the client
         const client = ctx.client;
@@ -13,14 +22,19 @@ module.exports = {
         // load all the users
         const usersObject = client.usersData;
 
-        // get the user
-        const rpgUser = usersObject[user.id] || defaultUser;
-
-        // error log
-        if (!user) {
-            console.log('Erro no usuário:', ctx);
-            return;
+        // ensure user exists
+        if (!usersObject[user.id]) {
+            usersObject[user.id] = createDefaultUser();
+        } else {
+            // merge to prevent missing future fields
+            usersObject[user.id] = {
+                ...createDefaultUser(),
+                ...usersObject[user.id]
+            };
         };
+
+        // get the user
+        const rpgUser = usersObject[user.id];
 
         // create an embed
         const embed = new Discord.MessageEmbed()
@@ -31,54 +45,60 @@ module.exports = {
             })
             .addFields([{
                 name: '**💸 Deseja apostar na roleta?**',
-                value: '>>> ️🔵 **Lucro de: 2x do valor**\n⚫️ **Lucro de: 2x do valor**\n🟢 **Lucro de: 15x do valor**\n❌️ **Perca total do valor**'
+                value: '>>> 🔵 **Lucro de: 2x do valor**\n⚫️ **Lucro de: 2x do valor**\n🟢 **Lucro de: 15x do valor**\n❌️ **Perca total do valor**'
             }])
-            .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1498835458111570000/roulette-game.gif?ex=69f29acc&is=69f1494c&hm=8b8178e7949144954d7c9387f4f704f075bb3f2c964084ad11a7e49a71dcb670&')
+            .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1498835458111570000/roulette-game.gif')
             .setTimestamp()
             .setFooter({
                 text: 'Atualizado'
             });
 
-        // create some buttons inside a row
+        // helper to disable button if dont have money
+        const canBet = (amount) => rpgUser.rpg.money >= amount;
+
+        // row 1
         const row1 = new Discord.MessageActionRow().addComponents(
             new Discord.MessageButton()
                 .setCustomId(`page:games:roulleteResult:${user.id}:250:blue`)
                 .setLabel('R$250')
-                .setStyle('PRIMARY'),
+                .setStyle('PRIMARY')
+                .setDisabled(!canBet(250)),
                 
             new Discord.MessageButton()
                 .setCustomId(`page:games:roulleteResult:${user.id}:250:black`)
                 .setLabel('R$250')
-                .setStyle('SECONDARY'),
+                .setStyle('SECONDARY')
+                .setDisabled(!canBet(250)),
                 
             new Discord.MessageButton()
                 .setCustomId(`page:games:roulleteResult:${user.id}:250:green`)
                 .setLabel('R$250')
                 .setStyle('SUCCESS')
+                .setDisabled(!canBet(250))
         );
         
-       // create some buttons inside a row
+        // row 2
         const row2 = new Discord.MessageActionRow().addComponents(
             new Discord.MessageButton()
                 .setCustomId(`page:games:roulleteResult:${user.id}:500:blue`)
                 .setLabel('R$500')
                 .setStyle('PRIMARY')
-                .setDisabled(true),
+                .setDisabled(!canBet(500)),
 
             new Discord.MessageButton()
                 .setCustomId(`page:games:roulleteResult:${user.id}:500:black`)
                 .setLabel('R$500')
                 .setStyle('SECONDARY')
-                .setDisabled(true),
+                .setDisabled(!canBet(500)),
                 
             new Discord.MessageButton()
                 .setCustomId(`page:games:roulleteResult:${user.id}:500:green`)
                 .setLabel('R$500')
                 .setStyle('SUCCESS')
-                .setDisabled(true)
+                .setDisabled(!canBet(500))
         );
 
-        // create some buttons inside a row
+        // row 3
         const row3 = new Discord.MessageActionRow().addComponents(
             new Discord.MessageButton()
                 .setCustomId(`page:games:gamesList:${user.id}`)
