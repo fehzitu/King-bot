@@ -1,11 +1,20 @@
 // discord implements
 const Discord = require('discord.js');
 
+// import default user factory
+const { createDefaultUser } = require('../../../functions/levelSystem.js');
+
 module.exports = {
     name: 'coinflip',
     execute(ctx) {
         // get the user
         const user = ctx.user || ctx.author;
+
+        // error log
+        if (!user) {
+            console.log('Erro no usuário:', ctx);
+            return;
+        };
 
         // get the client
         const client = ctx.client;
@@ -13,14 +22,21 @@ module.exports = {
         // load all the users
         const usersObject = client.usersData;
 
-        // get the user
-        const rpgUser = usersObject[user.id] || defaultUser;
-
-        // error log
-        if (!user) {
-            console.log('Erro no usuário:', ctx);
-            return;
+        // ensure user exists
+        if (!usersObject[user.id]) {
+            usersObject[user.id] = createDefaultUser();
+        } else {
+            usersObject[user.id] = {
+                ...createDefaultUser(),
+                ...usersObject[user.id]
+            };
         };
+
+        // get the user
+        const rpgUser = usersObject[user.id];
+
+        // helper pra validar saldo
+        const canBet = (amount) => rpgUser.rpg.money >= amount;
 
         // create an embed
         const embed = new Discord.MessageEmbed()
@@ -39,35 +55,40 @@ module.exports = {
                 text: 'Atualizado'
             });
 
-        // create some buttons inside a row
+        // row 1 (apostas)
         const row1 = new Discord.MessageActionRow().addComponents(
             new Discord.MessageButton()
                 .setCustomId(`page:games:coinflipResult:${user.id}:50`)
                 .setLabel('R$50')
-                .setStyle('PRIMARY'),
+                .setStyle('PRIMARY')
+                .setDisabled(!canBet(50)),
 
             new Discord.MessageButton()
                 .setCustomId(`page:games:coinflipResult:${user.id}:100`)
                 .setLabel('R$100')
-                .setStyle('PRIMARY'),
+                .setStyle('PRIMARY')
+                .setDisabled(!canBet(100)),
 
             new Discord.MessageButton()
                 .setCustomId(`page:games:coinflipResult:${user.id}:500`)
                 .setLabel('R$500')
-                .setStyle('PRIMARY'),
+                .setStyle('PRIMARY')
+                .setDisabled(!canBet(500)),
 
             new Discord.MessageButton()
                 .setCustomId(`page:games:coinflipResult:${user.id}:1000`)
                 .setLabel('R$1000')
-                .setStyle('PRIMARY'),
+                .setStyle('PRIMARY')
+                .setDisabled(!canBet(1000)),
 
             new Discord.MessageButton()
                 .setCustomId(`page:games:coinflipResult:${user.id}:5000`)
                 .setLabel('R$5000')
                 .setStyle('PRIMARY')
+                .setDisabled(!canBet(5000))
         );
 
-        // create some buttons inside a row
+        // row 2 (nav)
         const row2 = new Discord.MessageActionRow().addComponents(
             new Discord.MessageButton()
                 .setCustomId(`page:games:gamesList:${user.id}`)
