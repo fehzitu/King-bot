@@ -1,11 +1,20 @@
 // discord implements
 const Discord = require('discord.js');
 
+// import factory
+const { createDefaultUser } = require('../../../functions/levelSystem.js');
+
 module.exports = {
-    name: 'help',
-    execute(ctx) {
+    name: 'admin',
+    async execute(ctx) {
         // get the user
         const user = ctx.user || ctx.author;
+
+        // error log (ANTES de usar user)
+        if (!user) {
+            console.log('Erro no usuário:', ctx);
+            return;
+        };
 
         // get the client
         const client = ctx.client;
@@ -13,14 +22,13 @@ module.exports = {
         // load all the users
         const usersObject = client.usersData;
 
-        // get the user
-        const rpgUser = usersObject[user.id] || defaultUser;
+        // ensure user exists
+        if (!usersObject[user.id]) {
+            usersObject[user.id] = createDefaultUser();
+        }
 
-        // error log
-        if (!user) {
-            console.log('Erro no usuário:', ctx);
-            return;
-        };
+        // get the user
+        const rpgUser = usersObject[user.id];
 
         // create an embed
         const embed = new Discord.MessageEmbed()
@@ -30,10 +38,10 @@ module.exports = {
                 name: `@${user.username} Lv.${rpgUser.rpg.level} ${rpgUser.rpg.medals}`
             })
             .addFields([{
-                name: '🥀 Em **qualquer servidor que eu estiver** basta **você utilizar** meu comando base pra **abrir o menu e interagir comigo** no chat.',
-                value: '**👉 comando base "k.menu"**'
+                name: '**TU ACHOU MESMO QUE TERIA ISSO LIVREMENTE ASSIM?!**',
+                value: 'KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK'
             }])
-            .setImage('https://cdn.discordapp.com/attachments/1478819111906705430/1491724642799583322/images.jpeg?ex=69d8bc55&is=69d76ad5&hm=20d6a24780e97cda50b1b41b0721d16a856c588b144551bd7c3e26dfb7b3fb14&')
+            .setImage('https://wallpapers.com/images/high/troll-face-typing-gif-fb3m9a4czeu0d36a.webp')
             .setTimestamp()
             .setFooter({
                 text: 'Atualizado'
@@ -47,9 +55,9 @@ module.exports = {
                 .setStyle('PRIMARY')
         );
 
-        return {
-            embed,
+        await ctx.reply({
+            embeds: [embed],
             components: row ? [row] : []
-        };
+        });
     }
 };
