@@ -2,6 +2,9 @@
 const Discord = require('discord.js');
 const { SlashCommandBuilder } = require('@discordjs/builders');
 
+// import factory
+const { createDefaultUser } = require('../../../functions/levelSystem.js');
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('suporte')
@@ -16,8 +19,13 @@ module.exports = {
         // load all the users
         const usersObject = client.usersData;
 
+        // ensure user exists
+        if (!usersObject[user.id]) {
+            usersObject[user.id] = createDefaultUser();
+        }
+
         // get the user
-        const rpgUser = usersObject[user.id] || defaultUser;
+        const rpgUser = usersObject[user.id];
 
         // error log
         if (!user) {
@@ -36,7 +44,7 @@ module.exports = {
                 name: `👑 **Drakay**, nosso servidor de suporte!`,
                 value: '🔗 **https://discord.gg/Wpgu4qXWUk**'
             }])
-            .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1491798798505082920/images_2.jpeg?ex=69d90165&is=69d7afe5&hm=03c7377c4333769a4dc11c52413d49aa3c3f6fdc3cbf5b3c006b42c11fbf30e3')
+            .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1491798798505082920/images_2.jpeg')
             .setTimestamp()
             .setFooter({
                 text: 'Atualizado'
