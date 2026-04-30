@@ -13,8 +13,16 @@ module.exports = {
         // load all the users
         const usersObject = client.usersData;
 
-        // get the user
-        const rpgUser = usersObject[user.id] || defaultUser;
+        // ensure user exists
+        if (!usersObject[user.id]) {
+            usersObject[user.id] = createDefaultUser();
+        } else {
+            // merge to prevent missing future fields
+            usersObject[user.id] = {
+                ...createDefaultUser(),
+                ...usersObject[user.id]
+            };
+        };
 
         // error log
         if (!user) {
