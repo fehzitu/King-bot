@@ -1,6 +1,9 @@
 // discord implements
 const Discord = require('discord.js');
 
+// import factory
+const { createDefaultUser } = require('../../../functions/levelSystem.js');
+
 module.exports = {
     // "name" will receive the value that will be the chat message that the bot captures as a command
     name: 'admin',
@@ -14,8 +17,13 @@ module.exports = {
         // load all the users
         const usersObject = client.usersData;
 
+        // ensure user exists
+        if (!usersObject[user.id]) {
+            usersObject[user.id] = createDefaultUser();
+        }
+
         // get the user
-        const rpgUser = usersObject[user.id] || defaultUser;
+        const rpgUser = usersObject[user.id];
 
         // error log
         if (!user) {
