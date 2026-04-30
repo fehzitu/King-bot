@@ -6,7 +6,7 @@ const filePath = path.join(__dirname, '../../users.json');
 
 // import default user and custom functions
 const {
-    defaultUser,
+    createDefaultUser,
     checkLevelUp
 } = require(path.join(__dirname, '../../functions/levelSystem.js'));
 
@@ -18,97 +18,175 @@ const {
     saveJson
 } = require(path.join(__dirname, '../../functions/jsonHandler.js'));
 
+// universal handler for components
+async function safeExecute(handler, ctx) {
+    try {
+        return await handler.execute(ctx);
+    } catch (error) {
+        console.error(error);
+
+        // log if we got an error with this interaction
+        if (!ctx.replied && !ctx.deferred) {
+            await ctx.reply({
+                content: '❌ Erro ao executar interação.',
+                ephemeral: true
+            });
+        }
+    };
+};
+
 module.exports = {
-    name: 'messageCreate',
+    name: 'interactionCreate',
     async execute(ctx) {
-        // ignore bot messages
-        if (ctx.author.bot) return;
-
         // get user id and tag
-        const userId = ctx.author.id;
-        const userTag = ctx.author.tag;
+        const userId = ctx.user.id;
+        const userTag = ctx.user.tag;
 
-        // load users database once
+        // load users database
         const users = ctx.client.usersData;
 
-        // check if the user has a profile
+        // create profile if not exists
         if (!users[userId]) {
-            // create new profile
-            users[userId] = defaultUser;
+            users[userId] = createDefaultUser();
 
-            // save database
             await saveJson(filePath, users);
-            // await for consistency with async saving
 
-            // log
             console.log(`🏆 Novo perfil criado para ${userTag}`);
         };
 
-        // get user profile
+        // get profile
         const profile = users[userId];
         
         // check the user karma
         setKarma(profile);
 
-        // increase message counter
-        profile.stats.messages++;
+        // With this we can get the dynamic data, example "action:data"
+        const [customId] = ctx.customId ? ctx.customId.split(':') : [];
 
-        // XP system with cooldown (30 seconds)
-        const now = Date.now();
+        // button interaction
+        if (ctx.isButton()) {
+            // Get the button corresponding to this ID within the bot collection
+            const button = ctx.client.buttons?.get(customId);
 
-        if (now - profile.cooldowns.xp > 3000) {
-            // add xp
-            profile.rpg.xp += 50;
-
-            // check xp
-            const result = checkLevelUp(profile);
-
-            // check xp result
-            if (result.leveledUp) {
-                if (ctx.channel) {
-                    // safety check (future-proof for different channel types)
-                    ctx.channel.send(`🎉 **${ctx.author} subiu para o nível ${result.level}**!`);
-                };
+            // log if we got an erro with the interaction
+            if (!button) {
+                console.warn(`[🟡] Botão não encontrado: ${ctx.customId}`);
+                return;
             };
 
-            // update cooldown
-            profile.cooldowns.xp = now;
+            // handler
+            const result = await safeExecute(button, ctx);
+            if (!result) return;
+
+            const { embeds = [], components = [], content } = result;
+
+            // stop execution here
+            return;
         };
 
-        // log message info
-        const guildName = ctx.guild ? ctx.guild.name : "DM";
-        const channelName = ctx.guild ? ctx.channel.name : "DM";
+        // select menu interaction
+        if (ctx.isSelectMenu()) {
+            // Get the select menu corresponding to this ID within the bot collection
+            const select = ctx.client.selects?.get(customId);
 
-        console.log(`[${new Date().toLocaleDateString()}] [${new Date().toLocaleTimeString()}] [@${userTag}] [${guildName}] [${channelName}] : ${ctx.content}`);
+            // log if we got an erro with the interaction
+            if (!select) {
+                console.warn(`[🟡] Menu seletor não encontrado: ${ctx.customId}`);
+                return;
+            };
 
-        // commands prefix
-        const prefix = "k.";
+            // handler
+            const result = await safeExecute(select, ctx);
+            if (!result) return;
 
-        // set message content to lower case
-        const content = ctx.content.toLowerCase();
+            const { embeds = [], components = [], content } = result;
 
-        // check if message starts with prefix
-        if (!content.startsWith(prefix)) return;
+            // stop interaction here
+            return;
+        };
 
-        // get args from message
-        const args = content.slice(prefix.length).trim().split(/ +/);
-        const commandName = args.shift();
+        // modal interaction
+        if (ctx.isModalSubmit()) {
+            // Get the modal corresponding to this ID within the bot collection
+            const modal = ctx.client.modals?.get(customId);
 
-        // get command from collection
-        const command = ctx.client.prefixCommands.get(commandName);
+            // log if we got an erro with the interaction
+            if (!modal) {
+                console.warn(`[🟡] Modal não encontrado: ${ctx.customId}`);
+                return;
+            };
+
+            // handler
+            const result = await safeExecute(modal, ctx);
+            if (!result) return;
+
+            const { embeds = [], components = [], content } = result;
+
+            // stop interaction
+            return;
+        };
+
+        // check if the interaction is a slash command
+        if (!ctx.isCommand()) return;
+
+        // get the command
+        const command = ctx.client.slashCommands.get(ctx.commandName);
+
         if (!command) {
-            console.log(`[🟡] Comando desconhecido: "${commandName}"`);
+            console.error(`[🔴] Comando não encontrado: "${ctx.commandName}"`);
             return;
         };
 
         // increase command counter
         profile.stats.commands++;
 
-        // execute command
+        // log command execution
+        const guildName = ctx.guild ? ctx.guild.name : "DM";
+        const channelName = ctx.guild ? ctx.channel.name : "DM";
+
+        console.log(`[${new Date().toLocaleDateString()}] [${new Date().toLocaleTimeString()}] [@${userTag}] [${guildName}] [${channelName}] : /${command.data.name}`
+        );
+
         try {
-            await command.execute(ctx, args);
+            // execute command
+            const result = await command.execute(ctx);
+
+            if (result) {
+                const { embeds = [], components = [], content } = result;
+            };
+
+            // add xp
+            profile.rpg.xp += 100;
+
+            const resultLevel = checkLevelUp(profile);
+
+            // level up message
+            if (resultLevel.leveledUp) {
+                const levelMsg = `🎉 **${ctx.user} subiu para o nível ${resultLevel.level}**!`;
+
+                if (ctx.replied || ctx.deferred) {
+                    await ctx.followUp({
+                        content: levelMsg
+                    });
+                } else {
+                    await ctx.reply({
+                        content: levelMsg
+                    });
+                };
+            };
         } catch (error) {
             console.error(error);
+            if (ctx.replied || ctx.deferred) {
+                await ctx.followUp({
+                    content: '[🔴] Erro ao executar o comando! [🔴]',
+                    ephemeral: true
+                });
+            } else {
+                await ctx.reply({
+                    content: '[🔴] Erro ao executar o comando! [🔴]',
+                    ephemeral: true
+                });
+            };
         };
     }
 };
