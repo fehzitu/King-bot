@@ -128,7 +128,7 @@ setInterval(() => {
 
 // login
 client.login(config.token).then(() => {
-    log('SUCCESS', `Bot iniciando login...`);
+    log('INFO', `Bot iniciando login...`);
 }).catch(err => {
     log('ERROR', `Erro no login: ${err.message}`);
 });

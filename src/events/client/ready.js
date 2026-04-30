@@ -1,8 +1,23 @@
 const activities = require('../../config/activities');
+const constants = require('../../config/constants');
+
+function log(type, message) {
+    const colors = constants.LOG_COLORS || {};
+    const emojis = constants.EMOJIS || {};
+
+    const key = type.toUpperCase();
+
+    const color = colors[key] || '';
+    const reset = colors.RESET || '\x1b[0m';
+    const emoji = emojis[key] || '⚪';
+
+    console.log(`${color}[${emoji}] ${message}${reset}`);
+};
 
 module.exports = {
     name: 'ready',
     once: true,
+
     execute(client) {
         let index = 0;
 
@@ -17,14 +32,14 @@ module.exports = {
         // initial status
         updateStatus();
 
-        // status
+        // interval
         const interval = setInterval(updateStatus, 10000);
 
         client.user.setStatus('online');
 
-        console.log(`👑 ${client.user.tag} logado com sucesso!`);
+        log('success', `${client.user.tag} logado com sucesso!`);
 
-        // save ref (for hot reload)
+        // save ref (future use)
         client.statusInterval = interval;
     }
 };
