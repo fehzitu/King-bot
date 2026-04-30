@@ -6,7 +6,7 @@ const path = require('path');
 
 // importing custom functions from other file
 const {
-    defaultUser
+    createDefaultUser
 } = require(path.join(__dirname, '../../../functions/levelSystem.js'));
 
 module.exports = {
@@ -25,12 +25,17 @@ module.exports = {
         const client = ctx.client;
         
         // load users database once
-        const users = ctx.client.usersData;
+        const users = client.usersData;
 
-        // fix user
+        // ensure user exists
         if (!users[user.id]) {
-            // create new profile
-            users[user.id] = JSON.parse(JSON.stringify(defaultUser));
+            users[user.id] = createDefaultUser();
+        } else {
+            // merge to prevent missing future fields
+            users[user.id] = {
+                ...createDefaultUser(),
+                ...users[user.id]
+            };
         };
 
         // get the user
@@ -47,10 +52,12 @@ module.exports = {
             '>>> 🤑 Parabéns sua aposta rendeu!\nTivemos um sortudo aqui!',
             '>>> 😥 Que triste em...\nTivemos um pouco de azar nessa em!'
         ];
+
         const imgs = [
             'https://cdn.discordapp.com/attachments/1477290272638632068/1497067466361143326/2026-04-24-ganhou.gif',
             'https://cdn.discordapp.com/attachments/1477290272638632068/1497067466654879834/2026-04-24-perdeu.gif'
         ];
+
         const color = ['GREEN', 'RED'];
 
         // button itens
@@ -96,7 +103,7 @@ module.exports = {
 
         // win
         if (randomValue === 0) {
-            // green
+            // green (jackpot)
             if (entryColor === 'green') {
                 if (randomValue15 === 7) {
                     rpgUser.rpg.money += betValue * 15;
