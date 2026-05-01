@@ -6,21 +6,8 @@ const path = require('path');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 
-const constants = require('../config/constants');
-
-// log
-function log(type, message) {
-    const colors = constants.LOG_COLORS || {};
-    const emojis = constants.EMOJIS || {};
-
-    const key = type.toUpperCase();
-
-    const color = colors[key] || '';
-    const reset = colors.RESET || '\x1b[0m';
-    const emoji = emojis[key] || '⚪';
-
-    console.log(`${color}[${emoji}] ${message}${reset}`);
-};
+const constants = require('../config/constants.js');
+const log = require('../utils/logger.js');
 
 // config
 const CLIENT_ID = process.env.CLIENT_ID;
@@ -65,7 +52,7 @@ const rest = new REST({ version: '9' }).setToken(TOKEN);
 // deploy
 (async () => {
     try {
-        log('INFO', 'Iniciando deploy de comandos...');
+        log('INFO', 'Iniciando deploy de comandos');
 
         await rest.put(
             Routes.applicationCommands(CLIENT_ID),
@@ -75,5 +62,5 @@ const rest = new REST({ version: '9' }).setToken(TOKEN);
         log('SUCCESS', `${commands.length} comandos registrados com sucesso!`);
     } catch (error) {
         log('ERROR', `Erro ao registrar comandos: ${error.message}`);
-    }
+    };
 })();

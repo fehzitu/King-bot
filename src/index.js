@@ -5,20 +5,10 @@ const path = require('path');
 const { Client, Intents, Collection } = require('discord.js');
 
 const config = require('./config');
-const constants = require('./config/constants');
-const { loadJson, saveJson } = require('./utils/jsonHandler');
 
-// log system
-function log(type, message) {
-    const icons = constants.EMOJIS || {};
-
-    const colors = constants.LOG_COLORS || {};
-
-    const icon = icons[type.toUpperCase()] || '⚪';
-    const color = colors[type.toUpperCase()] || colors.RESET;
-
-    console.log(`${color}[${icon}] ${message}${colors.RESET}`);
-};
+const constants = require('./config/constants.js');
+const { loadJson, saveJson } = require('./utils/jsonHandler.js');
+const log = require('./utils/logger.js');
 
 // client
 const client = new Client({
@@ -58,7 +48,6 @@ loadFiles(path.join(__dirname, 'commands'), (filePath) => {
         return log('ERROR', `Comando inválido: ${filePath}`);
     };
 
-    log('WARNING', 'Carregando comandos');
     client.commands.set(command.name, command);
     log('SUCCESS', `Comandos carregados: ${command.name}`);
 });
@@ -71,7 +60,6 @@ loadFiles(path.join(__dirname, 'interactions'), (filePath) => {
         return log('ERROR', `Interação inválida: ${filePath}`);
     };
 
-    log('WARNING', 'Carregando interações');
     client.interactions.set(interaction.customId, interaction);
     log('SUCCESS', `interações carregadas: ${interaction.customId}`);
 });
@@ -111,7 +99,6 @@ function loadEvents(dir) {
             client.on(event.name, (...args) => event.execute(client, ...args));
         };
 
-        log('WARNING', 'Carregando eventos');
         log('SUCCESS', `Eventos carregados: ${event.name}`);
     };
 };
