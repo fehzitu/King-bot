@@ -73,7 +73,7 @@ loadFiles(path.join(__dirname, 'interactions'), (filePath) => {
 
     log('WARNING', 'Carregando interações');
     client.interactions.set(interaction.customId, interaction);
-    log('SUCCESS', `Interação carregada: ${interaction.customId}`);
+    log('SUCCESS', `interações carregadas: ${interaction.customId}`);
 });
 
 // events
@@ -101,7 +101,7 @@ function loadEvents(dir) {
         const event = require(filePath);
 
         if (!event.name || !event.execute) {
-            log('ERROR', `Evento inválido: ${filePath}`);
+            log('ERROR', `evento inválido: ${filePath}`);
             continue;
         };
 
@@ -112,7 +112,7 @@ function loadEvents(dir) {
         };
 
         log('WARNING', 'Carregando eventos');
-        log('SUCCESS', `Evento carregado: ${event.name}`);
+        log('SUCCESS', `Eventos carregados: ${event.name}`);
     };
 };
 
