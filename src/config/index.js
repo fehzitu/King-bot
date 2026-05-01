@@ -3,7 +3,7 @@ require('dotenv').config();
 module.exports = {
     // bot core
     token: process.env.TOKEN,
-    prefix: process.env.PREFIX || "k.",
+    prefix: process.env.BOT_PREFIX || "k.",
 
     // environment
     isDev: process.env.NODE_ENV === "development",
@@ -18,7 +18,7 @@ module.exports = {
         intents: [
             "GUILDS",
             "GUILD_MESSAGES",
-            "GUILD_MEMBERS"
+            "MESSAGE_CONTENT"
         ]
     }
 };

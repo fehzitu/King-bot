@@ -51,6 +51,7 @@ This project focuses not only on features, but also on code quality, structure, 
 ┃ ┃ ┗ 📜 deploy-commands.js (slash commands deploy system)
 ┃ ┣ 📂 utils
 ┃ ┃ ┗ 📜 jsonHandler.js (safe JSON load/save system)
+┃ ┃ ┗ 📜 logger.js (custom log system)
 ┃ ┣ 📂 commands (slash and prefix commands)
 ┃ ┣ 📂 interactions
 ┃ ┃ ┣ 📂 buttons (button interactions)
@@ -59,8 +60,10 @@ This project focuses not only on features, but also on code quality, structure, 
 ┃ ┣ 📂 events
 ┃ ┃ ┣ 📂 client
 ┃ ┃ ┃ ┗ 📜 ready.js (bot startup event)
-┃ ┃ ┣ 📂 messages (message related events)
-┃ ┃ ┣ 📂 interactions (interaction related events)
+┃ ┃ ┣ 📂 messages
+┃ ┃ ┃ ┗ 📜 messageCreate.js (messages handler)
+┃ ┃ ┣ 📂 interactions
+┃ ┃ ┃ ┗ 📜 interactionCreate.js (interaction handler)
 ┃ ┃ ┗ 📂 guild (guild events like member join)
 ┃ ┣ 📂 database
 ┃ ┃ ┗ 📜 users.json (all users data, auto created)
@@ -87,7 +90,8 @@ CLIENT_ID=bot_id_here
 PREFIX=prefix_here
 
 4️⃣ Start the bot:
-- npm start
+- npm run start
+- npm run dev (auto reload)
 ```
 
 ## 🎯 Project Purpose

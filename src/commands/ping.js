@@ -6,8 +6,10 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('ping')
         .setDescription('Pong'),
+
     // name for prefix usage
     name: 'ping',
+
     // execute
     async execute(ctx, args) {
         // slash command
