@@ -125,7 +125,7 @@ client.usersData = loadJson(usersPath, {});
 
 setInterval(() => {
     saveJson(usersPath, client.usersData)
-        .then(() => log('SUCCESS', 'Database salva automaticamente'))
+        .then(() => log('INFO', 'Database salva automaticamente'))
         .catch(err => log('ERROR', err.message));
 }, 60000);
 

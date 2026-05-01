@@ -6,6 +6,22 @@ const path = require('path');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 
+const constants = require('../config/constants');
+
+// log
+function log(type, message) {
+    const colors = constants.LOG_COLORS || {};
+    const emojis = constants.EMOJIS || {};
+
+    const key = type.toUpperCase();
+
+    const color = colors[key] || '';
+    const reset = colors.RESET || '\x1b[0m';
+    const emoji = emojis[key] || '⚪';
+
+    console.log(`${color}[${emoji}] ${message}${reset}`);
+};
+
 // config
 const CLIENT_ID = process.env.CLIENT_ID;
 const TOKEN = process.env.TOKEN;
@@ -14,6 +30,11 @@ const TOKEN = process.env.TOKEN;
 const commands = [];
 
 function loadCommands(dir) {
+    if (!fs.existsSync(dir)) {
+        log('WARNING', `Pasta não encontrada: ${dir}`);
+        return;
+    };
+
     const files = fs.readdirSync(dir);
 
     for (const file of files) {
@@ -27,10 +48,11 @@ function loadCommands(dir) {
 
             if (command.data) {
                 commands.push(command.data.toJSON());
+                log('INFO', `Comando carregado: ${command.data.name}`);
             } else {
-                console.log(`[⚠️] Comando sem "data": ${filePath}`);
+                log('WARNING', `Comando sem "data": ${filePath}`);
             };
-        }
+        };
     }
 };
 
@@ -43,15 +65,15 @@ const rest = new REST({ version: '9' }).setToken(TOKEN);
 // deploy
 (async () => {
     try {
-        console.log('🔄 Iniciando deploy de comandos...');
+        log('INFO', 'Iniciando deploy de comandos...');
 
         await rest.put(
             Routes.applicationCommands(CLIENT_ID),
             { body: commands }
         );
 
-        console.log(`🟢 ${commands.length} comandos registrados com sucesso!`);
+        log('SUCCESS', `${commands.length} comandos registrados com sucesso!`);
     } catch (error) {
-        console.error('🔴 Erro ao registrar comandos:', error);
-    };
+        log('ERROR', `Erro ao registrar comandos: ${error.message}`);
+    }
 })();
