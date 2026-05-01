@@ -76,7 +76,7 @@ This project focuses not only on features, but also on code quality, structure, 
 Structured in a modular way to ensure scalability and easy maintenance.
 
 ## 📜 Command Structure
-```shell
+```js
 // imports
 
 module.exports = {
