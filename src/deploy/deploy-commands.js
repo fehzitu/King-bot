@@ -51,7 +51,7 @@ function loadCommands(dir) {
         }
     };
 
-    log('INFO', 'Carregando comandos para deploy');
+    log('RESET', 'Carregando comandos para deploy');
 
     walk(dir);
 
