@@ -6,47 +6,66 @@ const path = require('path');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 
-const constants = require('../config/constants.js');
-const log = require('../utils/logger.js');
+const log = require('../utils/logger');
 
 // config
 const CLIENT_ID = process.env.CLIENT_ID;
 const TOKEN = process.env.TOKEN;
 
-// load commands
+// commands array
 const commands = [];
 
+// loader
 function loadCommands(dir) {
-    if (!fs.existsSync(dir)) {
-        log('WARNING', `Pasta não encontrada: ${dir}`);
-        return;
-    };
+    let loaded = 0;
+    let invalid = [];
 
-    const files = fs.readdirSync(dir);
+    function walk(currentDir) {
+        if (!fs.existsSync(currentDir)) {
+            log('WARNING', `Pasta não encontrada: ${currentDir}`);
+            return;
+        };
 
-    for (const file of files) {
-        const filePath = path.join(dir, file);
-        const stat = fs.statSync(filePath);
+        const files = fs.readdirSync(currentDir);
 
-        if (stat.isDirectory()) {
-            loadCommands(filePath);
-        } else if (file.endsWith('.js')) {
+        for (const file of files) {
+            const filePath = path.join(currentDir, file);
+            const stat = fs.statSync(filePath);
+
+            if (stat.isDirectory()) {
+                walk(filePath);
+                continue;
+            };
+
+            if (!file.endsWith('.js')) continue;
+
             const command = require(filePath);
 
-            if (command.data) {
-                commands.push(command.data.toJSON());
-                log('INFO', `Comando carregado: ${command.data.name}`);
-            } else {
-                log('WARNING', `Comando sem "data": ${filePath}`);
+            if (!command.data) {
+                invalid.push(path.basename(filePath));
+                continue;
             };
-        };
-    }
+
+            commands.push(command.data.toJSON());
+            loaded++;
+        }
+    };
+
+    log('INFO', 'Carregando comandos para deploy');
+
+    walk(dir);
+
+    log('SUCCESS', `Comandos carregados: ${loaded}`);
+
+    if (invalid.length > 0) {
+        log('ERROR', `Comandos inválidos: ${invalid.join(', ')}`);
+    };
 };
 
-// path
+// load
 loadCommands(path.join(__dirname, '../commands'));
 
-// discord rest
+// rest
 const rest = new REST({ version: '9' }).setToken(TOKEN);
 
 // deploy

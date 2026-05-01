@@ -75,6 +75,22 @@ This project focuses not only on features, but also on code quality, structure, 
 
 Structured in a modular way to ensure scalability and easy maintenance.
 
+## 📜 Command Structure
+```shell
+// imports
+
+module.exports = {
+    data: ...,   // slash command data
+    name: ...,   // prefix command name
+
+    async execute(ctx, args) {
+        // detect command type
+        // command logic
+        // reply interaction
+    }
+};
+```
+
 ## ⚙️ How To Run The Project
 
 ```shell
