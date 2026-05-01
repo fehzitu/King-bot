@@ -10,7 +10,7 @@ async function safeExecute(handler, interaction) {
 
         if (!interaction.replied && !interaction.deferred) {
             await interaction.reply({
-                content: 'Erro ao executar interação,
+                content: 'Erro ao executar interação',
                 ephemeral: true
             });
         };
