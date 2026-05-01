@@ -13,7 +13,7 @@ module.exports = {
         const guild = message.guild ? message.guild.name : 'DM';
         const channel = message.guild ? message.channel.name : 'DM';
 
-        log('INFO', `${userTag} [${guild}] #${channel}: ${message.content}`);
+        log('RESET', `[${new Date().toLocaleDateString()}] [${new Date().toLocaleTimeString()}] [@${userTag}] [${guild}] [${channel}]: ${message.content}`);
 
         // prefix
         const prefix = config.prefix;

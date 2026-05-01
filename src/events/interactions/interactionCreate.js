@@ -32,7 +32,7 @@ module.exports = {
                 return;
             };
 
-            log('INFO', `Botão: ${id} usado por ${userTag}`);
+            log('RESET', `Botão: ${id} usado por ${userTag}`);
 
             return safeExecute(button, interaction);
         };
@@ -47,7 +47,7 @@ module.exports = {
                 return;
             };
 
-            log('INFO', `Seletor: ${id} usado por ${userTag}`);
+            log('RESET', `Seletor: ${id} usado por ${userTag}`);
 
             return safeExecute(select, interaction);
         };
@@ -62,7 +62,7 @@ module.exports = {
                 return;
             };
 
-            log('INFO', `Modal: ${id} usado por ${userTag}`);
+            log('RESET', `Modal: ${id} usado por ${userTag}`);
 
             return safeExecute(modal, interaction);
         };
@@ -81,8 +81,8 @@ module.exports = {
         const channel = interaction.guild ? interaction.channel.name : 'DM';
 
         log(
-            'INFO',
-            `/${interaction.commandName} by ${userTag} in ${guild} #${channel}`
+            'RESET',
+            `[${new Date().toLocaleDateString()}] [${new Date().toLocaleTimeString()}] [@${userTag}] [${guild}] [${channel}]`
         );
 
         try {
