@@ -32,7 +32,7 @@ client.interactions = new Collection();
 // generic loader
 function loadFiles(dir, callback) {
     if (!fs.existsSync(dir)) {
-        log('WARN', `Diretório não encontrado: ${dir}`);
+        log('WARNING', `Diretório não encontrado: ${dir}`);
         return;
     };
 
@@ -58,8 +58,9 @@ loadFiles(path.join(__dirname, 'commands'), (filePath) => {
         return log('ERROR', `Comando inválido: ${filePath}`);
     };
 
+    log('WARNING', 'Carregando comandos');
     client.commands.set(command.name, command);
-    log('SUCCESS', `Command carregado: ${command.name}`);
+    log('SUCCESS', `Comandos carregados: ${command.name}`);
 });
 
 // interactions
@@ -67,11 +68,12 @@ loadFiles(path.join(__dirname, 'interactions'), (filePath) => {
     const interaction = require(filePath);
 
     if (!interaction.customId || !interaction.execute) {
-        return log('ERROR', `Interaction inválida: ${filePath}`);
+        return log('ERROR', `Interação inválida: ${filePath}`);
     };
 
+    log('WARNING', 'Carregando interações');
     client.interactions.set(interaction.customId, interaction);
-    log('SUCCESS', `Interaction carregada: ${interaction.customId}`);
+    log('SUCCESS', `Interação carregada: ${interaction.customId}`);
 });
 
 // events
@@ -79,7 +81,7 @@ const eventsPath = path.join(__dirname, 'events');
 
 function loadEvents(dir) {
     if (!fs.existsSync(dir)) {
-        log('WARN', 'Pasta de eventos não encontrada');
+        log('WARNING', 'Pasta de eventos não encontrada');
         return;
     };
 
@@ -109,7 +111,8 @@ function loadEvents(dir) {
             client.on(event.name, (...args) => event.execute(client, ...args));
         };
 
-        log('INFO', `Event carregado: ${event.name}`);
+        log('WARNING', 'Carregando eventos');
+        log('SUCCESS', `Evento carregado: ${event.name}`);
     };
 };
 
@@ -122,13 +125,13 @@ client.usersData = loadJson(usersPath, {});
 
 setInterval(() => {
     saveJson(usersPath, client.usersData)
-        .then(() => log('INFO', 'Database salva automaticamente'))
+        .then(() => log('SUCCESS', 'Database salva automaticamente'))
         .catch(err => log('ERROR', err.message));
 }, 60000);
 
 // login
 client.login(config.token).then(() => {
-    log('INFO', `Bot iniciando login...`);
+    log('WARNING', 'Bot iniciando login');
 }).catch(err => {
     log('ERROR', `Erro no login: ${err.message}`);
 });

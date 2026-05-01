@@ -23,7 +23,7 @@ module.exports = {
 
         const updateStatus = () => {
             client.user.setActivity(activities[index], {
-                type: "PLAYING"
+                type: 'PLAYING'
             });
 
             index = (index + 1) % activities.length;
@@ -37,7 +37,7 @@ module.exports = {
 
         client.user.setStatus('online');
 
-        log('success', `${client.user.tag} logado com sucesso!`);
+        log('SUCCESS', `${client.user.tag} logado com sucesso!`);
 
         // save ref (future use)
         client.statusInterval = interval;
