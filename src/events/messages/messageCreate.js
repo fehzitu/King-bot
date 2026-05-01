@@ -13,7 +13,7 @@ module.exports = {
         const guild = message.guild ? message.guild.name : 'DM';
         const channel = message.guild ? message.channel.name : 'DM';
 
-        log('INFO', `${userTag} in ${guild} #${channel}: ${message.content}`);
+        log('INFO', `${userTag} [${guild}] #${channel}: ${message.content}`);
 
         // prefix
         const prefix = config.prefix;
@@ -29,17 +29,17 @@ module.exports = {
         const command = client.commands.get(commandName);
 
         if (!command) {
-            log('WARNING', `Unknown command: ${commandName}`);
+            log('WARNING', `Comando desconhecido: ${commandName}`);
             return;
         };
 
-        log('INFO', `Prefix command: ${commandName} used by ${userTag}`);
+        log('INFO', `Comando de prefixo: ${commandName} usado por ${userTag}`);
 
         // execute command
         try {
             await command.execute(message, args);
         } catch (error) {
-            log('ERROR', `Command error (${commandName}): ${error.message}`);
+            log('ERROR', `Erro no comando (${commandName}): ${error.message}`);
         };
     }
 };

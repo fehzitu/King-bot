@@ -6,11 +6,11 @@ async function safeExecute(handler, interaction) {
     try {
         return await handler.execute(interaction);
     } catch (error) {
-        log('ERROR', `Error in interaction: ${error.message}`);
+        log('ERROR', `Erro na interação: ${error.message}`);
 
         if (!interaction.replied && !interaction.deferred) {
             await interaction.reply({
-                content: 'Error while executing interaction.',
+                content: 'Erro ao executar interação,
                 ephemeral: true
             });
         };
@@ -28,11 +28,11 @@ module.exports = {
             const button = client.interactions.get(id);
 
             if (!button) {
-                log('WARNING', `Button not found: ${interaction.customId}`);
+                log('WARNING', `Botão não encontrado: ${interaction.customId}`);
                 return;
             };
 
-            log('INFO', `Button: ${id} used by ${userTag}`);
+            log('INFO', `Botão: ${id} usado por ${userTag}`);
 
             return safeExecute(button, interaction);
         };
@@ -43,11 +43,11 @@ module.exports = {
             const select = client.interactions.get(id);
 
             if (!select) {
-                log('WARNING', `Select not found: ${interaction.customId}`);
+                log('WARNING', `Seletor não encontrado: ${interaction.customId}`);
                 return;
             };
 
-            log('INFO', `Select: ${id} used by ${userTag}`);
+            log('INFO', `Seletor: ${id} usado por ${userTag}`);
 
             return safeExecute(select, interaction);
         };
@@ -58,11 +58,11 @@ module.exports = {
             const modal = client.interactions.get(id);
 
             if (!modal) {
-                log('WARNING', `Modal not found: ${interaction.customId}`);
+                log('WARNING', `Modal não encontrado: ${interaction.customId}`);
                 return;
             };
 
-            log('INFO', `Modal: ${id} submitted by ${userTag}`);
+            log('INFO', `Modal: ${id} usado por ${userTag}`);
 
             return safeExecute(modal, interaction);
         };
@@ -73,7 +73,7 @@ module.exports = {
         const command = client.commands.get(interaction.commandName);
 
         if (!command) {
-            log('ERROR', `Command not found: ${interaction.commandName}`);
+            log('ERROR', `Comando não encontrado: ${interaction.commandName}`);
             return;
         };
 
@@ -88,16 +88,16 @@ module.exports = {
         try {
             await command.execute(interaction);
         } catch (error) {
-            log('ERROR', `Command error (${interaction.commandName}): ${error.message}`);
+            log('ERROR', `Erro no comando (${interaction.commandName}): ${error.message}`);
 
             if (interaction.replied || interaction.deferred) {
                 await interaction.followUp({
-                    content: 'Error while executing command.',
+                    content: 'Erro ao executar comando.',
                     ephemeral: true
                 });
             } else {
                 await interaction.reply({
-                    content: 'Error while executing command.',
+                    content: 'Erro ao executar comando.',
                     ephemeral: true
                 });
             };
