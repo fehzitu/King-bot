@@ -82,10 +82,11 @@ module.exports = {
 
         log(
             'RESET',
-            `[${new Date().toLocaleDateString()}] [${new Date().toLocaleTimeString()}] [@${userTag}] [${guild}] [${channel}]`
+            `[${new Date().toLocaleDateString()}] [${new Date().toLocaleTimeString()}] [@${userTag}] [${guild}] [${channel}]: /${interaction.commandName}`
         );
 
         try {
+            log('WARNING', `Comando /${interaction.commandName} usado por ${userTag}`);
             await command.execute(interaction);
         } catch (error) {
             log('ERROR', `Erro no comando (${interaction.commandName}): ${error.message}`);

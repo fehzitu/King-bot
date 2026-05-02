@@ -33,7 +33,7 @@ module.exports = {
             return;
         };
 
-        log('RESET', `Comando de prefixo: ${commandName} usado por ${userTag}`);
+        log('WARNING', `Comando k.${commandName} usado por ${userTag}`);
 
         // execute command
         try {
