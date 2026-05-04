@@ -2,6 +2,9 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed } = require('discord.js');
 
+// import custom functions
+const createEmbed = require('../utils/embed.js');
+
 module.exports = {
     // slash data
     data: new SlashCommandBuilder()
@@ -31,29 +34,18 @@ module.exports = {
         const formattedUptime = `${hours}h ${minutes}m ${seconds}s`;
 
         // embed
-        const embed = new MessageEmbed()
-            .setColor('RANDOM')
-            .setAuthor({
-                iconURL: user.displayAvatarURL({ dynamic: true }),
-                name: `@${user.username}`
-            })
-            .addFields(
-                {
-                    name: `👑 Nome: **${client.user.tag}**`,
-                    value: `⏳ Uptime: **${formattedUptime}**\n📡 Ping: **${client.ws.ping}ms**`,
-                    inline: true
-                },
-                {
-                    name: `🏠 Servidores: **${totalGuilds}**`,
-                    value: `📚 Canais: **${totalChannels}**\n👥 Usuários: **${totalUsers}**`,
-                    inline: true
-                }
-            )
-            .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1491764536322035802/yuliowo.gif')
-            .setTimestamp()
-            .setFooter({
-                text: 'Atualizado agora'
-            });
+        const embed = createEmbed({user})
+        .addFields({
+            name: `👑 Nome: **${client.user.tag}**`,
+            value: `⏳ Uptime: **${formattedUptime}**\n📡 Ping: **${client.ws.ping}ms**`,
+            inline: true
+        },
+        {
+            name: `🏠 Servidores: **${totalGuilds}**`,
+            value: `📚 Canais: **${totalChannels}**\n👥 Usuários: **${totalUsers}**`,
+            inline: true
+        })
+        .setImage('https://cdn.discordapp.com/attachments/1477290272638632068/1491764536322035802/yuliowo.gif');
 
         // reply
         return ctx.reply({ embeds: [embed] });

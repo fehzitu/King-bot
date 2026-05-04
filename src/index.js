@@ -43,7 +43,7 @@ function loadCommands() {
     let loaded = 0;
     let invalid = [];
 
-    log('INFO', 'Carregando comandos');
+    log('RESET', 'Carregando comandos');
 
     loadFiles(path.join(__dirname, 'commands'), (filePath) => {
         const command = require(filePath);
@@ -57,7 +57,7 @@ function loadCommands() {
         loaded++;
     });
 
-    log('SUCCESS', `Comandos carregados: ${loaded}`);
+    log('WARNING', `Comandos carregados: ${loaded}`);
 
     if (invalid.length > 0) {
         log('ERROR', `Comandos inválidos: ${invalid.join(', ')}`);
@@ -69,7 +69,7 @@ function loadInteractions() {
     let loaded = 0;
     let invalid = [];
 
-    log('INFO', 'Carregando interações');
+    log('RESET', 'Carregando interações');
 
     loadFiles(path.join(__dirname, 'interactions'), (filePath) => {
         const interaction = require(filePath);
@@ -83,7 +83,7 @@ function loadInteractions() {
         loaded++;
     });
 
-    log('SUCCESS', `Interações carregadas: ${loaded}`);
+    log('WARNING', `Interações carregadas: ${loaded}`);
 
     if (invalid.length > 0) {
         log('ERROR', `Interações inválidas: ${invalid.join(', ')}`);
@@ -97,7 +97,7 @@ function loadEvents() {
 
     const eventsPath = path.join(__dirname, 'events');
 
-    log('INFO', 'Carregando eventos');
+    log('RESET', 'Carregando eventos');
 
     function walk(dir) {
         if (!fs.existsSync(dir)) {
@@ -137,7 +137,7 @@ function loadEvents() {
 
     walk(eventsPath);
 
-    log('SUCCESS', `Eventos carregados: ${loaded}`);
+    log('WARNING', `Eventos carregados: ${loaded}`);
 
     if (invalid.length > 0) {
         log('ERROR', `Eventos inválidos: ${invalid.join(', ')}`);
@@ -155,14 +155,16 @@ const usersPath = config.database.usersPath;
 client.usersData = loadJson(usersPath, {});
 
 // autosave
+/*
 setInterval(() => {
     saveJson(usersPath, client.usersData)
         .then(() => log('INFO', 'Database salva automaticamente'))
         .catch(err => log('ERROR', err.message));
 }, 60000);
+*/
 
 // login
-log('WARNING', 'Bot iniciando login');
+log('INFO', 'Bot iniciando login');
 
 client.login(config.token).catch(err => {
     log('ERROR', `Erro no login: ${err.message}`);
