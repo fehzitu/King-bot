@@ -55,7 +55,7 @@ function loadCommands(dir) {
 
     walk(dir);
 
-    log('SUCCESS', `Comandos carregados: ${loaded}`);
+    log('WARNING', `Comandos carregados: ${loaded}`);
 
     if (invalid.length > 0) {
         log('ERROR', `Comandos inválidos: ${invalid.join(', ')}`);
@@ -78,7 +78,7 @@ const rest = new REST({ version: '9' }).setToken(TOKEN);
             { body: commands }
         );
 
-        log('SUCCESS', `${commands.length} comandos registrados com sucesso!`);
+        log('SUCCESS',`Comandos registrados com sucesso: ${commands.length}`);
     } catch (error) {
         log('ERROR', `Erro ao registrar comandos: ${error.message}`);
     };
