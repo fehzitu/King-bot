@@ -3,8 +3,8 @@ const { MessageButton } = require('discord.js');
 
 module.exports = function createButton(options = {}) {
     const {
-        customId = 'defaultButton',
-        label = '\u200b',
+        customId,
+        label = 'Botão de exemplo',
         style = 'PRIMARY',
         user
     } = options;
@@ -13,16 +13,25 @@ module.exports = function createButton(options = {}) {
         .setLabel(label)
         .setStyle(style);
 
-    // if user exists → enable and restrict
-    if (user?.id) {
+    // case 1: has customId + user → normal restricted button
+    if (customId && user?.id) {
         button
             .setCustomId(`${customId}:${user.id}`)
             .setDisabled(false);
-    } else {
-        // no user → disabled
+    };
+
+    // case 2: no user → disabled
+    else if (!user) {
         button
-            .setCustomId(customId)
+            .setCustomId(customId || 'disabledButton')
             .setDisabled(true);
+    };
+
+    // case 3: no customId but has user → example button
+    else {
+        button
+            .setCustomId(`exampleButton:${user.id}`)
+            .setDisabled(false);
     };
 
     return button;
