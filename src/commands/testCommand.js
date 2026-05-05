@@ -24,10 +24,7 @@ module.exports = {
         const embed = createEmbed({user});
 
         // button
-        const button = createButton({
-            customId: `testButton`,
-            user
-        });
+        const button = createButton({user});
 
         // button
         const row = new MessageActionRow().addComponents(button);

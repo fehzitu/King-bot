@@ -4,7 +4,7 @@ const { MessageButton } = require('discord.js');
 module.exports = function createButton(options = {}) {
     const {
         customId = 'defaultButton',
-        label = 'Botão',
+        label = '\u200b',
         style = 'PRIMARY',
         user
     } = options;
