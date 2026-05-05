@@ -20,7 +20,7 @@ module.exports = {
         updateStatus();
 
         // interval
-        const interval = setInterval(updateStatus, 2500);
+        const interval = setInterval(updateStatus, 5000);
 
         client.user.setStatus('online');
 
