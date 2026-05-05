@@ -1,4 +1,6 @@
 const constants = require('../../config/constants.js');
+const checkCooldown = require('../../utils/cooldown');
+const createEmbed = require('../../utils/embed');
 const log = require('../../utils/logger.js');
 
 // safe execution
@@ -76,6 +78,23 @@ module.exports = {
             log('ERROR', `Comando não encontrado: ${interaction.commandName}`);
             return;
         };
+        
+        // cooldown
+        const userId = interaction.user.id;
+        const remaining = checkCooldown(userId, constants.COOLDOWNS.COMMAND);
+        
+        if (remaining > 0) {
+            const seconds = (remaining / 1000).toFixed(1);
+        
+            const embed = createEmbed({ user: interaction.user });
+        
+            embed.setDescription(`⏳ Sem spam!\nEspere **${seconds}s** para usar novamente.`);
+        
+            return interaction.reply({
+                embeds: [embed],
+                ephemeral: true
+            });
+        };
 
         const guild = interaction.guild ? interaction.guild.name : 'DM';
         const channel = interaction.guild ? interaction.channel.name : 'DM';
@@ -102,6 +121,6 @@ module.exports = {
                     ephemeral: true
                 });
             };
-        }
+        };
     }
 };

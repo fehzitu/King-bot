@@ -16,22 +16,16 @@ module.exports = {
         const client = ctx.client;
         const user = ctx.user || ctx.author;
 
-        // start time
-        const start = Date.now();
-
         // calculate latencies
-        const end = Date.now();
-        const responseTime = end - start;
         const apiPing = client.ws.ping;
 
         // create embed
-        const embed = createEmbed({ user });
-
-        embed.setDescription(
-            `🏓 **Pong!**\n\n` +
-            `📡 API: **${apiPing}ms**\n` +
-            `⚡ Resposta: **${responseTime}ms**`
-        );
+        const embed = createEmbed({ user })
+        .addFields([{
+            name: '🏓 **Pong!**',
+            value: `📡 Api: **${apiPing}ms**`
+        }])
+        .setImage('https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExejdwZHowNDRnMjZ4dHBkcWNpbTA2NDRibjdpamliNmNmcDZyaTBoaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/2jmnf6gznuL8Q/giphy.gif');
 
         // reply
         return ctx.reply({ embeds: [embed] });

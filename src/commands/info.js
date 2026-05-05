@@ -37,7 +37,7 @@ module.exports = {
         const embed = createEmbed({user})
         .addFields({
             name: `👑 Nome: **${client.user.tag}**`,
-            value: `⏳ Uptime: **${formattedUptime}**\n📡 Ping: **${client.ws.ping}ms**`,
+            value: `😎 Criador: <@830634043560296468>\n⏳ Tempo ativo: **${formattedUptime}**`,
             inline: true
         },
         {
