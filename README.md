@@ -1,11 +1,11 @@
-## 👑 King Bot
+## 👑 Killua Bot
 
 > Official bot of the **Drakay** Discord server.  
 > Built to apply and improve JavaScript skills using Node.js and Discord.js.
 
 ## 📌 About The Project
 
-King Bot is a fully custom Discord bot developed from scratch for the **Drakay** server.
+Killua Bot is a fully custom Discord bot developed from scratch for the **Drakay** server.
 
 The main goals of this project are:
 
@@ -41,7 +41,7 @@ This project focuses not only on features, but also on code quality, structure, 
 
 ## 📂 Project Structure
 ```shell
-📦 king-bot
+📦 killua-bot
 ┣ 📂 src
 ┃ ┣ 📂 config
 ┃ ┃ ┣ 📜 index.js (main bot configuration)
@@ -111,7 +111,7 @@ PREFIX=prefix_here
 ```
 
 ## 🎯 Project Purpose
-``King Bot represents``:
+``Killua Bot represents``:
 - **Practical JavaScript experience**
 - **Clean architecture learning**
 - **Real Discord API interaction**
