@@ -30,7 +30,7 @@ module.exports = function createButton(options = {}) {
     // case 3: no customId but has user → example button
     else {
         button
-            .setCustomId(`exampleButton:${user.id}`)
+            .setCustomId(`defaultButton:${user.id}`)
             .setDisabled(false);
     };
 
