@@ -164,7 +164,7 @@ setInterval(() => {
 */
 
 // login
-log('INFO', 'Bot iniciando login');
+log('INFO', 'Iniciando login');
 
 client.login(config.token).catch(err => {
     log('ERROR', `Erro no login: ${err.message}`);

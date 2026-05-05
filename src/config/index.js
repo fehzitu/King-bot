@@ -10,7 +10,7 @@ module.exports = {
 
     // database
     database: {
-        usersPath: process.env.USERS_PATH || "./src/database/users.json"
+        usersPath: process.env.USERS_PATH || "./users.json"
     },
 
     // discord settings
