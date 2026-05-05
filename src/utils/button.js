@@ -20,15 +20,15 @@ module.exports = function createButton(options = {}) {
             .setDisabled(false);
     };
 
-    // case 2: no user → disabled
-    else if (!user) {
+    // case 2: no user but has customId → disabled
+    if (customId && !user) {
         button
             .setCustomId(customId || 'disabledButton')
             .setDisabled(true);
     };
 
     // case 3: no customId but has user → example button
-    else {
+    if (!customId && user?.id) {
         button
             .setCustomId(`defaultButton:${user.id}`)
             .setDisabled(false);
