@@ -1,14 +1,20 @@
-const [id, ownerId] = interaction.customId.split(':');
+// button
+module.exports = {
+    customId: 'defaultButton',
 
-// if button has owner
-if (ownerId && interaction.user.id !== ownerId) {
-    const createEmbed = require('../../utils/embed');
+    async execute(interaction) {
+        const [id, ownerId] = interaction.customId.split(':');
 
-    const embed = createEmbed({ user: interaction.user })
-    .setDescription('❌ Isso não é pra você!');
+        if (interaction.user.id !== ownerId) {
+            return interaction.reply({
+                content: '❌ Isso não é pra você!',
+                ephemeral: true
+            });
+        };
 
-    return interaction.reply({
-        embeds: [embed],
-        ephemeral: true
-    });
+        return interaction.reply({
+            content: '☕️ Esse botão é um exemplo apenas.',
+            ephemeral: true
+        });
+    }
 };
