@@ -41,36 +41,33 @@ This project focuses not only on features, but also on code quality, structure, 
 
 ## 📂 Project Structure
 ```shell
-📦 killua-bot
-┣ 📂 src
-┃ ┣ 📂 config
-┃ ┃ ┣ 📜 index.js (main bot configuration)
-┃ ┃ ┣ 📜 constants.js (bot constants, emojis, colors, limits, cooldowns)
-┃ ┃ ┗ 📜 activities.js (bot rotating status messages)
-┃ ┣ 📂 deploy
-┃ ┃ ┗ 📜 deploy-commands.js (slash commands deploy system)
-┃ ┣ 📂 utils
-┃ ┃ ┗ 📜 jsonHandler.js (safe JSON load/save system)
-┃ ┃ ┗ 📜 logger.js (custom log system)
-┃ ┣ 📂 commands (slash and prefix commands)
-┃ ┣ 📂 interactions
-┃ ┃ ┣ 📂 buttons (button interactions)
-┃ ┃ ┣ 📂 selects (select menu interactions)
-┃ ┃ ┗ 📂 modals (modal interactions)
-┃ ┣ 📂 events
-┃ ┃ ┣ 📂 client
-┃ ┃ ┃ ┗ 📜 ready.js (bot startup event)
-┃ ┃ ┣ 📂 messages
-┃ ┃ ┃ ┗ 📜 messageCreate.js (messages handler)
-┃ ┃ ┣ 📂 interactions
-┃ ┃ ┃ ┗ 📜 interactionCreate.js (interaction handler)
-┃ ┃ ┗ 📂 guild (guild events like member join)
-┃ ┣ 📂 database
-┃ ┃ ┗ 📜 users.json (all users data, auto created)
-┃ ┗ 📜 index.js (main bot core)
-┣ 📜 .env (private environment variables)
-┣ 📜 .env.example (example environment variables)
-┗ 📜 package.JSON
+📦 killua
+┣ 📜 package.json (everything we use here)
+┣ 📜 .env (your env)
+┣ 📜 .env.example (how you will use .env)
+┣ 📜 users.json (users db)
+┗ 📂 src
+  ┣ 📜 index.js (bot main core and login)
+  ┣ 📂 config
+  ┃ ┗ 📜 this files configure our bot
+  ┣ 📂 deploy
+  ┃ ┗ 📜 deploy-commands.js (deploy all commands)
+  ┣ 📂 utils
+  ┃ ┗ 📜 files to create UI, sys logic, helpers and other
+  ┣ 📂 commands
+  ┃ ┗ 📜 every .js file here is a command
+  ┣ 📂 interactions
+  ┃ ┗ 📂 buttons
+  ┃   ┗ 📜 every button of the system here
+  ┗ 📂 events
+    ┣ 📂 client
+    ┃ ┗ 📜 client events
+    ┣ 📂 messages
+    ┃ ┗ 📜 messages handler
+    ┣ 📂 interactions
+    ┃ ┗ 📜 interactions handler
+    ┗ 📂 guild
+      ┗ 📜 guild events
 ```
 
 Structured in a modular way to ensure scalability and easy maintenance.
