@@ -5,12 +5,17 @@ module.exports = function createSelect(options = {}) {
     const {
         customId,
         placeholder = 'Selecione uma opção',
-        optionsList = [],
+        optionsList = [{
+            label: '☕️ Café',
+            description: 'Bora fazer a vibe com um cafézin?',
+            value: 'cafezinho'
+        }],
         user
     } = options;
 
     const select = new MessageSelectMenu()
-        .setPlaceholder(placeholder);
+        .setPlaceholder(placeholder)
+        .setOptionsList(optionsList);
 
     // case 1: customId + user → restricted select
     if (customId && user?.id) {

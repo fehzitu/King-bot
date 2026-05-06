@@ -5,6 +5,7 @@ const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 // import custom functions
 const createEmbed = require('../utils/embed.js');
 const createButton = require('../utils/button.js');
+const createSelect = require('../utils/select.js');
 
 module.exports = {
     // slash data
@@ -25,9 +26,11 @@ module.exports = {
 
         // button
         const button = createButton({user});
+        
+        const select = createSelect({user});
 
         // button
-        const row = new MessageActionRow().addComponents(button);
+        const row = new MessageActionRow().addComponents(button, select);
 
         // reply
         return ctx.reply({ 
