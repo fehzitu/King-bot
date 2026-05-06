@@ -29,13 +29,13 @@ module.exports = {
         
         const select = createSelect({user});
 
-        // button
-        const row = new MessageActionRow().addComponents(button, select);
+        // row
+        const row1 = new MessageActionRow().addComponents(button), row2 = new MessageActionRow().addComponents(select);
 
         // reply
         return ctx.reply({ 
             embeds: [embed],
-            components: [row]
+            components: [row1, row2]
         });
     }
 };
