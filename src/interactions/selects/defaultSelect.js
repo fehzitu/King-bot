@@ -24,7 +24,7 @@ module.exports = {
         };
 
         return interaction.reply({
-            content: `Você escolheu: ${value}`,
+            content: `⚜️ Você escolheu: ${value}`,
             ephemeral: true
         });
     }

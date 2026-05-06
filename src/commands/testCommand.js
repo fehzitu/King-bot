@@ -26,7 +26,8 @@ module.exports = {
 
         // button
         const button = createButton({user});
-        
+
+        // select
         const select = createSelect({user});
 
         // row

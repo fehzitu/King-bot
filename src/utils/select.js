@@ -4,11 +4,11 @@ const { MessageSelectMenu } = require('discord.js');
 module.exports = function createSelect(options = {}) {
     const {
         customId,
-        placeholder = 'Selecione uma opção',
+        placeholder = 'ℹ️ Selecione uma opção',
         optionsList = [{
-                label: '☕️ Café',
-                description: 'Bora fazer a vibe com um cafézin?',
-                value: 'cafezinho'
+                label: '1️⃣ Exemplo 1',
+                description: '⁉️ Aqui realmente é só um exemplo',
+                value: '🧾 exemplo 1'
             }],
         user
     } = options;
