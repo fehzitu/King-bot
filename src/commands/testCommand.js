@@ -30,8 +30,11 @@ module.exports = {
         // select
         const select = createSelect({user});
 
-        // row
-        const row1 = new MessageActionRow().addComponents(button), row2 = new MessageActionRow().addComponents(select);
+        // row1
+        const row1 = new MessageActionRow().addComponents(button);
+        
+        // row2
+        const row2 = new MessageActionRow().addComponents(select);
 
         // reply
         return ctx.reply({ 
