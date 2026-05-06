@@ -8,7 +8,7 @@ module.exports = function createSelect(options = {}) {
         optionsList = [{
                 label: '1️⃣ Exemplo 1',
                 description: '⁉️ Aqui realmente é só um exemplo',
-                value: '🧾 exemplo 1'
+                value: 'exemplo 1'
             }],
         user
     } = options;
